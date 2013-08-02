@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block constituency_selector %}
+{% endblock %}
+
+{% block box1 %}
 
 <h1>Candidates</h1>
 {% for candidate in candidates %}
@@ -11,6 +14,9 @@
 <p>{{ candidate.description }}</p>
 <p>{{ candidate.id }}</p>
 </div>
-{% endfor %}
 
+{% endfor %}
+{% endblock %}
+
+{% block box2 %}
 {% endblock %}

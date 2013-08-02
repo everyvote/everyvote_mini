@@ -8,14 +8,19 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'everyvote_mini.views.home', name='home'),
     # url(r'^everyvote_mini/', include('everyvote_mini.foo.urls')),
-    (r'^$', 'logos.views.constituencies'),
+    (r'^$', 'logos.views.show_base'),
     
     url(r'^constituencies/all/$', 'logos.views.constituencies'),
     url(r'^constituencies/get/(?P<constituency_id>\d+)/$', 'logos.views.constituency'),
-    url(r'^constituencies/language/(?P<language>[a-z\-]+)/$', 'logos.views.language'),
     
     url(r'^candidates/all/$', 'logos.views.candidates'),
-    url(r'^candidates/get/(?P<candidate_id>\d+)/$', 'logos.views.candidate'),
+    url(r'^candidates/get/(?P<candidate_id>\d+)$', 'logos.views.candidate'),
+    
+    url(r'^elections/all/$', 'logos.views.elections'),
+    url(r'^elections/get/(?P<election_id>\d+)$', 'logos.views.election'),
+    url(r'^elections/add/$', 'logos.views.add_election'),
+    
+    
     
     url(r'^accounts/login/$', 'everyvote_mini.views.login'),
     url(r'^accounts/auth/$', 'everyvote_mini.views.auth_view'),

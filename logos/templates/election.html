@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
+{% block constituency_selector %}
+{% endblock %}
+
 {% block content %}
 
 <h1>{{ election.name }}</h1>
 <p>{{ election.description }}</p>
-
-
 <p>{{ election.id }}</p>
 
 {% endblock %}

@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/coder/Desktop/projects/django-ev/everyvote_mini/storage.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/Users/coder/Documents/GitHub/everyvote_mini/storage.db',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -69,7 +69,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    ('assets', '/users/coder/desktop/projects/django-ev/everyvote_mini/static'),
+    ('assets', '/users/coder/documents/github/everyvote_mini/static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -112,8 +112,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/Users/coder/Desktop/projects/django-ev/everyvote_mini/templates',
-    '/Users/coder/Desktop/projects/django-ev/everyvote_mini/logos/templates',
+    '/Users/coder/documents/github/everyvote_mini/templates',
+    '/Users/coder/documents/github/everyvote_mini/logos/templates',
 )
 
 INSTALLED_APPS = (
@@ -128,7 +128,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'logos',
-    'autocomplete_light',
 )
 
 # A sample logging configuration. The only tangible logging

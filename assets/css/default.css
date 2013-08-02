@@ -3,11 +3,13 @@
             text-align: center;
         }
         
-        #container {
-            width: 860px;
-            text-align: left;
-            margin: 10px auto 20px auto;
-            background-color: #0c0c0c;
+        #content {
+            clear:both;
+        }
+        
+        .container-fluid {
+            max-width:850px;
+            margin:0px auto;
         }
         
         #sidebar {
@@ -17,16 +19,12 @@
             border: 1px solid #000;
         }
         
-        #content {
-            clear: both;
-            float: left;
-            width: 600px;
-            border: 1px solid #F00;
-            padding: 10px;
-        }
-        
         header, .header, #header {
             background: #FFF;
+            
+        }
+        
+        .nav, .nav-pills {
             
         }
         
@@ -41,16 +39,34 @@
         
         container, .container, #container {
             background: #FFF;
+            margin: 0px auto;
             
+        }
+        .footer {
+            clear:both;
         }
         
         #evLogo {
             width: 200px;
-            bottom: 20px;
+            display:inline-block;
+        }
+        
+        #box1 {
+            clear:both;
+            outline:#F60 striped thick;
+            
+        }
+        
+        #box2 {
+            clear:both;
         }
         
         .ui-helper-hidden-accessible {
             display:none;
+        }
+        
+        #constituency_selector {
+            clear:both;
         }
         
     </style>

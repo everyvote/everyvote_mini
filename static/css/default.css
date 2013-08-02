@@ -7,6 +7,11 @@
             clear:both;
         }
         
+        .container-fluid {
+            max-width:850px;
+            margin:0px auto;
+        }
+        
         #sidebar {
             clear: both;
             float: left;

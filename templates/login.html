@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block constituency_selector %}
+{% endblock %}
+
+{% block box1 %}
 
     {% if form.errors %}
         <p class="error">Sorry, that's not a valid username or password</p>
@@ -11,9 +14,10 @@
         <input type="text" name="username" value="" id="username">
         <label for="password">Password:</label>
         <input type="password" name="password" value="" id="password">
-        
         <input type="submit" value="login" />
-        
     </form>
 
+{% endblock %}
+
+{% block box2 %}
 {% endblock %}

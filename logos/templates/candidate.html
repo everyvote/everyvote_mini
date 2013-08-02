@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block constituency_selector %}
+{% endblock %}
+
+{% block box1 %}
 
 <h1>{{ candidate.user.first_name }} {{ candidate.user.last_name }}</h1>
 <p>{{ candidate.election }}</p>
@@ -8,4 +11,7 @@
 <p>{{ candidate.description }}</p>
 <p>{{ candidate.id }}</p>
 
+{% endblock %}
+
+{% block box2 %}
 {% endblock %}

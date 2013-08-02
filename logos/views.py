@@ -1,32 +1,18 @@
 from django.shortcuts import render_to_response
 from logos.models import Constituency, Candidate, Election
 from django.http import HttpResponse
+from forms import ElectionForm
+from django.http import HttpResponseRedirect
+from django.core.context_processors import csrf
 
 # Create your views here.
 
-def language(request, language='en-us'):
-    response = HttpResponse("setting language to %s" % language)
-    
-    response.set_cookie('lang', language)
-    
-    request.session['lang'] = language
-    
-    return response
+def show_base(request):
+    return render_to_response('base.html')
 
 def constituencies(request):
-    language = 'en-us'
-    session_language = 'en-gb'
-    
-    if 'lang' in request.COOKIES:
-        language = request.COOKIES['lang']
-    
-    if 'lang' in request.session:
-        session_language = request.session['lang']
-    
     return render_to_response('constituencies.html',
-                             {'constituencies': Constituency.objects.all(),
-                             'language' : language,
-                             'session_language' : session_language})
+                             {'constituencies': Constituency.objects.all() })
 
 def constituency(request, constituency_id=1):
     return render_to_response('constituency.html',
@@ -47,3 +33,20 @@ def elections(request):
 def election(request, election_id=1):
     return render_to_response('election.html',
                              {'election': Election.objects.get(id=election_id) })
+                             
+def add_election(request):
+    if request.POST:
+        form = ElectionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+            return HttpResponseRedirect('/elections/all')
+    else:
+        form = ElectionForm()
+        
+    args = {}
+    args.update(csrf(request))
+    
+    args['form'] = form
+    
+    return render_to_response('add_election.html', args)
