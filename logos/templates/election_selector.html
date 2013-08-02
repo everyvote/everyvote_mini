@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block election_selector %}
+
+<select id="election_selector">
+    {% for election in elections %}
+        <option>{{election.name}}</option>
+    {% endfor %}
+</select>
+
+{% endblock %}

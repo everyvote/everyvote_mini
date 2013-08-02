@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ candidate.user.first_name }} {{ candidate.user.last_name }}</h1>
+<p>{{ candidate.election }}</p>
+<p>{{ candidate.office }}</p>
+<p>{{ candidate.description }}</p>
+<p>{{ candidate.id }}</p>
+
+{% endblock %}

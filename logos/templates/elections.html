@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Elections</h1>
+{% for election in elections %}
+<div>
+<h2><a href="/elections/get/{{ election.id }}/">{{ election.name }}</a></h2>
+<p>{{ election.constituency }}</p>
+{% for office in election.office %}
+<p>{{ office }}</p>
+{% endfor %}    
+<p>{{ election.description }}</p>
+<p>{{ election.id }}</p>
+</div>
+{% endfor %}
+
+{% endblock %}

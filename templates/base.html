@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>{% block title %}My Base Template{% endblock %}</title>
+    
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/bootstrap.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/datepicker.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/default.css" %}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div id="test_menu">
+        <a href="#">Constituencies</a>&nbsp&nbsp
+        <a href="#">Users</a>&nbsp&nbsp
+        <a href="#">Elections</a>&nbsp&nbsp
+        <a href="#">Offices</a>&nbsp&nbsp
+        <a href="#">Candidates</a>&nbsp&nbsp
+        <a href="#">Comments</a>&nbsp&nbsp
+        <a href="#">Login </a>&nbsp&nbsp
+        <a href="#">Register</a>&nbsp&nbsp
+        <br />
+        <br />
+    </div>
+    
+    {% block header %}
+    <div id="header">
+        <a href="http://127.0.0.1:8000"><img id="evLogo" src="{% static "assets/images/evlogo.png" %}" /></a>
+        <ul class="nav nav-pills pull-right navFix">
+          <li><a href="#" class="btn btn-small btn-primary"><i class="icon-pencil icon-white"></i> Edit Election</a></li>
+          <li><a href="#" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> Add Election</a></li>
+          <li><a href="#" class="btn btn-small btn-success">Run for Office</a></li>
+          <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>user.full_name<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#">My Profiles</a></li>
+                <li><a href="#">Set Profile Picture</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Sign Out</a></li>
+              </ul>
+            </div>
+        </ul>
+        <br />
+        <br />
+        <div class="sub_header">
+            <a href="#" class="a_sub_header">About</a> <a href="#" class="a_sub_header">Contact EV</a>
+        </div>
+        <br />
+        <br />
+    </div>
+    {% endblock %}
+    
+    {% block constituency_selector %}
+    <div id="constituency_selector">
+        <p><strong>Select constituency:</strong></p>
+        <p>Dynamic search or drop-down menu #1</p>
+        <p><strong>Select election:</strong></p>
+        <p>Dynamic search or drop-down menu #2</p>
+    </div>
+    {% endblock %}
+    
+    <hr>
+    
+    {% block box1 %}
+    <div id="box1" class="text-center">
+        <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h2>
+        <h3>When viewing a candidate page, the candidate_infobox is inserted here in box 1.</h3>
+    </div>
+    {% endblock %}
+
+    <hr>
+    
+    {% block box2 %}
+    <div id="box1" class="text-center">
+        <h3>Yo I'm box2. The candidate_list is inserted here when viewing an election page.</h3>
+        <h3>When viewing a candidate page, you'd find comments to the candidate's profile here in box2.</h3>
+    </div>
+    {% endblock %}
+    
+    <hr>
+    
+    {% block footer %}
+    <div class="footer text-center">
+        <p>EveryVote is free and open source under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">Affero GPL</a>.</p>
+        <a href="https://github.com/everyvote">EveryVote on GitHub</a>
+        <br />
+        <br />
+        <img src="{% static "assets/images/excellent.jpg" %}" width="200" />
+    </div>
+    {% endblock %}
+
+</div>
+    
+<script type="text/javascript" src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
+<script type="text/javascript" src="{% static "assets/js/jquery-ui.js" %}"></script>
+<script type="text/javascript" src="{% static "assets/js/bootstrap.js" %}"></script>
+<script type="text/javascript" src="{% static "assets/js/constituency_selector.js" %}"></script>
+
+</body>
+</html>
