@@ -8,10 +8,14 @@
 <h1>Elections</h1>
 {% for election in elections %}
 <div>
-<h2><a href="/elections/get/{{ election.id }}/">{{ election.name }}</a></h2>
-<p>{{ election.constituency }}</p>
-<p>{{ election.description }}</p>
-<p>{{ election.id }}</p>
+    <h2><a href="/elections/get/{{ election.id }}/">{{ election.name }}</a></h2>
+    <p><strong>Election ID:</strong> {{ election.id }}</p>
+    <p><strong>Constituency:</strong> {{ election.constituency }}</p>
+    <p><strong>Description:</strong> {{ election.description }}</p>
+    <p><strong>Candidates:</strong>
+    {% for candidate in election.candidate_set.all %}
+        <p>{{ candidate.user }} - <em>Running for: </em>{{ candidate.office }}</p>
+    {% endfor %}
 </div>
 {% endfor %}
 {% endblock %}

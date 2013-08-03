@@ -1,9 +1,10 @@
 from django.shortcuts import render_to_response
-from logos.models import Constituency, Candidate, Election
+from logos.models import Constituency, User, Election, Office, Candidate, Comment
 from django.http import HttpResponse
-from forms import ElectionForm
+from forms import ElectionForm, CommentForm, CandidateForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
+from django.utils import timezone
 
 # Create your views here.
 
@@ -50,3 +51,45 @@ def add_election(request):
     args['form'] = form
     
     return render_to_response('add_election.html', args)
+
+def add_candidate(request):
+    if request.POST:
+        form = CandidateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+            return HttpResponseRedirect('/candidates/all')
+    else:
+        form = CandidateForm()
+        
+    args = {}
+    args.update(csrf(request))
+    
+    args['form'] = form
+    
+    return render_to_response('add_candidate.html', args)
+
+
+def add_comment(request, candidate_id):
+    a = Candidate.objects.get(id=candidate_id)
+    
+    if request.method == "POST":
+        f = CommentForm(request.POST)
+        if f.is_valid():
+            c = f.save(commit=False)
+            c.created = timezone.now()
+            c.candidate = a
+            c.save()
+            
+            return HttpResponseRedirect('/candidates/get/%s' % candidate_id)
+            
+    else:
+        f = CommentForm()
+        
+    args = {}
+    args.update(csrf(request))
+    
+    args['candidate'] = a
+    args['form'] = f
+    
+    return render_to_response('add_comment.html', args)

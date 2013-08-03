@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 
+
 {% block constituency_selector %}
 {% endblock %}
 
-{% block content %}
+
+{% block box1 %}
 
 <h1>{{ election.name }}</h1>
 <p>{{ election.description }}</p>
 <p>{{ election.id }}</p>
 
+{% endblock %}
+
+{% block box2 %}
+{% for c in election.candidate_set.all %}
+<h2><a href="/candidates/get/{{ c.id }}">{{ c.user.first_name }} {{ c.user.last_name }}</a></h2>
+<p>{{ c.office }}</p>
+<p>{{ c.description }}</p>
+<p>{{ c.id }}</p>
+{% endfor %}
 {% endblock %}

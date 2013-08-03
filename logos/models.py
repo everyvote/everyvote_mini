@@ -1,4 +1,8 @@
 from django.db import models
+from time import time
+
+def get_upload_file_name(instance, filename):
+    return "uploaded_files/%s_%s" % (str(time()).replace('.','_'), filename)
 
 # Create your models here.
 
@@ -25,8 +29,8 @@ class Constituency(models.Model):
 class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    # !!! (not sure how to do this...) image = models.ImageField()
     private_email = models.EmailField()
+    profile_picture = models.FileField(upload_to=get_upload_file_name)
     # about_me = models.TextField()
     # public_email = models.EmailField()
     # twitter_name = models.CharField()

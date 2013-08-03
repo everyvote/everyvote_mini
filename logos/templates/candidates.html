@@ -8,7 +8,7 @@
 <h1>Candidates</h1>
 {% for candidate in candidates %}
 <div>
-<h2><a href="/candidates/get/{{ candidate.id }}/">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
+<h2><a href="/candidates/get/{{ candidate.id }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
 <p>{{ candidate.election }}</p>
 <p>{{ candidate.office }}</p>
 <p>{{ candidate.description }}</p>

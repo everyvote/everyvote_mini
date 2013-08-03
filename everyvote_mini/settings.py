@@ -50,7 +50,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/Users/coder/Documents/GitHub/everyvote_mini/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -114,6 +114,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     '/Users/coder/documents/github/everyvote_mini/templates',
     '/Users/coder/documents/github/everyvote_mini/logos/templates',
+    '/Users/coder/documents/github/everyvote_mini/userprofile/',
 )
 
 INSTALLED_APPS = (
@@ -123,11 +124,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'logos',
+    'userprofile',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'logos',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -158,3 +159,5 @@ LOGGING = {
         },
     }
 }
+
+AUTH_PROFILE_MODULE = 'userprofile.UserProfile'

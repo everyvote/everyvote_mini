@@ -14,13 +14,13 @@ urlpatterns = patterns('',
     url(r'^constituencies/get/(?P<constituency_id>\d+)/$', 'logos.views.constituency'),
     
     url(r'^candidates/all/$', 'logos.views.candidates'),
-    url(r'^candidates/get/(?P<candidate_id>\d+)$', 'logos.views.candidate'),
+    url(r'^candidates/get/(?P<candidate_id>\d+)/$', 'logos.views.candidate'),
+    url(r'^candidates/add_candidate/$', 'logos.views.add_candidate'),
+    url(r'^candidates/add_comment/(?P<candidate_id>\d+)/$', 'logos.views.add_comment'),
     
     url(r'^elections/all/$', 'logos.views.elections'),
-    url(r'^elections/get/(?P<election_id>\d+)$', 'logos.views.election'),
+    url(r'^elections/get/(?P<election_id>\d+)/$', 'logos.views.election'),
     url(r'^elections/add/$', 'logos.views.add_election'),
-    
-    
     
     url(r'^accounts/login/$', 'everyvote_mini.views.login'),
     url(r'^accounts/auth/$', 'everyvote_mini.views.auth_view'),
@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^accounts/invalid/$', 'everyvote_mini.views.invalid_login'),
     url(r'^accounts/register/$', 'everyvote_mini.views.register_user'),
     url(r'^accounts/register_success/$', 'everyvote_mini.views.register_success'),
-    
+    url(r'^accounts/profile/$', 'userprofile.views.user_profile'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

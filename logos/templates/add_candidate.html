@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block constituency_selector %}
+{% endblock %}
+
+
+{% block box1 %}
+<div class="well col-9">
+    <h1>Run for Office:</h1>
+    <form action="/candidates/add_candidate/" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{form.as_p}}
+        <div class="btn-toolbar pull-right">
+            <input type="button" class="btn btn-danger" name="cancel" value="Back" onClick="history.go(-1);return true;">
+            <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block box2 %}
+{% endblock %}

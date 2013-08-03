@@ -1,17 +1,29 @@
 {% extends "base.html" %}
 
+
 {% block constituency_selector %}
 {% endblock %}
+
 
 {% block box1 %}
 
 <h1>{{ candidate.user.first_name }} {{ candidate.user.last_name }}</h1>
+{% if candidate.user.profile_picture %}
+    <p><img src="/static/assets/{{candidate.user.profile_picture}}" width="200"/></p>
+{% endif %}
 <p>{{ candidate.election }}</p>
 <p>{{ candidate.office }}</p>
 <p>{{ candidate.description }}</p>
 <p>{{ candidate.id }}</p>
+<!--<p><a href="/candidates/edit/{{candidate.id}}">Edit Profile</a></p>-->
+<p><a href="/candidates/add_comment/{{candidate.id}}">Add Comment</a></p>
 
 {% endblock %}
 
+
 {% block box2 %}
+<h2>Comments</h2>
+{% for c in candidate.comment_set.all %}
+<p>{{c.user}}: {{c.body}} <small>({{c.created}})</small></p>
+{% endfor %}
 {% endblock %}
