@@ -1,11 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 from time import time
 
+
+# This doesn't belong here
 def get_upload_file_name(instance, filename):
     return "uploaded_files/%s_%s" % (str(time()).replace('.','_'), filename)
-
-# Create your models here.
-
 
 # class ParentConstituency(models.Model):
     # state_name = models.CharField(max_length=30)
@@ -20,12 +21,13 @@ class Constituency(models.Model):
     description = models.TextField()
     # image = ??? I dunno how to create image field yet
     # parentconstituency = models.ForeignKey(ParentConstituency)
-    # administrators = models.ManyToManyField(User)
+    administrators = models.ManyToManyField(User)
     
     def __unicode__(self):
         return self.name
         
-        
+"""
+Using Django's auth model
 class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -37,18 +39,23 @@ class User(models.Model):
     # facebook_page = models.CharField()
     # linkedin_page = models.CharField()
     # personal_homepage = models.CharField()
+
     
     def __unicode__(self):
         return self.first_name + " " + self.last_name 
-        
+"""        
     
 class Election(models.Model):
-    constituency = models.ForeignKey(Constituency)
+    
     name = models.CharField(max_length=50)
     description = models.TextField()
     first_voting_day = models.DateField()
     last_voting_day = models.DateField()
-    moderators = models.ManyToManyField(User)
+    
+    constituency = models.ForeignKey(Constituency)
+    
+    """ Research: Django's Auth provides some sort of 
+        access control. How/Can we use that? """
     # is this right? moderators = models.ManyToManyField()
     # is this right? blockusers = models.ManyToManyField()
         
@@ -60,6 +67,8 @@ class Office(models.Model):
     election = models.ForeignKey(Election)
     name = models.CharField(max_length=30)
     description = models.TextField()
+ 
+    # Terms may not be needed for this system 
     # term_start = models.DateTimeField()
     # term_end = models.DateTimeField()
 
@@ -68,16 +77,20 @@ class Office(models.Model):
         
         
 class Candidate(models.Model):
+    
+    # Relations
     user = models.ForeignKey(User)
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
+    
+    # Properties
     description = models.TextField()
-    # votes = models.ManyToManyField(User)
     
     def __unicode__(self):
         return unicode(self.user)
         
-        
+"""
+Comments not implemented/tested
 class Comment(models.Model):
     user = models.ForeignKey(User)
     body = models.TextField()
@@ -91,23 +104,27 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return self.body
-    
-
-# class Stance(models.Model):
-    # name = models.TextField()
-    # description = models.TextField()
-    
-    # def __unicode__(self):
-        # return self.user
+""" 
 
 
-# class Vote(models.Model):
-    # user = models.ForeignKey(User)
-    # candidate = models.ForeignKey(Candidate)
-    # stance = models.ForeignKey(Stance)
-    # created = models.DateTimeField()
+class Stance(models.Model):
+        
+    name = models.TextField()
+    description = models.TextField()
     
     # def __unicode__(self):
         # return self.user
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(User)
+    candidate = models.ForeignKey(Candidate)
+    
+    stance = models.ForeignKey(Stance)
+    
+    created = models.DateTimeField()
+    
+    def __unicode__(self):
+        return "Vote by: " + str(self.user)
 
 
