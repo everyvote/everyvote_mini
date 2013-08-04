@@ -5,10 +5,15 @@
 
     <title>{% block title %}My Base Template{% endblock %}</title>
     
-    <link rel="stylesheet" type="text/css" href="{% static "assets/css/bootstrap.css" %}" />
-    <link rel="stylesheet" type="text/css" href="{% static "assets/css/datepicker.css" %}" />
-    <link rel="stylesheet" type="text/css" href="{% static "assets/css/default.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/datepicker.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/default.css" %}">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <script type="text/javascript" src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "assets/js/jquery-ui.js" %}"></script>
+    <script type="text/javascript" src="{% static "assets/js/bootstrap.js" %}"></script>
+    {% block extrahead %}
+    {% endblock %}
 
 </head>
 
@@ -17,7 +22,7 @@
 <div class="container">
     <div id="test_menu">
         <a href="http://127.0.0.1:8000/accounts/login">Login </a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/accounts/register">Register</a>&nbsp&nbsp
+        <a href="http://127.0.0.1:8000/register">Register</a>&nbsp&nbsp
         <a href="http://127.0.0.1:8000/constituencies/all">Constituencies</a>&nbsp&nbsp
         <a href="http://127.0.0.1:8000/users/all">Users</a>&nbsp&nbsp
         <a href="http://127.0.0.1:8000/elections/all">Elections</a>&nbsp&nbsp
@@ -93,11 +98,6 @@
     </div>
 
 </div>
-    
-<script type="text/javascript" src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
-<script type="text/javascript" src="{% static "assets/js/jquery-ui.js" %}"></script>
-<script type="text/javascript" src="{% static "assets/js/bootstrap.js" %}"></script>
-<script type="text/javascript" src="{% static "assets/js/constituency_selector.js" %}"></script>
 
 </body>
 </html>

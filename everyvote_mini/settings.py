@@ -114,7 +114,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     '/Users/coder/documents/github/everyvote_mini/templates',
     '/Users/coder/documents/github/everyvote_mini/logos/templates',
-    '/Users/coder/documents/github/everyvote_mini/userprofile/',
+    '/Users/coder/documents/github/everyvote_mini/member/templates',
 )
 
 INSTALLED_APPS = (
@@ -126,7 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'logos',
-    'userprofile',
+    'member',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -159,5 +159,5 @@ LOGGING = {
         },
     }
 }
-
-AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
+# provide our get_profile()
+AUTH_PROFILE_MODULE = 'member.Member'
