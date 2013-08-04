@@ -21,7 +21,7 @@
 
 <div class="container">
     <div id="test_menu">
-        <a href="http://127.0.0.1:8000/accounts/login">Login </a>&nbsp&nbsp
+        <a href="http://127.0.0.1:8000/login">Login </a>&nbsp&nbsp
         <a href="http://127.0.0.1:8000/register">Register</a>&nbsp&nbsp
         <a href="http://127.0.0.1:8000/constituencies/all">Constituencies</a>&nbsp&nbsp
         <a href="http://127.0.0.1:8000/users/all">Users</a>&nbsp&nbsp
@@ -30,10 +30,15 @@
         <a href="http://127.0.0.1:8000/candidates/all">Candidates</a>&nbsp&nbsp
         <a href="http://127.0.0.1:8000/comments/all">Comments</a>&nbsp&nbsp
         <a href="http://127.0.0.1:8000/admin">Admin</a>&nbsp&nbsp
+        <a href="http://127.0.0.1:8000/logout">Logout</a>&nbsp&nbsp
         <br />
         <br />
     </div>
-
+    
+    <div id="nav_top_right">
+        {% if user.is_authenticated %}<p><a href="/logout/">Logout</a></p>{% else %}<p><a href="/login/">Login</a></p>{% endif %}
+    </div>
+    
     <div id="header">    
     {% block header %}
         <a href="http://127.0.0.1:8000"><img id="evLogo" src="{% static "assets/images/evlogo.png" %}" /></a>
@@ -41,17 +46,23 @@
           <li><a href="#" class="btn btn-small btn-primary"><i class="icon-pencil icon-white"></i> Edit Election</a></li>
           <li><a href="http://127.0.0.1:8000/elections/add" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> Add Election</a></li>
           <li><a href="#" class="btn btn-small btn-success">Run for Office</a></li>
+          
+          {% if user.is_authenticated %}
           <div class="btn-group pull-right">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>user.full_name<span class="caret"></span></button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>{{ user.first_name }}<span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a href="#">My Profiles</a></li>
+                <li><a href="myprofiles">My Profiles</a></li>
                 <li><a href="#">Set Profile Picture</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="settings">Settings</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Sign Out</a></li>
+                <li><a href="logout">Sign Out</a></li>
               </ul>
-            </div>
+          </div>
+          {% else %}
+          <button type="button" class="btn btn-primary pull-right">Login</button>
+          {% endif %}
         </ul>
+        
         <br />
         <div class="sub_header">
             <a href="#" class="a_sub_header">About</a> <a href="#" class="a_sub_header">Contact EV</a>

@@ -30,6 +30,8 @@ urlpatterns = patterns('',
     url(r'^accounts/register/$', 'everyvote_mini.views.register_user'),
     url(r'^accounts/register_success/$', 'everyvote_mini.views.register_success'),
     url(r'^register/$', 'member.views.MemberRegistration'),
+    url(r'^login/$', 'member.views.LoginRequest'),
+    url(r'^logout/$', 'member.views.LogoutRequest'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
