@@ -5,6 +5,9 @@
 
 {% block box1 %}
 
+{% if user.is_authenticated %}<p>You're authenticated!</p>{% else %}<p>you are NOT authenticated</p>{% endif %}
+<p>{{ user }}</p>
+
 <h1>Elections</h1>
 {% for election in elections %}
 <div>

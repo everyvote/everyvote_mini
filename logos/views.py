@@ -5,11 +5,12 @@ from forms import ElectionForm, CommentForm, CandidateForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.utils import timezone
+from django.template import RequestContext
 
 # Create your views here.
 
 def show_base(request):
-    return render_to_response('base.html')
+    return render_to_response("base.html", {}, context_instance=RequestContext(request))
 
 def constituencies(request):
     return render_to_response('constituencies.html',

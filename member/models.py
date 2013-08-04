@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 
 def get_upload_file_name(instance, filename):
     return "uploaded_files/%s_%s" % (str(time()).replace('.','_'), filename)
@@ -22,6 +22,6 @@ class Member(models.Model):
         return self.first_name + " " + self.last_name
 
 # create our user object to attach to our member object
-def create_member_user_callback(sender, instance, **kwargs):
-    member, new = Member.objects.get_or_create(user=instance)
-post_save.connect(create_member_user_callback, User)
+# def create_member_user_callback(sender, instance, **kwargs):
+#    member, new = Member.objects.get_or_create(user=instance)
+# post_save.connect(create_member_user_callback, User)

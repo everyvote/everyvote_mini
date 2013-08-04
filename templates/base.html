@@ -36,8 +36,16 @@
     </div>
     
     <div id="nav_top_right">
-        {% if user.is_authenticated %}<p><a href="/logout/">Logout</a></p>{% else %}<p><a href="/login/">Login</a></p>{% endif %}
+        {% if user.is_authenticated %}<p><a href="/logout/">Logout</a></p>
+        {% else %}<p><a href="/login/">Login</a></p>
+        {% endif %}
+        <h2>{{ user.username }}</h2>
+        <h2>{{ user.email }}</h2>
+        <h2>{{ user.id }}</h2>
+        <h2>{{ user.get_profile.birthday }}</h2>
     </div>
+    
+    {% if user.is_authenticated %}<p>Hey what's up {{ user.username }}</p>{% else %}<p>This is the else statement</p>{% endif %}
     
     <div id="header">    
     {% block header %}
@@ -47,9 +55,9 @@
           <li><a href="http://127.0.0.1:8000/elections/add" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> Add Election</a></li>
           <li><a href="#" class="btn btn-small btn-success">Run for Office</a></li>
           
-          {% if user.is_authenticated %}
+          {% if 10 >= 0 %}
           <div class="btn-group pull-right">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>{{ user.first_name }}<span class="caret"></span></button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>{{ user.get_profile.first_name }} {{ user.get_profile.last_name }}<span class="caret"></span></button>
               <ul class="dropdown-menu">
                 <li><a href="myprofiles">My Profiles</a></li>
                 <li><a href="#">Set Profile Picture</a></li>
