@@ -27,7 +27,7 @@ class Constituency(models.Model):
         return self.name
         
 """
-Using Django's auth model
+Using Django's auth model instead
 class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -44,7 +44,18 @@ class User(models.Model):
     def __unicode__(self):
         return self.first_name + " " + self.last_name 
 """        
-    
+class Office(models.Model):
+    constituency = models.ForeignKey(Constituency)
+    name = models.CharField(max_length=30)
+    description = models.TextField()
+ 
+    # Terms may not be needed for this system 
+    # term_start = models.DateTimeField()
+    # term_end = models.DateTimeField()
+
+    def __unicode__(self):
+        return self.name
+
 class Election(models.Model):
     
     name = models.CharField(max_length=50)
@@ -53,25 +64,13 @@ class Election(models.Model):
     last_voting_day = models.DateField()
     
     constituency = models.ForeignKey(Constituency)
+    offices = models.ManyToManyField(Office)
     
     """ Research: Django's Auth provides some sort of 
         access control. How/Can we use that? """
     # is this right? moderators = models.ManyToManyField()
     # is this right? blockusers = models.ManyToManyField()
         
-    def __unicode__(self):
-        return self.name
-
-        
-class Office(models.Model):
-    election = models.ForeignKey(Election)
-    name = models.CharField(max_length=30)
-    description = models.TextField()
- 
-    # Terms may not be needed for this system 
-    # term_start = models.DateTimeField()
-    # term_end = models.DateTimeField()
-
     def __unicode__(self):
         return self.name
         
@@ -108,7 +107,6 @@ class Comment(models.Model):
 
 
 class Stance(models.Model):
-        
     name = models.TextField()
     description = models.TextField()
     
@@ -117,10 +115,17 @@ class Stance(models.Model):
 
 
 class Vote(models.Model):
+    
+    UPVOTE   = '1'
+    DOWNVOTE = '2'
+    
     user = models.ForeignKey(User)
     candidate = models.ForeignKey(Candidate)
     
-    stance = models.ForeignKey(Stance)
+    stance = (
+        (UPVOTE, 'Upvote'),
+        (DOWNVOTE, 'Downvote')
+    )
     
     created = models.DateTimeField()
     
