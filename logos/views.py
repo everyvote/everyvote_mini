@@ -1,7 +1,8 @@
 from django.shortcuts import render_to_response
-from logos.models import Constituency, User, Election, Office, Candidate, Comment
+from logos.models import Constituency, Election, Office, Candidate
+from member.models import Member
 from django.http import HttpResponse
-from forms import ElectionForm, CommentForm, CandidateForm
+from forms import ElectionForm, CandidateForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.utils import timezone
@@ -14,27 +15,33 @@ def show_base(request):
 
 def constituencies(request):
     return render_to_response('constituencies.html',
-                             {'constituencies': Constituency.objects.all() })
+                             {'constituencies': Constituency.objects.all() },
+                             context_instance=RequestContext(request))
 
 def constituency(request, constituency_id=1):
     return render_to_response('constituency.html',
-                             {'constituency': Constituency.objects.get(id=constituency_id) })
+                             {'constituency': Constituency.objects.get(id=constituency_id) },
+                             context_instance=RequestContext(request))
 
 def candidates(request):
     return render_to_response('candidates.html',
-                             {'candidates': Candidate.objects.all() })
+                             {'candidates': Candidate.objects.all() },
+                             context_instance=RequestContext(request))
 
 def candidate(request, candidate_id=1):
     return render_to_response('candidate.html',
-                             {'candidate': Candidate.objects.get(id=candidate_id) })
+                             {'candidate': Candidate.objects.get(id=candidate_id) },
+                             context_instance=RequestContext(request))
 
 def elections(request):
     return render_to_response('elections.html',
-                             {'elections': Election.objects.all() })
+                             {'elections': Election.objects.all() },
+                             context_instance=RequestContext(request))
 
 def election(request, election_id=1):
     return render_to_response('election.html',
-                             {'election': Election.objects.get(id=election_id) })
+                             {'election': Election.objects.get(id=election_id) },
+                             context_instance=RequestContext(request))
                              
 def add_election(request):
     if request.POST:
@@ -51,7 +58,7 @@ def add_election(request):
     
     args['form'] = form
     
-    return render_to_response('add_election.html', args)
+    return render_to_response('add_election.html', args, context_instance=RequestContext(request))
 
 def add_candidate(request):
     if request.POST:
@@ -68,7 +75,7 @@ def add_candidate(request):
     
     args['form'] = form
     
-    return render_to_response('add_candidate.html', args)
+    return render_to_response('add_candidate.html', args, context_instance=RequestContext(request))
 
 
 def add_comment(request, candidate_id):
@@ -93,4 +100,4 @@ def add_comment(request, candidate_id):
     args['candidate'] = a
     args['form'] = f
     
-    return render_to_response('add_comment.html', args)
+    return render_to_response('add_comment.html', args, context_instance=RequestContext(request))

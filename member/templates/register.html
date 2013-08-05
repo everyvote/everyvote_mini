@@ -8,12 +8,14 @@
     </script>
 {% endblock %}
 
+
 {% block constituency_selector %}
 {% endblock %}
 
+
 {% block box1 %}
 <div class="well col-9">
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}
         <div class="register_div">
@@ -51,11 +53,17 @@
             <p><label for="birthday"{% if form.birthday.errors %} class="error"{% endif %}>Birthday:</label></p>
             {{ form.birthday }}
         </div>
+        <div class="register_div">
+            {% if form.profile_picture.errors %}<p class="error">{{ form.profile_picture.errors }}</p>{% endif %}
+            <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
+            {{ form.profile_picture }}
+        </div>
         <br />
         <p><input type="submit" value="Submit">
     </form>
 </div>
 {% endblock %}
+
 
 {% block box2 %}
 {% endblock %}

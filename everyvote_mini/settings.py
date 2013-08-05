@@ -1,5 +1,10 @@
 # Django settings for everyvote_mini project.
 
+# Adding cwd to config for development purposes.
+# Perhaps this should eventually break out into a settings.devel.py
+import os
+cwd = os.getcwd();
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -12,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/coder/Documents/GitHub/everyvote_mini/storage.db',                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(cwd, 'everyvote_mini/storage.db'),                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -50,7 +55,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/Users/coder/Documents/GitHub/everyvote_mini/static/'
+MEDIA_ROOT = os.path.join(cwd, 'static/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -61,7 +66,8 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = "/users/coder/documents/github/everyvote_mini/static/"
+#os.path.join(cwd, 'static/')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -69,7 +75,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    ('assets', '/users/coder/documents/github/everyvote_mini/static'),
+    ('assets', os.path.join(cwd, 'static')),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -112,9 +118,9 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/Users/coder/documents/github/everyvote_mini/templates',
-    '/Users/coder/documents/github/everyvote_mini/logos/templates',
-    '/Users/coder/documents/github/everyvote_mini/member/templates',
+    os.path.join(cwd, 'templates'),
+    os.path.join(cwd, 'logos/templates'),
+    os.path.join(cwd, 'member/templates'),
 )
 
 INSTALLED_APPS = (

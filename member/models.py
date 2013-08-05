@@ -1,9 +1,10 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from time import time
 
 def get_upload_file_name(instance, filename):
-    return "uploaded_files/%s_%s" % (str(time()).replace('.','_'), filename)
+    return "%s_%s" % (str(time()).replace('.','_'), filename)
 
 class Member(models.Model):
     user = models.OneToOneField(User)
@@ -11,6 +12,7 @@ class Member(models.Model):
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
     birthday = models.DateField(null=True, blank=True)
+    profile_picture = models.FileField(upload_to=get_upload_file_name)
     # about_me = models.TextField()
     # public_email = models.EmailField()
     # twitter_name = models.CharField()

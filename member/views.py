@@ -9,15 +9,15 @@ from django.contrib.auth import authenticate, login, logout
 
 def MemberRegistration(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/profile/')
+        return HttpResponseRedirect('/my_account/')
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = User.objects.create_user(username=form.cleaned_data['username'], email=form.cleaned_data['email'], password=form.cleaned_data['password'])
             user.save()
-            member = Member(user=user, first_name=form.cleaned_data['first_name'], last_name=form.cleaned_data['last_name'], email=form.cleaned_data['email'], birthday=form.cleaned_data['birthday'])
+            member = Member(user=user, first_name=form.cleaned_data['first_name'], last_name=form.cleaned_data['last_name'], email=form.cleaned_data['email'], birthday=form.cleaned_data['birthday'], profile_picture=form.cleaned_data['profile_picture'])
             member.save()
-            return HttpResponseRedirect('/profile/')
+            return HttpResponseRedirect('/my_accout/')
         else:
             return render_to_response('register.html', {'form': form}, context_instance=RequestContext(request))
             
@@ -29,7 +29,7 @@ def MemberRegistration(request):
         
 def LoginRequest(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/profile/')
+        return HttpResponseRedirect('/my_profile/')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -38,7 +38,7 @@ def LoginRequest(request):
             member = authenticate(username=username, password=password)
             if member is not None:
                 login(request, member)
-                return HttpResponseRedirect('/profile/')
+                return HttpResponseRedirect('/my_account/')
             else:
                 return render_to_response('login.html', {'form': form}, context_instance=RequestContext(request))
         else:
@@ -48,9 +48,12 @@ def LoginRequest(request):
     form = LoginForm()
     return render_to_response('login.html', {'form': form}, context_instance=RequestContext(request))
 
-def start_here(request):
-    return render_to_response("elections.html", {}, context_instance=RequestContext(request))
-
 def LogoutRequest(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def show_my_account(request):
+    return render_to_response("my_account.html", {}, context_instance=RequestContext(request))
+    
+def show_my_profiles(request):
+    return render_to_response("my_profiles.html", {}, context_instance=RequestContext(request))

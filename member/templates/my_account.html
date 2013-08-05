@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block constituency_selector %}
+{% endblock %}
+
+
+{% block box1 %}
+<div>
+    <h2>{{ user.get_profile.first_name }}'s Account</h2>
+    <p><strong>Username: </strong>{{ user.username }}</p>
+    <p><strong>First name: </strong>{{ user.get_profile.first_name }}</p>
+    <p><strong>Last name: </strong>{{user.get_profile.last_name }}</p>
+    <p><strong>Email: </strong>{{ user.get_profile.email }}</p>
+    <p><strong>User ID: </strong>{{ user.get_profile.id }}</p>
+    <p><strong>Birthday: </strong>{{ user.get_profile.birthday }}</p>
+    {% for candidate in user.get_profile.candidate_set.all %}
+        <p><strong>Running for: </strong>{{ candidate.office }} in the {{candidate.election.constituency}} {{ candidate.election }} election</p>
+    {% endfor %}
+    <p><img src="/static/assets/{{ user.get_profile.profile_picture }}" width="200" /></p>
+{% endblock %}
+
+
+{% block box2 %}
+{% endblock %}
