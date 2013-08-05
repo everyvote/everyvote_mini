@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 from member.models import Member
+=======
+
+>>>>>>> 0fe18628c6307514f7d079cbc9401a007587f5f7
 from time import time
 
 
@@ -21,7 +25,11 @@ class Constituency(models.Model):
     description = models.TextField()
     # image = ??? I dunno how to create image field yet
     # parentconstituency = models.ForeignKey(ParentConstituency)
+<<<<<<< HEAD
     administrators = models.ManyToManyField(Member)
+=======
+    administrators = models.ManyToManyField(User)
+>>>>>>> 0fe18628c6307514f7d079cbc9401a007587f5f7
     
     def __unicode__(self):
         return self.name
@@ -78,7 +86,11 @@ class Election(models.Model):
 class Candidate(models.Model):
     
     # Relations
+<<<<<<< HEAD
     member  = models.ForeignKey(Member)
+=======
+    user = models.ForeignKey(User)
+>>>>>>> 0fe18628c6307514f7d079cbc9401a007587f5f7
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
     
@@ -86,7 +98,11 @@ class Candidate(models.Model):
     description = models.TextField()
     
     def __unicode__(self):
+<<<<<<< HEAD
         return unicode(self.member)
+=======
+        return unicode(self.user)
+>>>>>>> 0fe18628c6307514f7d079cbc9401a007587f5f7
         
 """
 Comments not implemented/tested
@@ -104,8 +120,13 @@ class Comment(models.Model):
     def __unicode__(self):
         return self.body
 """ 
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> 0fe18628c6307514f7d079cbc9401a007587f5f7
 class Stance(models.Model):
     name = models.TextField()
     description = models.TextField()
@@ -119,7 +140,11 @@ class Vote(models.Model):
     UPVOTE   = '1'
     DOWNVOTE = '2'
     
+<<<<<<< HEAD
     member = models.ForeignKey(Member)
+=======
+    user = models.ForeignKey(User)
+>>>>>>> 0fe18628c6307514f7d079cbc9401a007587f5f7
     candidate = models.ForeignKey(Candidate)
     
     stance = (
@@ -130,6 +155,10 @@ class Vote(models.Model):
     created = models.DateTimeField()
     
     def __unicode__(self):
+<<<<<<< HEAD
         return "Vote by: " + str(self.member)
+=======
+        return "Vote by: " + str(self.user)
+>>>>>>> 0fe18628c6307514f7d079cbc9401a007587f5f7
 
 
