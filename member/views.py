@@ -17,7 +17,7 @@ def MemberRegistration(request):
             user.save()
             member = Member(user=user, first_name=form.cleaned_data['first_name'], last_name=form.cleaned_data['last_name'], email=form.cleaned_data['email'], birthday=form.cleaned_data['birthday'], profile_picture=form.cleaned_data['profile_picture'])
             member.save()
-            return HttpResponseRedirect('/my_accout/')
+            return HttpResponseRedirect('/my_account/')
         else:
             return render_to_response('register.html', {'form': form}, context_instance=RequestContext(request))
             
@@ -29,7 +29,7 @@ def MemberRegistration(request):
         
 def LoginRequest(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/my_profile/')
+        return HttpResponseRedirect('/my_account/')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():

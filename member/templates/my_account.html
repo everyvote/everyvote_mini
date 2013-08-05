@@ -12,7 +12,7 @@
     <p><strong>First name: </strong>{{ user.get_profile.first_name }}</p>
     <p><strong>Last name: </strong>{{user.get_profile.last_name }}</p>
     <p><strong>Email: </strong>{{ user.get_profile.email }}</p>
-    <p><strong>User ID: </strong>{{ user.get_profile.id }}</p>
+    <p><strong>User ID: </strong>{{ user.id }}</p>
     <p><strong>Birthday: </strong>{{ user.get_profile.birthday }}</p>
     {% for candidate in user.get_profile.candidate_set.all %}
         <p><strong>Running for: </strong>{{ candidate.office }} in the {{candidate.election.constituency}} {{ candidate.election }} election</p>
