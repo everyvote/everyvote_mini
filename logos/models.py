@@ -79,7 +79,6 @@ class Candidate(models.Model):
     
     # Relations
     member  = models.ForeignKey(Member)
-    user = models.ForeignKey(User)
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
     
