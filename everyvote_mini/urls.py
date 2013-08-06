@@ -27,6 +27,8 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'member.views.LogoutRequest'),
     url(r'^my_account/$', 'member.views.show_my_account'),
     url(r'^my_profiles/$', 'member.views.show_my_profiles'),
+    
+    url(r'^contact/$', 'logos.views.contact'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

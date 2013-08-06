@@ -9,7 +9,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Your name', 'email@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -69,7 +69,6 @@ MEDIA_URL = ''
 
 STATIC_ROOT = "/users/coder/documents/github/everyvote_mini/static/"
 #os.path.join(cwd, 'static/')
-
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -177,3 +176,5 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
 "django.core.context_processors.static",
 "django.core.context_processors.tz",
 "django.contrib.messages.context_processors.messages")
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -2,12 +2,12 @@ from django.shortcuts import render_to_response
 from logos.models import Constituency, Election, Office, Candidate
 from member.models import Member
 from django.http import HttpResponse
-from forms import ElectionForm, CandidateForm
+from forms import ElectionForm, CandidateForm, ContactForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.utils import timezone
 from django.template import RequestContext
-
+from django.core.mail import send_mail
 # Create your views here.
 
 def show_base(request):
@@ -77,7 +77,6 @@ def add_candidate(request):
     
     return render_to_response('add_candidate.html', args, context_instance=RequestContext(request))
 
-
 def add_comment(request, candidate_id):
     a = Candidate.objects.get(id=candidate_id)
     
@@ -101,3 +100,30 @@ def add_comment(request, candidate_id):
     args['form'] = f
     
     return render_to_response('add_comment.html', args, context_instance=RequestContext(request))
+    
+def contact(request):
+
+    success = False
+    email = ""
+    university = ""
+    subject = ""
+    text = ""
+
+    if request.method == "POST":
+        contact_form = ContactForm(request.POST)
+        
+        if contact_form.is_valid():
+            success = True
+            email = contact_form.cleaned_data['email']
+            subject = contact_form.cleaned_data['subject']
+            university = contact_form.cleaned_data['university']
+            text = contact_form.cleaned_data['text']
+            
+            send_mail("Your subject", "Your text message! Data sent: %s %s %s" % (title,university,text,email), 'mail.from@server.com', ['user.to@server.com'])
+            # mail_admins("Your other subject", "Your other text")
+    else:
+        contact_form = ContactForm()
+        
+    ctx = {'contact_form':contact_form, 'email':email, 'subject':subject, 'university':university, 'text':text, 'success':success}
+    
+    return render_to_response('contact.html', ctx, context_instance=RequestContext(request))
