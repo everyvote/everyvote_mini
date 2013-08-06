@@ -119,7 +119,7 @@ def contact(request):
             university = contact_form.cleaned_data['university']
             text = contact_form.cleaned_data['text']
             
-            send_mail("Your subject", "Your text message! Data sent: %s %s %s" % (title,university,text,email), 'mail.from@server.com', ['user.to@server.com'])
+            send_mail("Your subject", "Your text message! Data sent: %s %s %s %s" % (subject,university,text,email), 'mail.from@server.com', ['user.to@server.com'])
             # mail_admins("Your other subject", "Your other text")
     else:
         contact_form = ContactForm()
