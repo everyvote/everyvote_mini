@@ -1,5 +1,5 @@
 from django import forms
-from models import Election, Candidate
+from everyvote_mini.models import Election, Candidate
 from member.models import Member
 from django.forms import ModelForm
 from django.contrib.auth.models import User
