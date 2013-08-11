@@ -1,6 +1,6 @@
 from django.contrib.comments import CommentForm
 from django.shortcuts import render_to_response
-from logos.models import Constituency, Election, Candidate
+from everyvote_mini.models import Constituency, Election, Candidate
 from forms import ElectionForm, CandidateForm, ContactForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.context_processors import csrf
