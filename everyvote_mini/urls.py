@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'everyvote_mini.views.home', name='home'),
     # url(r'^everyvote_mini/', include('everyvote_mini.foo.urls')),
-    (r'^$', 'logos.views.show_base'),
+    (r'^$', 'everyvote_mini.views.constituency.list'),
     
     url(r'^constituencies/all/$', 'logos.views.constituencies'),
     url(r'^constituencies/get/(?P<constituency_id>\d+)/$', 'logos.views.constituency'),
@@ -36,5 +36,4 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^reorganized/', 'everyvote_mini.views.constituency.list'),
     )

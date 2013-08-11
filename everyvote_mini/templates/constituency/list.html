@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block box1 %}
+    <div id="constituency_selector">
+        <p><strong>Select constituency:</strong></p>
+        <form method="POST">
+        <select class="form-control">
+            {% for constituency in constituencies %}
+                <option value="{{ constituency.name }}">{{ constituency.description }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
+        <p><strong>Select election:</strong></p>
+        <form method="POST">
+        <select class="form-control">
+            {% for election in elections %}
+                <option value="{{ election.id }}">{{ election.name }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
+        <hr>
+    </div>
+{% endblock %}
