@@ -3,15 +3,15 @@
 <html lang="en">
 <head>
 
-    <title>{% block title %}My Base Template{% endblock %}</title>
+    <title>{% block title %}EveryVote{% endblock %}</title>
     
-    <link rel="stylesheet" type="text/css" href="{% static "assets/css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/bootstrap.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "assets/css/datepicker.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "assets/css/default.css" %}">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <script type="text/javascript" src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
     <script type="text/javascript" src="{% static "assets/js/jquery-ui.js" %}"></script>
-    <script type="text/javascript" src="{% static "assets/js/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "assets/js/bootstrap.min.js" %}"></script>
     {% block extrahead %}
     {% endblock %}
 
@@ -20,35 +20,35 @@
 <body>
 
 <div class="container">
-    <div id="test_menu">
-        <a href="http://127.0.0.1:8000/login">Login </a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/register">Register</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/my_account">My Account</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/my_profiles">My Profiles</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/constituencies/all">Constituencies</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/users/all">Users</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/elections/all">Elections</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/offices/all">Offices</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/candidates/all">Candidates</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/comments/all">Comments</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/contact">Contact EV</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/admin">Admin</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/logout">Logout</a>&nbsp&nbsp
-        <br />
-        <br />
+    <div class="navbar navbar-inverse">
+        <ul class="nav navbar-nav">
+            <li><a href="http://127.0.0.1:8000/login">Login</a></li>
+            <li><a href="http://127.0.0.1:8000/register">Register</a></li>
+            <li><a href="http://127.0.0.1:8000/my_account">My Account</a></li>
+            <li><a href="http://127.0.0.1:8000/my_profiles">My Profiles</a></li>
+            <li><a href="http://127.0.0.1:8000/constituencies/all">Constituencies</a></li>
+            <li><a href="http://127.0.0.1:8000/users/all">Users</a></li>
+            <li><a href="http://127.0.0.1:8000/elections/all">Elections</a></li>
+            <li><a href="http://127.0.0.1:8000/offices/all">Offices</a></li>
+            <li><a href="http://127.0.0.1:8000/candidates/all">Candidates</a></li>
+            <li><a href="http://127.0.0.1:8000/comments/all">Comments</a></li>
+            <li><a data-toggle="modal" href="#contactModal" class="a_sub_header">Contact EV</a></li>
+            <li><a href="http://127.0.0.1:8000/logout">Logout</a></li>
+        </ul>
     </div>
     
     <div id="header">    
     {% block header %}
         <a href="/"><img id="evLogo" src="{% static "assets/images/evlogo.png" %}" /></a>
         <ul class="nav nav-pills pull-right navFix">
+
+          
+          {% if user.is_authenticated %}
           <li><a href="#" class="btn btn-small btn-primary"><i class="icon-pencil icon-white"></i> Edit Election</a></li>
           <li><a href="/elections/add_election" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> Add Election</a></li>
           <li><a href="/candidates/add_candidate" class="btn btn-small btn-success">Run for Office</a></li>
-          
-          {% if user.is_authenticated %}
-          <li><div class="btn-group pull-right">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ user.get_profile.first_name }} {{ user.get_profile.last_name }} <span class="caret"></span></button>
+          <li><div class="nav nav-pills btn-group pull-right">
+              <button type="button" class="btn btn-primaary dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ user.get_profile.first_name }} {{ user.get_profile.last_name }} <span class="caret"></span></button>
               <ul class="dropdown-menu">
                 <li><a href="/my_profiles">My Profiles</a></li>
                 <li><a href="#">Set Profile Picture</a></li>
@@ -64,7 +64,7 @@
         
         <br />
         <div class="sub_header">
-            <a href="#" class="a_sub_header">About</a> <a href="/contact/" class="a_sub_header">Contact EV</a>
+            <a href="#" class="a_sub_header">About</a> <a data-toggle="modal" href="#contactModal" class="a_sub_header">Contact EV</a>
         </div>
         <br />
         <hr>
@@ -74,20 +74,34 @@
     <div id="constituency_selector">
     {% block constituency_selector %}
         <p><strong>Select constituency:</strong></p>
-        <p>Dynamic search or drop-down menu #1</p>
+        <form method="POST">
+        <select class="form-control">
+            {% for constituency in constituencies %}
+                <option value="{{ constituency.name }}">{{ constituency.description }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
         <p><strong>Select election:</strong></p>
-        <p>Dynamic search or drop-down menu #2</p>
+        <form method="POST">
+        <select class="form-control">
+            {% for election in elections %}
+                <option value="{{ election.id }}">{{ election.name }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
         <hr>
     {% endblock %}
     </div>
         
     <div id="box1">
     {% block box1 %}
-        <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h2>
+        <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h3>
         <h3>When viewing a candidate page, the candidate_infobox is inserted here in box 1.</h3>
         <hr>
     {% endblock %}
-    </div>    
+    </div>
     
     <div id="box2">
     {% block box2 %}
@@ -100,7 +114,8 @@
     <div class="footer text-center">
     {% block footer %}
         <p>EveryVote is free and open source under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">Affero GPL</a>.</p>
-        <a href="https://github.com/everyvote">EveryVote on GitHub</a>
+        <a href="https://github.com/everyvote">EveryVote on GitHub</a><br>
+        <a href="http://127.0.0.1:8000/admin">Admin</a>
         <br />
         <br />
         <img src="{% static "assets/images/excellent.jpg" %}" width="200" />
@@ -108,6 +123,34 @@
     </div>
 
 </div>
-
+<div class="modal fade" id="contactModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="modal-title">Contact EveryVote</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="controls controls-row">
+                   <input id="name" name="name" type="text" class="form-control span3" placeholder="Name">
+                   <input id="email" name="email" type="email" class="form-control span3" placeholder="Email address">
+                 </div>
+                <div class="controls controls-row">
+                <input id="university" name="university" type="text" class="form-control span3" placeholder="University">
+            <input id="subject" name="subject" type="text" class="form-control span3" placeholder="Subject">
+        </div>
+      <div class="controls">
+          <textarea id="message" name="message" class="form-control span6" placeholder="Your Message" rows="5"></textarea>
+      </div>
+  </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 </body>
 </html>
