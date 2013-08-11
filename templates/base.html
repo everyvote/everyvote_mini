@@ -41,13 +41,14 @@
     {% block header %}
         <a href="/"><img id="evLogo" src="{% static "assets/images/evlogo.png" %}" /></a>
         <ul class="nav nav-pills pull-right navFix">
+
+          
+          {% if user.is_authenticated %}
           <li><a href="#" class="btn btn-small btn-primary"><i class="icon-pencil icon-white"></i> Edit Election</a></li>
           <li><a href="/elections/add_election" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> Add Election</a></li>
           <li><a href="/candidates/add_candidate" class="btn btn-small btn-success">Run for Office</a></li>
-          
-          {% if user.is_authenticated %}
-          <li><div class="btn-group pull-right">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ user.get_profile.first_name }} {{ user.get_profile.last_name }} <span class="caret"></span></button>
+          <li><div class="nav nav-pills btn-group pull-right">
+              <button type="button" class="btn btn-primaary dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ user.get_profile.first_name }} {{ user.get_profile.last_name }} <span class="caret"></span></button>
               <ul class="dropdown-menu">
                 <li><a href="/my_profiles">My Profiles</a></li>
                 <li><a href="#">Set Profile Picture</a></li>
@@ -75,8 +76,8 @@
         <p><strong>Select constituency:</strong></p>
         <form method="POST">
         <select class="form-control">
-            {% for constituent in constituencies %}
-                <option value="{{ constituency.id }}">{{ constituency.name }}</option>
+            {% for constituency in constituencies %}
+                <option value="{{ constituency.name }}">{{ constituency.description }}</option>
             {% endfor %}
         </select>
         </form>
@@ -132,15 +133,15 @@
         <div class="modal-body">
             <form>
                 <div class="controls controls-row">
-                   <input id="name" name="name" type="text" class="span3" placeholder="Name">
-                   <input id="email" name="email" type="email" class="span3" placeholder="Email address">
+                   <input id="name" name="name" type="text" class="form-control span3" placeholder="Name">
+                   <input id="email" name="email" type="email" class="form-control span3" placeholder="Email address">
                  </div>
                 <div class="controls controls-row">
-                <input id="university" name="university" type="text" class="span3" placeholder="University">
-            <input id="subject" name="subject" type="text" class="span3" placeholder="Subject">
+                <input id="university" name="university" type="text" class="form-control span3" placeholder="University">
+            <input id="subject" name="subject" type="text" class="form-control span3" placeholder="Subject">
         </div>
       <div class="controls">
-          <textarea id="message" name="message" class="span6" placeholder="Your Message" rows="5"></textarea>
+          <textarea id="message" name="message" class="form-control span6" placeholder="Your Message" rows="5"></textarea>
       </div>
   </form>
         </div>

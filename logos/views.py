@@ -2,16 +2,18 @@ from django.contrib.comments import CommentForm
 from django.shortcuts import render_to_response
 from logos.models import Constituency, Election, Candidate
 from forms import ElectionForm, CandidateForm, ContactForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.context_processors import csrf
 from django.utils import timezone
-from django.template import RequestContext
+from django.template import RequestContext, loader
 from django.core.mail import send_mail
 # Create your views here.
 
 
 def show_base(request):
-    return render_to_response("base.html", {}, context_instance=RequestContext(request))
+    return render_to_response('base.html',
+                              {'constituencies': Constituency.objects.all()},
+                              context_instance=RequestContext(request))
 
 
 def constituencies(request):
