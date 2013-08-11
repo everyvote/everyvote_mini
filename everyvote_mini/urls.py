@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^elections/all/$', 'logos.views.elections'),
     url(r'^elections/get/(?P<election_id>\d+)/$', 'logos.views.election'),
     url(r'^elections/add_election/$', 'logos.views.add_election'),
+    url(r'^offices/all/$', 'logos.views.all_offices'),
     
     url(r'^register/$', 'member.views.MemberRegistration'),
     url(r'^login/$', 'member.views.LoginRequest'),

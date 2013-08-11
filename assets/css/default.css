@@ -1,72 +1,70 @@
-<style type="text/css">
-        body {
-            text-align: center;
-        }
-        
-        #content {
-            clear:both;
-        }
-        
-        .container-fluid {
-            max-width:850px;
-            margin:0px auto;
-        }
-        
-        #sidebar {
-            clear: both;
-            float: left;
-            width: 200px;
-            border: 1px solid #000;
-        }
-        
-        header, .header, #header {
-            background: #FFF;
-            
-        }
-        
-        .nav, .nav-pills {
-            
-        }
-        
-        .sub_header {
-            clear:both;
-            float: left;
-        }
-        
-        .a_sub_header {
-            padding:0px 30px 0px 0px;
-        }
-        
-        container, .container, #container {
-            background: #FFF;
-            margin: 0px auto;
-            
-        }
-        .footer {
-            clear:both;
-        }
-        
-        #evLogo {
-            width: 200px;
-            display:inline-block;
-        }
-        
-        #box1 {
-            clear:both;
-            outline:#F60 striped thick;
-            
-        }
-        
-        #box2 {
-            clear:both;
-        }
-        
-        .ui-helper-hidden-accessible {
-            display:none;
-        }
-        
-        #constituency_selector {
-            clear:both;
-        }
-        
-    </style>
+
+body {
+    text-align: center;
+}
+
+#content {
+    clear:both;
+}
+
+.container-fluid {
+    max-width:850px;
+    margin:0px auto;
+}
+
+#sidebar {
+    clear: both;
+    float: left;
+    width: 200px;
+    border: 1px solid #000;
+}
+
+#header, .header, #header {
+    background: #FFF;
+
+}
+
+.nav, .nav-pills {
+
+}
+
+.sub_header {
+    clear:both;
+    float: left;
+}
+
+.a_sub_header {
+    padding:0px 30px 0px 0px;
+}
+
+#container, .container, #container {
+    background: #FFF;
+    margin: 0px auto;
+
+}
+.footer {
+    clear:both;
+}
+
+#evLogo {
+    width: 200px;
+    display:inline-block;
+}
+
+#box1 {
+    clear:both;
+    outline:#F60 thick;
+
+}
+
+#box2 {
+    clear:both;
+}
+
+.ui-helper-hidden-accessible {
+    display:none;
+}
+
+#constituency_selector {
+    clear:both;
+}

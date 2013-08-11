@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 
-    <title>{% block title %}My Base Template{% endblock %}</title>
+    <title>{% block title %}EveryVote{% endblock %}</title>
     
     <link rel="stylesheet" type="text/css" href="{% static "assets/css/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "assets/css/datepicker.css" %}">
@@ -20,22 +20,22 @@
 <body>
 
 <div class="container">
-    <div id="test_menu">
-        <a href="http://127.0.0.1:8000/login">Login </a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/register">Register</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/my_account">My Account</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/my_profiles">My Profiles</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/constituencies/all">Constituencies</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/users/all">Users</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/elections/all">Elections</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/offices/all">Offices</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/candidates/all">Candidates</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/comments/all">Comments</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/contact">Contact EV</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/admin">Admin</a>&nbsp&nbsp
-        <a href="http://127.0.0.1:8000/logout">Logout</a>&nbsp&nbsp
-        <br />
-        <br />
+    <div class="navbar navbar-inverse">
+        <ul class="nav navbar-nav">
+            <li><a href="http://127.0.0.1:8000/login">Login</a></li>
+            <li><a href="http://127.0.0.1:8000/register">Register</a></li>
+            <li><a href="http://127.0.0.1:8000/my_account">My Account</a></li>
+            <li><a href="http://127.0.0.1:8000/my_profiles">My Profiles</a></li>
+            <li><a href="http://127.0.0.1:8000/constituencies/all">Constituencies</a></li>
+            <li><a href="http://127.0.0.1:8000/users/all">Users</a></li>
+            <li><a href="http://127.0.0.1:8000/elections/all">Elections</a></li>
+            <li><a href="http://127.0.0.1:8000/offices/all">Offices</a></li>
+            <li><a href="http://127.0.0.1:8000/candidates/all">Candidates</a></li>
+            <li><a href="http://127.0.0.1:8000/comments/all">Comments</a></li>
+            <li><a href="http://127.0.0.1:8000/contact">Contact EV</a></li>
+            <li><a href="http://127.0.0.1:8000/admin">Admin</a></li>
+            <li><a href="http://127.0.0.1:8000/logout">Logout</a></li>
+        </ul>
     </div>
     
     <div id="header">    
@@ -74,20 +74,34 @@
     <div id="constituency_selector">
     {% block constituency_selector %}
         <p><strong>Select constituency:</strong></p>
-        <p>Dynamic search or drop-down menu #1</p>
+        <form method="POST">
+        <select class="form-control">
+            {% for constituent in constituencies %}
+                <option value="{{ constituency.id }}">{{ constituency.name }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
         <p><strong>Select election:</strong></p>
-        <p>Dynamic search or drop-down menu #2</p>
+        <form method="POST">
+        <select class="form-control">
+            {% for election in elections %}
+                <option value="{{ election.id }}">{{ election.name }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
         <hr>
     {% endblock %}
     </div>
         
     <div id="box1">
     {% block box1 %}
-        <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h2>
+        <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h3>
         <h3>When viewing a candidate page, the candidate_infobox is inserted here in box 1.</h3>
         <hr>
     {% endblock %}
-    </div>    
+    </div>
     
     <div id="box2">
     {% block box2 %}
