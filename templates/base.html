@@ -70,31 +70,28 @@
         <hr>
     {% endblock %}
     </div>
-    
+    <h2>Welcome to EveryVote!</h2>
+    <p>Your open source voting app. blah blah blah. Here's why you should use it.
+        Bacon ipsum dolor sit amet tenderloin pancetta brisket, pork loin strip steak
+        frankfurter shankle ball tip pig boudin. Short loin venison boudin ham meatloaf
+        strip steak jerky. Pork chop chuck doner capicola, bresaola t-bone salami pig rump
+        pastrami biltong pork belly leberkas. Tri-tip tenderloin tail swine pastrami beef ribs
+        ribeye pig ham hock tongue.</p>
     <div id="constituency_selector">
     {% block constituency_selector %}
-        <p><strong>Select constituency:</strong></p>
+        <p><strong>Select your constituency (university) to get started!</strong></p>
         <form method="POST">
-        <select class="form-control">
+        <select class="form-control span3" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                <option value="0">Select a constituency</option>
             {% for constituency in constituencies %}
-                <option value="{{ constituency.name }}">{{ constituency.description }}</option>
+                <option value="http://127.0.0.1:8000/constituencies/get/{{ constituency.id }}">{{ constituency.description }}</option>
             {% endfor %}
         </select>
         </form>
         <span class="help-block">Please select a constituency to view the available elections.</span>
-        <p><strong>Select election:</strong></p>
-        <form method="POST">
-        <select class="form-control">
-            {% for election in elections %}
-                <option value="{{ election.id }}">{{ election.name }}</option>
-            {% endfor %}
-        </select>
-        </form>
-        <span class="help-block">Please select a constituency to view the available elections.</span>
-        <hr>
     {% endblock %}
     </div>
-        
+
     <div id="box1">
     {% block box1 %}
         <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h3>
@@ -102,7 +99,7 @@
         <hr>
     {% endblock %}
     </div>
-    
+
     <div id="box2">
     {% block box2 %}
         <h3>Yo I'm box2. The candidate_list is inserted here when viewing an election page.</h3>
@@ -125,29 +122,40 @@
 </div>
 <div class="modal fade" id="contactModal">
     <div class="modal-dialog">
-      <div class="modal-content">
+        <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h3 class="modal-title">Contact EveryVote</h3>
         </div>
         <div class="modal-body">
             <form>
-                <div class="controls controls-row">
-                   <input id="name" name="name" type="text" class="form-control span3" placeholder="Name">
-                   <input id="email" name="email" type="email" class="form-control span3" placeholder="Email address">
+                <div class="controls">
+                    <h4>Something not right? Let us know!</h4>
+                   <label>Name</label>
+                    <input id="name" name="name" type="text" class="form-control span3" placeholder="Name">
+                   <div class="control-group">
+                    <label class="control-label" for="inputIcon">Email address</label>
+                    <div class="controls">
+                    <div class="input-prepend">
+                      <span class="add-on"><i class="icon-envelope"></i></span>
+                      <input class="span2" id="inputIcon" type="text">
+                    </div>
+                  </div>
+                </div>
                  </div>
                 <div class="controls controls-row">
-                <input id="university" name="university" type="text" class="form-control span3" placeholder="University">
-            <input id="subject" name="subject" type="text" class="form-control span3" placeholder="Subject">
+                <label>University</label><input id="university" name="university" type="text" class="form-control span3" placeholder="University">
+            <label>Subject</label><input id="subject" name="subject" type="text" class="form-control span3" placeholder="Subject">
         </div>
-      <div class="controls">
+        <div class="controls">
+          <label>Message</label>
           <textarea id="message" name="message" class="form-control span6" placeholder="Your Message" rows="5"></textarea>
-      </div>
-  </form>
+        </div>
+             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Send</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

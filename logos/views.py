@@ -51,6 +51,11 @@ def election(request, election_id=1):
                               {'election': Election.objects.get(id=election_id)},
                               context_instance=RequestContext(request))
 
+def election_by_constituency(request, election_id=1):
+    return render_to_response('election.html',
+                              {'election': Election.objects.get(id=election_id)},
+                              context_instance=RequestContext(request))
+
 
 def add_election(request):
     if request.POST:
