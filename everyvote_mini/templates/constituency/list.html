@@ -11,15 +11,9 @@
         </select>
         </form>
         <span class="help-block">Please select a constituency to view the available elections.</span>
-        <p><strong>Select election:</strong></p>
-        <form method="POST">
-        <select class="form-control">
-            {% for election in elections %}
-                <option value="{{ election.id }}">{{ election.name }}</option>
-            {% endfor %}
-        </select>
-        </form>
-        <span class="help-block">Please select a constituency to view the available elections.</span>
         <hr>
     </div>
+{% endblock %}
+
+{% block box2 %}
 {% endblock %}

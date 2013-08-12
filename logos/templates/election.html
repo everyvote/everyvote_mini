@@ -4,20 +4,36 @@
 {% block constituency_selector %}
 {% endblock %}
 
-
 {% block box1 %}
-
-<h1>{{ election.name }}</h1>
-<p>{{ election.description }}</p>
-<p>{{ election.id }}</p>
-
+<h1>{{ election.constituency.name }}</h1>
+<h2>{{ election.name }}</h2>
+<p><strong>About Election:</strong>
+<br />
+{{ election.description }}</p>
+<p><strong>Moderator(s):</strong>
+<br />
+(moderator names go here)</p>
+<p><span class="pull-left"><strong>Showing: </strong>All Offices</span><span class="pull-right"><strong>Sort by: </strong>Alphabetical</p>
+<br />
+<hr>
 {% endblock %}
 
 {% block box2 %}
-{% for c in election.candidate_set.all %}
-<h2><a href="/candidates/get/{{ c.id }}">{{ c.user.first_name }} {{ c.user.last_name }}</a></h2>
-<p>{{ c.office }}</p>
-<p>{{ c.description }}</p>
-<p>{{ c.id }}</p>
+{% for candidate in election.candidate_set.all %}
+<div id="election_candidate_profile">
+    <div id="election_candidate_picture">
+        <p><img src="/static/assets/{{ candidate.member.profile_picture }}" width="200" /></p>
+    </div>
+    <div id="election_candidate_information">
+        <h2 style="padding:0px; margin:0px"><a href="/candidates/get/{{ candidate.id }}">{{ candidate.member.first_name }} {{ candidate.member.last_name }}</a></h2>
+        <br />
+        <p><strong>Running for: </strong>{{ candidate.office }}</p>
+        <p><strong>About me: </strong>{{ candidate.description|slice:":255" }}</p>
+        <p>{{ candidate.id }}</p>
+    </div>
+</div>
+<br />
+<hr style="clear:both">
+
 {% endfor %}
 {% endblock %}

@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from member.models import Member
 
+class MemberProfileForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        exclude = ("user",)
 
 class RegistrationForm(ModelForm):
     username = forms.CharField(label=u'User Name')

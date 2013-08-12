@@ -121,6 +121,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(cwd, 'templates'),
     os.path.join(cwd, 'everyvote_mini/templates'),
+    os.path.join(cwd, 'everyvote_mini/templates/constituency'),
     os.path.join(cwd, 'logos/templates'),
     os.path.join(cwd, 'member/templates'),
 )

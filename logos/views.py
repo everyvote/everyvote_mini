@@ -7,8 +7,32 @@ from django.core.context_processors import csrf
 from django.utils import timezone
 from django.template import RequestContext, loader
 from django.core.mail import send_mail
+
 # Create your views here.
 
+#/ mitch
+#/
+from django.views.generic import DetailView
+
+class ElectionDetailView(DetailView):
+
+    context_object_name = "election"
+    model = Election
+    
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ElectionDetailView, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the constituencies
+        context['constituency_list'] = Constituency.objects.all()
+        return context
+
+class ConstituencyDetailView(DetailView):
+
+    context_object_name = "constituency"
+    model = Constituency
+
+#/
+#/ mitch
 
 def show_base(request):
     return render_to_response('base.html',
@@ -26,7 +50,6 @@ def constituency(request, constituency_id=1):
     return render_to_response('constituency.html',
                               {'constituency': Constituency.objects.get(id=constituency_id)},
                               context_instance=RequestContext(request))
-
 
 def candidates(request):
     return render_to_response('candidates.html',

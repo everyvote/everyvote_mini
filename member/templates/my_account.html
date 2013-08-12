@@ -7,7 +7,7 @@
 
 {% block box1 %}
 <div>
-    <h2>{{ user.get_profile.first_name }}'s Account</h2>
+    <h2>{{ user.get_profile.first_name }} {{user.get_profile.last_name }}'s Account</h2>
     <p><strong>Username: </strong>{{ user.username }}</p>
     <p><strong>First name: </strong>{{ user.get_profile.first_name }}</p>
     <p><strong>Last name: </strong>{{user.get_profile.last_name }}</p>
@@ -17,7 +17,7 @@
     {% for candidate in user.get_profile.candidate_set.all %}
         <p><strong>Running for: </strong>{{ candidate.office }} in the {{candidate.election.constituency}} {{ candidate.election }} election</p>
     {% endfor %}
-    <p><img src="/static/assets/{{ user.get_profile.profile_picture }}" width="200" /></p>
+    <p><a href='{% url "edit_member_profile" %}'>Edit my account information</a></p>
 </div>
 {% endblock %}
 

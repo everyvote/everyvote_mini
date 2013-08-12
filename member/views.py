@@ -2,10 +2,22 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from member.forms import RegistrationForm, LoginForm
+from member.forms import RegistrationForm, LoginForm, MemberProfileForm
 from member.models import Member
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic.edit import UpdateView
 
+
+class MemberEditView(UpdateView):
+    model = Member
+    form_class = MemberProfileForm
+    template_name = "edit_member_profile.html"
+    
+    def get_object(self, queryset=None):
+        return Member.objects.get_or_create(user=self.request.user)[0]
+    
+    def get_success_url(self):
+        return '/my_account/'
 
 def MemberRegistration(request):
     if request.user.is_authenticated():
