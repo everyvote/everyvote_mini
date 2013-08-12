@@ -7,35 +7,38 @@ from django.core.context_processors import csrf
 from django.utils import timezone
 from django.template import RequestContext, loader
 from django.core.mail import send_mail
+from django.views.generic import DetailView, ListView
 
-# Create your views here.
 
-#/ mitch
-#/
-from django.views.generic import DetailView
-
-class ElectionDetailView(DetailView):
-
-    context_object_name = "election"
-    model = Election
-    
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(ElectionDetailView, self).get_context_data(**kwargs)
-        # Add in a QuerySet of all the constituencies
-        context['constituency_list'] = Constituency.objects.all()
-        return context
+class ConstituencyListView(ListView):
+    model = Constituency
 
 class ConstituencyDetailView(DetailView):
 
     context_object_name = "constituency"
     model = Constituency
 
-#/
-#/ mitch
+class ElectionListView(ListView):
+    model = Election
 
-def show_base(request):
-    return render_to_response('base.html',
+class ElectionDetailView(DetailView):
+
+    context_object_name = "election"
+    model = Election
+
+""" if you need access to more than one model in a View, 
+use something like this within the View:
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ElectionDetailView, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the constituencies
+        context['constituency_list'] = Constituency.objects.all()
+        return context
+"""
+
+def home(request):
+    return render_to_response('home.html',
                               {'constituencies': Constituency.objects.all()},
                               context_instance=RequestContext(request))
 

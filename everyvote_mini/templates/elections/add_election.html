@@ -8,7 +8,7 @@
 {% block box1 %}
 <div class="well col-9">
     <h1>Add Election:</h1>
-    <form action="/elections/add/" method="post">{% csrf_token %}
+    <form action="/elections/add_election/" method="post">{% csrf_token %}
         {{form.as_p}}
         <div class="btn-toolbar pull-right">
             <input type="button" class="btn btn-danger" name="cancel" value="Back" onClick="history.go(-1);return true;">

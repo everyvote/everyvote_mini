@@ -10,6 +10,6 @@ def list(request):
     This should list all the Constituencies.
     """
     
-    return render_to_response('constituency/list.html',
+    return render_to_response('constituency/constituency_list.html',
         {'constituencies': Constituency.objects.all()},
         context_instance=RequestContext(request))

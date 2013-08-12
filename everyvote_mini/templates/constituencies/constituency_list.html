@@ -5,18 +5,14 @@
 
 {% block box1 %}
 <h1>Constituencies</h1>
-{% if constituencies.count > 0 %}
-{% for constituency in constituencies %}
+
+{% for constituency in constituency_list %}
     <div>
         <h2><a href="/constituencies/get/{{ constituency.id }}/">{{ constituency.name }}</a></h2>
         <p>{{ constituency.description }}</p>
     </div>
 {% endfor %}
-{% else %}
-    <div>
-    <p>No constituencies to show</p>
-    </div>
-{% endif %}
+
 {% endblock %}
 
 {% block box2 %}

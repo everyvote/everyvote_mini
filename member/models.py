@@ -15,12 +15,12 @@ class Member(models.Model):
     email = models.EmailField()
     birthday = models.DateField(null=True, blank=True)
     profile_picture = models.FileField(upload_to=get_upload_file_name)
-    # about_me = models.TextField()
-    # public_email = models.EmailField()
-    # twitter_name = models.CharField()
-    # facebook_page = models.CharField()
-    # linkedin_page = models.CharField()
-    # personal_homepage = models.CharField()
+    about_me = models.TextField(blank=True)
+    public_email = models.EmailField(blank=True)
+    twitter_name = models.URLField(blank=True)
+    facebook_page = models.URLField(blank=True)
+    linkedin_page = models.URLField(blank=True)
+    personal_homepage = models.URLField(blank=True)
 
     def __unicode__(self):
         return self.first_name + " " + self.last_name

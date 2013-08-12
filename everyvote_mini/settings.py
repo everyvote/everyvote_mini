@@ -121,7 +121,11 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(cwd, 'templates'),
     os.path.join(cwd, 'everyvote_mini/templates'),
-    os.path.join(cwd, 'everyvote_mini/templates/constituency'),
+    os.path.join(cwd, 'everyvote_mini/templates/candidates'),
+    os.path.join(cwd, 'everyvote_mini/templates/constituencies'),
+    os.path.join(cwd, 'everyvote_mini/templates/elections'),
+    os.path.join(cwd, 'everyvote_mini/templates/members'),
+    os.path.join(cwd, 'everyvote_mini/templates/offices'),
     os.path.join(cwd, 'logos/templates'),
     os.path.join(cwd, 'member/templates'),
 )
@@ -134,6 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.comments',
     'everyvote_mini',
     #'logos',
     'member',
