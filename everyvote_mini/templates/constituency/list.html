@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block box1 %}
+    <div id="constituency_selector">
+        <p><strong>Select constituency:</strong></p>
+        <form method="POST">
+        <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
+                <option></option>
+            {% for constituency in constituencies %}
+                <option value="/constituencies/get/{{ constituency.id }}">{{ constituency.name }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
+        <p><strong>Select election:</strong></p>
+        <form method="POST">
+        <select class="form-control">
+            {% for election in elections %}
+                <option value="{{ election.id }}">{{ election.name }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
+        <hr>
+    </div>
+{% endblock %}

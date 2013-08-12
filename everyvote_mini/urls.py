@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'everyvote_mini.views.home', name='home'),
     # url(r'^everyvote_mini/', include('everyvote_mini.foo.urls')),
-    (r'^$', 'logos.views.show_base'),
+    (r'^$', 'everyvote_mini.views.constituency.list'),
     
     url(r'^constituencies/all/$', 'logos.views.constituencies'),
     url(r'^constituencies/get/(?P<constituency_id>\d+)/$', 'logos.views.constituency'),
@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^elections/all/$', 'logos.views.elections'),
     url(r'^elections/get/(?P<election_id>\d+)/$', 'logos.views.election'),
     url(r'^elections/add_election/$', 'logos.views.add_election'),
+    url(r'^offices/all/$', 'logos.views.all_offices'),
     
     url(r'^register/$', 'member.views.MemberRegistration'),
     url(r'^login/$', 'member.views.LoginRequest'),
