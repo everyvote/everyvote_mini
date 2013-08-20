@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block box1 %}
+
+
+<h1>{{ parentconstituency.name }}</h1>
+<p>{{ parentconstituency.description|linebreaks }}</p>
+
+<p><strong>Select your group:</strong></p>
+        <form method="POST">
+        <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
+                <option></option>
+            {% for constituency in parentconstituency.constituency_set.all %}
+                <option value="/constituencies/{{ constituency.id }}">{{ constituency.name }}</option>
+            {% endfor %}
+        </select>
+        </form>
+        <span class="help-block">Please select a constituency to view the available elections.</span>
+
+
+{% endblock %}
+
+{% block box2 %}
+{% endblock %}

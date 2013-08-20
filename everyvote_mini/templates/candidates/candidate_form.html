@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block extrabuttons %}
+    {% for moderator in election.moderators.all %}
+        {% if user == moderator %}
+            <li><a href="{% url 'election_update' pk=object.pk %}" class="btn btn-small btn-primary"><i class=icon-pencil icon-white"></i>Edit Election</a></li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block box1 %}
+<h1>Edit My Candidate Profile</h1>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add">
+</form>
+<br />
+<br />
+
+<a href="{% url 'candidate_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Leave Race</a>
+{% endblock %}
+
+{% block box2 %}
+{% endblock %}

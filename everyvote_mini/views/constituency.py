@@ -1,15 +1,45 @@
-from django.http import HttpResponse
-from django.template import RequestContext
-from django.shortcuts import render_to_response
-
 from everyvote_mini.models import Constituency
+from everyvote_mini.forms import ConstituencyForm
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 
-
-def list(request):
-    """ 
-    This should list all the Constituencies.
-    """
+"""
+CONSTITUENCY
+"""
+# CREATE CONSTITUENCY
+class ConstituencyCreateView(CreateView):
+    model = Constituency
+    form_class = ConstituencyForm
+    template_name = 'constituency_create.html'
     
-    return render_to_response('constituency/constituency_list.html',
-        {'constituencies': Constituency.objects.all()},
-        context_instance=RequestContext(request))
+    def form_valid(self, form):
+        f = form.save(commit=False)
+        f.save()
+        return super(ConstituencyCreateView, self).form_valid(form)
+
+
+# LIST CONSTITUENCY
+class ConstituencyListView(ListView):
+    model = Constituency
+    context_object_name = "constituencies"
+
+
+# SHOW CONSTITUENCY
+class ConstituencyDetailView(DetailView):
+    model = Constituency
+    context_object_name = "constituency"
+    
+    
+# UPDATE CONSTITUENCY
+class ConstituencyUpdateView(UpdateView):
+    model = Constituency
+    form_class = ConstituencyForm
+    template_name='constituency_form.html'
+
+
+# DELETE CONSTITUENCY
+class ConstituencyDeleteView(DeleteView):
+    model = Constituency
+    success_url = reverse_lazy('home')
+    template_name='constituency_delete.html'

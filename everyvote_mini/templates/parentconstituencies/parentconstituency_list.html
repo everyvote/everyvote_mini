@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block constituency_selector %}
+{% endblock %}
+
+{% block box1 %}
+<h1>Constituencies</h1>
+
+{% for constituency in constituency_list %}
+    <div>
+        <h2><a href="/constituencies/get/{{ constituency.id }}/">{{ constituency.name }}</a></h2>
+        <p>{{ constituency.description }}</p>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block box2 %}
+{% endblock %}

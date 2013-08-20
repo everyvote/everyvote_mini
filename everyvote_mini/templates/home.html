@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block box1 %}
-    <div id="constituency_selector">
-        <p><strong>Select constituency:</strong></p>
+    <div id="parentconstituency_selector">
+        <p><strong>Select your university:</strong></p>
         <form method="POST">
-        <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
+        <select name="parentconstituency_form" class="form-control" onChange="top.location.href = this.form.parentconstituency_form.options[this.form.parentconstituency_form.selectedIndex].value; return false;">
                 <option></option>
-            {% for constituency in constituencies %}
-                <option value="/constituencies/get/{{ constituency.id }}">{{ constituency.name }}</option>
+            {% for parentconstituency in parentconstituencies %}
+                <option value="/parentconstituencies/{{ parentconstituency.id }}">{{ parentconstituency.name }}</option>
             {% endfor %}
         </select>
         </form>
-        <span class="help-block">Please select a constituency to view the available elections.</span>
+        <span class="help-block">Please select a university to view the available elections.</span>
         <hr>
     </div>
 {% endblock %}

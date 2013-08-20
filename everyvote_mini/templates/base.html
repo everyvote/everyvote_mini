@@ -18,48 +18,34 @@
 </head>
 
 <body>
-
 <div class="container">
-    <div class="navbar navbar-inverse">
-        <ul class="nav navbar-nav">
-            <li><a href="http://127.0.0.1:8000/login">Login</a></li>
-            <li><a href="http://127.0.0.1:8000/register">Register</a></li>
-            <li><a href="http://127.0.0.1:8000/my_account">My Account</a></li>
-            <li><a href="http://127.0.0.1:8000/my_profiles">My Profiles</a></li>
-            <li><a href="http://127.0.0.1:8000/constituencies/all">Constituencies</a></li>
-            <li><a href="http://127.0.0.1:8000/users/all">Users</a></li>
-            <li><a href="http://127.0.0.1:8000/elections/all">Elections</a></li>
-            <li><a href="http://127.0.0.1:8000/offices/all">Offices</a></li>
-            <li><a href="http://127.0.0.1:8000/candidates/all">Candidates</a></li>
-            <li><a href="http://127.0.0.1:8000/comments/all">Comments</a></li>
-            <li><a data-toggle="modal" href="#contactModal" class="a_sub_header">Contact EV</a></li>
-            <li><a href="http://127.0.0.1:8000/logout">Logout</a></li>
-        </ul>
-    </div>
     
     <div id="header">    
     {% block header %}
         <a href="/"><img id="evLogo" src="{% static "assets/images/evlogo.png" %}" /></a>
         <ul class="nav nav-pills pull-right navFix">
-
-          
-          {% if user.is_authenticated %}
-          <li><a href="#" class="btn btn-small btn-primary"><i class="icon-pencil icon-white"></i> Edit Election</a></li>
-          <li><a href="/elections/add_election" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> Add Election</a></li>
-          <li><a href="/candidates/add_candidate" class="btn btn-small btn-success">Run for Office</a></li>
-          <li><div class="nav nav-pills btn-group pull-right">
-              <button type="button" class="btn btn-primaary dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ user.get_profile.first_name }} {{ user.get_profile.last_name }} <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="/my_profiles">My Profiles</a></li>
-                <li><a href="#">Set Profile Picture</a></li>
-                <li><a href="/my_account">Settings</a></li>
-                <li class="divider"></li>
-                <li><a href="/logout">Sign Out</a></li>
-              </ul>
-          </div></li>
-          {% else %} 
-          <li><a href="http://127.0.0.1:8000/login/" class="btn btn-primary pull-right">Login</a></li>
-          {% endif %}
+        {% if user.is_authenticated %}
+            {% block extrabuttons %}
+                <!--insert administrator/moderator/candidate buttons here -->
+            {% endblock %}
+              <li><a href="/constituencies/add" class="btn btn-small btn-success">Add Group</a></li>
+              <li><a href="/elections/add" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> Add Election</a></li>
+              <li><a href="/candidates/add" class="btn btn-small btn-success">Run for Office</a></li>
+              <li><div class="nav nav-pills btn-group pull-right">
+                  <button type="button" class="btn btn-primaary dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>
+                  {% if user.userprofile.first_name %} {{ user.userprofile.first_name }} {{ user.userprofile.last_name }} {% else %} {{ user.username }} {% endif %}
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'profile' slug=user.username %}">My Account</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout">Sign Out</a></li>
+                  </ul>
+              </div></li>
+        {% else %} 
+            <li><a href="/accounts/register/" class="btn btn-primary pull-right">Register</a></li>
+            <li><a href="/login/" class="btn btn-primary pull-right">Login</a></li>
+        {% endif %}
         </ul>
         
         <br />
@@ -71,7 +57,8 @@
     {% endblock %}
     </div>
     
-    
+    {% block breadcrumbs %}
+    {% endblock %}
         
     <div id="box1">
     {% block box1 %}
@@ -95,8 +82,6 @@
         <a href="https://github.com/everyvote">EveryVote on GitHub</a><br>
         <a href="http://127.0.0.1:8000/admin">Admin</a>
         <br />
-        <br />
-        <img src="{% static "assets/images/excellent.jpg" %}" width="200" />
     {% endblock %}
     </div>
 

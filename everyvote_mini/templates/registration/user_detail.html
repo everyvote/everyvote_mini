@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block box1 %}
+<div>
+    <h2>{{ object.userprofile.first_name }} {{object.userprofile.last_name }}'s Account</h2>
+    {% if object.userprofile.profile_picture %}
+    <p><img src="/static/assets/{{object.userprofile.profile_picture}}" width="200"/></p>
+{% endif %}
+    <p><strong>Username: </strong>{{ object.username }}</p>
+    <p><strong>First name: </strong>{{ object.userprofile.first_name }}</p>
+    <p><strong>Last name: </strong>{{object.userprofile.last_name }}</p>
+    <p><strong>Email: </strong>{{ object.userprofile.email }}</p>
+    <p><strong>About me: </strong>{{ object.userprofile.about_me }}</p>
+    <p><strong>Twitter: </strong>{{ object.userprofile.twitter_name }}</p>
+    <p><strong>Facebook: </strong>{{ object.userprofile.facebook_page }}</p>
+    <p><strong>Linkedin: </strong>{{ object.userprofile.linkedin_page }}</p>
+    <p><strong>Personal Homepage: </strong>{{ object.userprofile.personal_homepage }}</p>
+    {% for candidate in object.userprofile.candidate_set.all %}
+        <p><strong>Running for: </strong>{{ candidate.office }} in the {{candidate.election.constituency}} {{ candidate.election }} election</p>
+    {% endfor %}
+    {% if object.username == user.username %}
+    <p><a href='{% url "edit_profile" %}'>Edit my profile</a></p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+{% block box2 %}
+{% endblock %}

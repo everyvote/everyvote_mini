@@ -4,14 +4,14 @@
 
 
 <h1>{{ constituency.name }}</h1>
-<p>{{ constituency.description }}</p>
+<p>{{ constituency.description|linebreaks }}</p>
 
-<p><strong>Select election:</strong></p>
+<p><strong>Select your election:</strong></p>
         <form method="POST">
         <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
                 <option></option>
             {% for election in constituency.election_set.all %}
-                <option value="/elections/get/{{ election.id }}">{{ election.name }}</option>
+                <option value="/elections/{{ election.id }}">{{ election.name }}</option>
             {% endfor %}
         </select>
         </form>

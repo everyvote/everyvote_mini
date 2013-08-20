@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block extrahead %}
+
+{% endblock %}
+
+{% block extrabuttons %}
+    {% for moderator in election.moderators.all %}
+        {% if user == moderator %}
+            <li><a href="{% url 'election_update' pk=election.pk %}" class="btn btn-small btn-primary"><i class=icon-pencil icon-white"></i>Edit Election</a></li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block breadcrumbs %}
+<h4><a href="/constituencies/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a> > <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a></h4>
+{% endblock %}
+
+{% block box1 %}
+<h2>Candidate Profile</h2>
+    <a data-toggle="modal" href="#sharecandidateModal">Share this Candidate</a>
+<h3>{{ candidate.user.first_name }} {{ candidate.user.last_name }}</h3>
+{% if candidate.user.profile_picture %}
+    <p><img src="/static/assets/{{candidate.user.profile_picture}}" width="200"/></p>
+{% endif %}
+<p><strong>Election: </strong>{{ candidate.election.name }}</p>
+<p><strong>Office: </strong>{{ candidate.office.name }}</p>
+<p><strong>About me: </strong>{{ candidate.description|linebreaks }}</p>
+        {% if user.pk == candidate.user.pk %}
+            <a href="{% url 'candidate_update' pk=object.pk %}" class="btn btn-small btn-primary">
+            <i class=icon-pencil icon-white"></i>Edit Profile</a>
+        {% endif %}
+
+<div class="modal fade" id="sharecandidateModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="modal-title">Share this Candidate</h3>
+        </div>
+        <div class="modal-body">
+            <strong>Copy the link below to share this candidate page:</strong>
+            <br />
+            <br />
+            <p>www.everyvote.org/candidates/{{candidate.id}}</p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+{% endblock %}
+
+
+{% block box2 %}
+<div class="comments">
+  <h3>Comments</h3>
+
+  <div class="comment_form">
+{% if user.is_authenticated %}
+  {% get_comment_form for candidate as form %}
+  <form action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    {{ form.comment }}
+    {{ form.honeypot }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <input type="hidden" name="name" value="{{ user }}" />
+    <input type="hidden" name="email" value="{{ user.email|default:'d@ummy.com' }}" />
+    <input type="hidden" name="url" value="" />
+    <input type="hidden" name="next" 
+        value="/candidates/{{ candidate.id }}" />
+    <input type="submit" value="Add comment" id="id_submit" />
+  </form>
+{% else %}
+  <p>Please <a href="{% url 'login' %}">log in
+  </a> to leave a comment.</p>
+{% endif %}
+  </div>
+
+{% get_comment_list for candidate as cmt_list %}
+    {% for comment in cmt_list %}
+    <div class="comment">
+        <p><a href="/users/{{ comment.user }}">{{ comment.user_name }}</a> - {{ comment.submit_date }}
+            {% if user.is_authenticated and comment.user == user %}
+            <a href="/comments/delete/{{ comment.id }}">DELETE</a>
+            {% elif user.is_authenticated and user in election.moderators.all %}
+            <a href="/comments/delete/{{ comment.id }}">DELETE</a>
+            {% endif %}            
+        </p>
+        <p>{{ comment.comment }}</p>
+    </div>
+    {% endfor %}
+{% endblock %}

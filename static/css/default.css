@@ -71,6 +71,10 @@ container, .container, #container {
 	display:none;
 }
 
+#id_honeypot {
+    display: none;
+}
+
 #constituency_selector {
 	clear:both;
 }

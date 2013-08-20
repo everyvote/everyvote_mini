@@ -1,24 +1,37 @@
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from everyvote_mini.models import Constituency, Election, Candidate, UserProfile
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label=u"User Name")
+    password = forms.CharField(label=u'Password', widget=forms.PasswordInput(render_value=False))
 
 
-class MyRegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(max_length=30, required=True)
-    last_name = forms.CharField(max_length=30, required=True)
-
+class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        model = UserProfile
+        exclude = ('user', )
 
-    def save(self, commit=True):
-        user = super(MyRegistrationForm, self).save(commit=False)
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.email = self.cleaned_data['email']
 
-        if commit:
-            user.save()
+class ConstituencyForm(forms.ModelForm):
+    class Meta:
+        model = Constituency
 
-        return user
+
+class ElectionForm(forms.ModelForm):
+    class Meta:
+        model = Election
+
+
+class CandidateForm(forms.ModelForm):
+    class Meta:
+        model = Candidate
+        exclude = ['user']
+
+
+class ContactForm(forms.Form):
+    email = forms.EmailField()
+    university = forms.CharField()
+    subject = forms.CharField()
+    text = forms.CharField(widget=forms.Textarea)

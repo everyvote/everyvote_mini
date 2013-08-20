@@ -9,7 +9,7 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 import django
 
-from logos.models import Constituency, Office
+from everyvote_mini.models import Constituency, Office
 
 
 class MockConstituencies():

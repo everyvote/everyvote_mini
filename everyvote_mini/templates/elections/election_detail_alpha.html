@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block extrabuttons %}
+    {% for moderator in election.moderators.all %}
+        {% if user == moderator %}
+            <li><a href="{% url 'election_update' pk=object.pk %}" class="btn btn-small btn-primary"><i class=icon-pencil icon-white"></i>Edit Election</a></li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <h4><a href="/constituencies/{{ election.constituency.id }}">{{ election.constituency.name }}</a></h4>
+{% endblock %}
+
+{% block box1 %}
+    <a data-toggle="modal" href="#shareelectionModal">Share this Election</a>
+    <h2>{{ election.name }}</h2>
+    <p><strong>About Election:</strong>
+    <br />
+    {{ election.description }}</p>
+    
+    <p><div class="pull-right">
+        <strong>Voting day(s):</strong>
+        <br />
+        {{ election.first_voting_day }} {% if election.last_voting_day %}- {{ election.last_voting_day }}{% endif %}
+    </div>
+    <div class="pull-left">
+        <strong>Moderator(s):</strong>
+        {% for moderator in election.moderators.all %}
+            <br />
+            <a href="{% url 'profile' slug=moderator.username %}">{{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}</a>
+        {% endfor %}
+    </div></p>
+    
+    <p style="clear:both"></p>
+    <div class="pull-left" style="clear:both">
+        <strong>Showing:</strong>
+        <br />
+        <select name="showing" class="pull-left">
+            <p><strong>Sort by:</strong></p>
+            <option>All Offices</option>
+            {% for office in election.constituency.office_set.all %}
+            <option>{{ office.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="pull-right" id="sort_by">
+        <strong>Sort by:</strong>
+        <br />
+        <form method="POST">
+        <select name="sort_by_form" onChange="top.location.href = this.form.sort_by_form.options[this.form.sort_by_form.selectedIndex].value; return false;">
+                <option value="/elections/{{ election.id }}/alpha">Alphabetical</option>
+                <option value="/elections/{{ election.id }}">Random</option>
+        </select>
+        </form>
+    </div>
+    <hr style="clear:both">
+
+<div class="modal fade" id="shareelectionModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="modal-title">Share this Election</h3>
+        </div>
+        <div class="modal-body">
+            <strong>Copy the link below to share this election page:</strong>
+            <br />
+            <br />
+            <p>www.everyvote.org/elections/{{election.id}}</p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+{% endblock %}
+
+{% block box2 %}
+    {% for candidate in election.candidate_set.all|dictsort:"user.last_name" %}
+        <div id="election_candidate_profile">
+            <div id="election_candidate_picture">
+                <p><img src="/static/assets/{{ candidate.user.profile_picture }}" width="200" /></p>
+            </div>
+            <div id="election_candidate_information">
+                <h2 style="padding:0px; margin:0px"><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
+                <br />
+                <p><strong>Running for: </strong>{{ candidate.office }}</p>
+                <p><strong>About me: </strong>{{ candidate.description|slice:":255" }}</p>
+                {% get_comment_count for candidate as comment_count %}
+                {{ comment_count }} comment{{ comment_count|pluralize }}
+            </div>
+        </div>
+        <br />
+        <hr style="clear:both">
+    {% endfor %}
+{% endblock %}
