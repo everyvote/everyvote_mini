@@ -5,11 +5,11 @@ from django.views.generic import DetailView, ListView
 PARENT CONSTITUENCY
 """
 
-# LIST PARENTCONSTITUENCY
+# LIST PARENT CONSTITUENCY
 class ParentConstituencyListView(ListView):
     model = ParentConstituency
 
-# SHOW PARENTCONSTITUENCY
+# SHOW PARENT CONSTITUENCY
 class ParentConstituencyDetailView(DetailView):
     model = ParentConstituency
-    context_object_name = "parentconstituency"
+    context_object_name = "parent_constituency"

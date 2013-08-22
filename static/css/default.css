@@ -1,31 +1,37 @@
 <style>
-body {
-	text-align: center;
+
+.
+
+.dropdown-menu {
+  min-width: 100px;
 }
 
-#content {
-	clear:both;
+a.disabled-link,
+a.disabled-link:visited ,
+a.disabled-link:active,
+a.disabled-link:hover {
+    background-color:#eeeeee !important;
+    color:#aaa !important;
 }
 
-.container-fluid {
-	max-width:850px;
-	margin:0px auto;
+.caret-white
+{
+border-top-color: white !important;
+border-bottom-color: white !important;
 }
 
-#sidebar {
-	clear: both;
-	float: left;
-	width: 200px;
-	border: 1px solid #000;
+.caret-black
+{
+border-top-color: black !important;
+border-bottom-color: black !important;
+}
+
+.btn-more-top-margin {
+margin: 12px 0px 0px 0px;
 }
 
 .header, #header {
 	background: #FFF;
-
-	
-}
-
-.nav, .nav-pills {
 
 	
 }
@@ -40,13 +46,6 @@ body {
 }
 
 
-
-
-container, .container, #container {
-	background: #FFF;
-	margin: 0px auto;
-	
-}
 .footer {
 	clear:both;
 }

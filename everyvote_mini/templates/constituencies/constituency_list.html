@@ -8,7 +8,7 @@
 
 {% for constituency in constituency_list %}
     <div>
-        <h2><a href="/constituencies/get/{{ constituency.id }}/">{{ constituency.name }}</a></h2>
+        <h2><a href="/groups/{{ constituency.id }}/">{{ constituency.name }}</a></h2>
         <p>{{ constituency.description }}</p>
     </div>
 {% endfor %}

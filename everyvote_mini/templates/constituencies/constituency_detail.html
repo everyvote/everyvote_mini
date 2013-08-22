@@ -1,11 +1,21 @@
 {% extends "base.html" %}
 
+        {% block buttons %}
+        <script>$(".disabled-link").click(function(event) {
+             event.preventDefault();
+        });</script>
+        {% endblock %}
+
+{% block breadcrumb %}
+<div class="row">
+  <ol class="breadcrumb">
+    <li><a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a></li>
+  </ol>
+</div>
+{% endblock %}
+
 {% block box1 %}
-
-
-<h1>{{ constituency.name }}</h1>
-<p>{{ constituency.description|linebreaks }}</p>
-
+<h2>{{ constituency.name }}</h2>
 <p><strong>Select your election:</strong></p>
         <form method="POST">
         <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
@@ -16,9 +26,11 @@
         </select>
         </form>
         <span class="help-block">Please select a constituency to view the available elections.</span>
-
-
 {% endblock %}
 
 {% block box2 %}
+<div id="constituency_about" class="well">
+  <p><strong>About {{ constituency.name }}: </strong>
+  <p>{{ constituency.description|linebreaks }}</p>
+</div>
 {% endblock %}

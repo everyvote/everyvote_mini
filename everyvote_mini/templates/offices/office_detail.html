@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block extrabuttons %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <h4><a href="/groups/{{ election.constituency.id }}">{{ election.constituency.name }}</a></h4>
+{% endblock %}
+
+{% block box1 %}
+    <h2>{{ office.name }}</h2>
+    <p><strong>About Office:</strong>
+    <br />
+    {{ office.description|linebreaks }}</p>
+{% endblock %}
+
+{% block box2 %}
+{% endblock %}

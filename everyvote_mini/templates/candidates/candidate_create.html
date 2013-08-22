@@ -18,14 +18,14 @@
     {% csrf_token %}
     {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}
     <div class="candidate_create_div">
-        {% if form.office.errors %}<p class="error">{{ form.office.errors }}</p>{% endif %}
-        <p><label for="office"{% if form.office.errors %} class="error"{% endif %}>Office:</label></p>
-        <p>{{ form.office }}</p>
-    </div>
-    <div class="candidate_create_div">
         {% if form.election.errors %}<p class="error">{{ form.election.errors }}</p>{% endif %}
         <p><label for="election"{% if form.election.errors %} class="error"{% endif %}>Election:</label></p>
         <p>{{ form.election }}</p>
+    </div>
+    <div class="candidate_create_div">
+        {% if form.office.errors %}<p class="error">{{ form.office.errors }}</p>{% endif %}
+        <p><label for="office"{% if form.office.errors %} class="error"{% endif %}>Office:</label></p>
+        <p>{{ form.office }}</p>
     </div>
     <div class="candidate_create_div">
         {% if form.description.errors %}<p class="error">{{ form.description.errors }}</p>{% endif %}

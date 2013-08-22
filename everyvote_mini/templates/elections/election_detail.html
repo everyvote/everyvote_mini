@@ -1,41 +1,106 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block extrahead %}
+{% block buttons %}
+    <script>$(".disabled-link").click(function(event) {
+         event.preventDefault();
+    });</script>
+    <ul class="nav nav-pills pull-right navFix">
+    {% if user.is_authenticated %}
+      <div class="btn-group btn-more-top-margin">
+            <a href="/candidates/add/"><button type="button" class="btn btn-success dropdown-toggle">
+            Run for Office
+            </button></a>
+      </div>
+      <div class="btn-group btn-more-top-margin">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp Add
+            </button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span class="caret caret-white"></span></button>
+            <ul class="dropdown-menu" role="menu">
+            <li><a href="/groups/add">Group</a></li>
+            <li><a class="disabled-link" href="/elections/add">Election</a></li>
+            </ul>
+        </div>
+        <div class="btn-group btn-more-top-margin">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp Edit
+            </button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span class="caret caret-white"></span></button>
+            <ul class="dropdown-menu" role="menu">
+            <li><a href="/users/{{ user }}">Profile</a></li>
+                {% if user in election.constituency.moderators.all %}
+                    <li><a href="/groups/update/{{ election.constituency.id }}">Group</a></li>
+                    <li><a href="/elections/update/{{ election.id }}">Election</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="btn-group btn-more-top-margin">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user"></span>&nbsp
+                {% if user.userprofile.first_name %} {{ user.userprofile.first_name }} {{ user.userprofile.last_name }} 
+                {% else %} 
+                {{ user.username }} 
+                {% endif %}</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="caret caret-black"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="/logout/">Logout</a></li>
+            </ul>
+        </div>
+    {% else %} 
+        <li><a href="/accounts/register/" class="btn btn-primary pull-right">Register</a></li>
+        <li><a href="/login/" class="btn btn-primary pull-right">Login</a></li>
+    {% endif %}
+    </ul>
 {% endblock %}
 
-{% block extrabuttons %}
-    {% for moderator in election.moderators.all %}
-        {% if user == moderator %}
-            <li><a href="{% url 'election_update' pk=object.pk %}" class="btn btn-small btn-primary"><i class=icon-pencil icon-white"></i>Edit Election</a></li>
-        {% endif %}
-    {% endfor %}
-{% endblock %}
-
-{% block breadcrumbs %}
-    <h4><a href="/constituencies/{{ election.constituency.id }}">{{ election.constituency.name }}</a></h4>
+{% block breadcrumb %}
+<div class="row">
+  <ol class="breadcrumb">
+    <li><a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a></li>
+    <li><a href="/groups/{{ election.constituency.id}}">{{ election.constituency.name }}</a></li>
+  </ol>
+</div>
 {% endblock %}
 
 {% block box1 %}
-    <a data-toggle="modal" href="#shareelectionModal">Share this Election</a>
-    <h2>{{ election.name }}</h2>
-    <p><strong>About Election:</strong>
-    <br />
-    {{ election.description|linebreaks }}</p>
-    
-    <p><div class="pull-right">
-        <strong>Voting day(s):</strong>
-        <br />
-        {{ election.first_voting_day }} {% if election.last_voting_day %}- {{ election.last_voting_day }}{% endif %}
-    </div>
-    <div class="pull-left">
-        <strong>Moderator(s):</strong>
-        {% for moderator in election.moderators.all %}
-            <br />
-            <a href="{% url 'profile' slug=moderator.username %}">{{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}</a>
-        {% endfor %}
-    </div></p>
-    
+<div class="well">
+  <div class="row">
+    <h2 style="display:inline;">{{ election.name }}</h2>
+    <button class="btn btn-info" style="display:inline; float:right" data-toggle="modal" href="#shareelectionModal">Share this Election</a>
+  </div>
+  <div class="row">
+    <h4>About Election:</h4>
+    <p>{{ election.description|linebreaks }}</p>
+  </div>    
+  <div class="row">
+    <p style="display:inline;"><strong>Voting day(s):</strong>
+     <span style="float:right"><strong>Moderator(s):</strong>
+    </p>
+  </div>
+  <div class="row">
+    {{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}    
+    <span style="float:right">
+    {% for moderator in election.constituency.moderators.all %}
+      <a href="/users/{{ moderator }}">
+        {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
+          {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}
+        {% else %}
+          {{ moderator }}
+          {% endif %}
+      </a>
+      <br />
+    {% endfor %}
+    </span>
+
+  </div>
+</div>
     <p style="clear:both"></p>
     <div class="pull-left" style="clear:both">
         <strong>Showing:</strong>
@@ -58,7 +123,6 @@
         </select>
         </form>
     </div>
-    <hr style="clear:both">
 
 <div class="modal fade" id="shareelectionModal">
     <div class="modal-dialog">

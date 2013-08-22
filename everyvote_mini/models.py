@@ -27,17 +27,17 @@ class ParentConstituency(models.Model):
 
 
 class Constituency(models.Model):
-    parentconstituency = models.ForeignKey(ParentConstituency)
+    parent_constituency = models.ForeignKey(ParentConstituency)
     name = models.CharField(max_length=100)
     description = models.TextField()
     moderators = models.ManyToManyField(User, related_name='moderator')
     blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True)
     
     def __unicode__(self):
-        return unicode(self.name)
+        return u'%s - %s' % (self.parent_constituency.name, self.name)
         
     def get_absolute_url(self):
-        return reverse('parentconstituency_detail', kwargs={'pk': str(self.id)})
+        return reverse('parent_constituency_detail', kwargs={'pk': str(self.id)})
 
 
 class Office(models.Model):
@@ -46,7 +46,7 @@ class Office(models.Model):
     description = models.TextField()
 
     def __unicode__(self):
-        return u'%s - %s - %s' % (self.constituency.parentconstituency, self.constituency, self.name)
+        return u'%s - %s - %s' % (self.constituency.parent_constituency.name, self.constituency.name, self.name)
 
 
 class Election(models.Model):
@@ -75,7 +75,7 @@ class Election(models.Model):
         return reverse('election_detail', kwargs={'pk': str(self.id)})
 
     def __unicode__(self):
-        return u'%s - %s - %s' % (self.constituency.parentconstituency, self.constituency, self.name)
+        return u'%s - %s - %s' % (self.constituency.parent_constituency.name, self.constituency.name, self.name)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True)

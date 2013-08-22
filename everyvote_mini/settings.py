@@ -14,6 +14,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -25,7 +26,6 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
-
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -123,11 +123,12 @@ TEMPLATE_DIRS = (
     os.path.join(cwd, 'everyvote_mini/templates'),
     os.path.join(cwd, 'everyvote_mini/templates/candidates'),
     os.path.join(cwd, 'everyvote_mini/templates/constituencies'),
+    os.path.join(cwd, 'everyvote_mini/templates/contact'),
     os.path.join(cwd, 'everyvote_mini/templates/elections'),
-    os.path.join(cwd, 'everyvote_mini/templates/members'),
     os.path.join(cwd, 'everyvote_mini/templates/offices'),
-    os.path.join(cwd, 'logos/templates'),
-    os.path.join(cwd, 'member/templates'),
+    os.path.join(cwd, 'everyvote_mini/templates/parent_constituencies'),
+    os.path.join(cwd, 'everyvote_mini/templates/registration'),
+    os.path.join(cwd, 'everyvote_mini/templates/users'),
 )
 
 INSTALLED_APPS = (
@@ -140,11 +141,17 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.comments',
     'everyvote_mini',
-    #'logos',
-    'member',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'registration',
 )
+
+
+from django.core.urlresolvers import reverse_lazy
+
+LOGIN_URL=reverse_lazy('login')
+LOGIN_REDIRECT_URL=reverse_lazy('home')
+LOGOUT_URL=reverse_lazy('logout')
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -175,7 +182,7 @@ LOGGING = {
     }
 }
 # provide our get_profile()
-AUTH_PROFILE_MODULE = 'member.Member'
+AUTH_PROFILE_MODULE = 'everyvote_mini.UserProfile'
 
 TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
 "django.core.context_processors.debug",
@@ -184,5 +191,3 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
 "django.core.context_processors.static",
 "django.core.context_processors.tz",
 "django.contrib.messages.context_processors.messages")
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -29,7 +29,11 @@ class ConstituencyListView(ListView):
 class ConstituencyDetailView(DetailView):
     model = Constituency
     context_object_name = "constituency"
-    
+        
+    def get_context_data(self, **kwargs):
+        context = super(ConstituencyDetailView, self).get_context_data(**kwargs)
+        context['parent_constituency'] = self.get_object().parent_constituency
+        return context
     
 # UPDATE CONSTITUENCY
 class ConstituencyUpdateView(UpdateView):
