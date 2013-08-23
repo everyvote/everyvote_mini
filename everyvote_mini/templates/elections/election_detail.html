@@ -70,60 +70,44 @@
 {% endblock %}
 
 {% block box1 %}
-<div class="well">
-  <div class="row">
-    <h2 style="display:inline;">{{ election.name }}</h2>
-    <button class="btn btn-info" style="display:inline; float:right" data-toggle="modal" href="#shareelectionModal">Share this Election</a>
-  </div>
-  <div class="row">
-    <h4>About Election:</h4>
-    <p>{{ election.description|linebreaks }}</p>
-  </div>    
-  <div class="row">
-    <p style="display:inline;"><strong>Voting day(s):</strong>
-     <span style="float:right"><strong>Moderator(s):</strong>
-    </p>
-  </div>
-  <div class="row">
-    {{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}    
-    <span style="float:right">
-    {% for moderator in election.constituency.moderators.all %}
-      <a href="/users/{{ moderator }}">
-        {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
-          {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}
-        {% else %}
-          {{ moderator }}
+<div id="election_infobox_border">
+<div class="row">
+  <div id="election_infobox_inside">
+  <button id="election_infobox_share_election_button" class="btn btn-info" data-toggle="modal" href="#shareelectionModal">Share this Election</button>
+  {% if user in election.constituency.moderators.all %}
+    <a href="/groups/update/{{election.constituency.id}}"><button class="btn btn-warning" id="election_infobox_edit_group_button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+    <a href="/elections/update/{{election.id}}"><button class="btn btn-warning" id="election_infobox_edit_election_button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
+  {% endif %}
+    <div id="election_infobox_name">
+      <span style="font-size:2.25em; padding:0; margin:0;">{{ election.constituency.parent_constituency.name }}</span><br />
+      <span style="font-size:2.25em; padding:0; margin:0;">{{ election.constituency.name }}<br /></span>
+      <span style="font-size:2.25em; padding:0; margin:0;">{{ election.name }}</span>
+    </div>
+<hr>
+    <div id="election_infobox_voting_days">
+    <p><strong>Voting day(s):</strong><br />
+      {{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}</p>
+    </div>
+    <div id="election_infobox_moderators">
+      <strong>Moderator(s):</strong>
+      {% for moderator in election.constituency.moderators.all %}
+        <br />
+        <a href="/users/{{ moderator }}">
+          {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
+            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}
+          {% else %}
+            {{ moderator }}
           {% endif %}
-      </a>
+        </a>
+      {% endfor %}
       <br />
-    {% endfor %}
-    </span>
-
-  </div>
-</div>
-    <p style="clear:both"></p>
-    <div class="pull-left" style="clear:both">
-        <strong>Showing:</strong>
-        <br />
-        <select name="showing" class="pull-left">
-            <p><strong>Sort by:</strong></p>
-            <option>All Offices</option>
-            {% for office in election.constituency.office_set.all %}
-            <option>{{ office.name }}</option>
-            {% endfor %}
-        </select>
+      <br />
     </div>
-    <div class="pull-right" id="sort_by">
-        <strong>Sort by:</strong>
-        <br />
-        <form method="POST">
-        <select name="sort_by_form" onChange="top.location.href = this.form.sort_by_form.options[this.form.sort_by_form.selectedIndex].value; return false;">
-                <option value="/elections/{{ election.id }}">Random</option>
-                <option value="/elections/{{ election.id }}/alpha">Alphabetical</option>
-        </select>
-        </form>
+    <br />
+    <div id="election_infobox_about_election">
+      <strong>About Election:</strong>
+      {{ election.description|linebreaks }}
     </div>
-
 <div class="modal fade" id="shareelectionModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -140,24 +124,54 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-{% endblock %}
+</div>
+</div>
+</div>
 
-{% block box2 %}
+<div id="election_candidate_list_border">
+  <div style="float:left">
+    <strong>Showing:</strong>
+    <br />
+    <select name="showing" style="float:left">
+      <p><strong>Sort by:</strong></p>
+        <option>All Offices</option>
+        {% for office in election.constituency.office_set.all %}
+          <option>{{ office.name }}</option>
+        {% endfor %}
+    </select>
+  </div>
+  <div style="float:right">
+    <strong>Sort by:</strong>
+    <br />
+    <form method="POST">
+      <select name="sort_by_form" onChange="top.location.href = this.form.sort_by_form.options[this.form.sort_by_form.selectedIndex].value; return false;">
+        <option value="/elections/{{ election.id }}">Random</option>
+        <option value="/elections/{{ election.id }}/alpha">Alphabetical</option>
+      </select>
+    </form>
+  </div>
+  <br />
+  <br />
+  <hr>
+  <div id="election_candidate_list_inside">
     {% for candidate in election.candidate_set.all %}
-        <div id="election_candidate_profile">
-            <div id="election_candidate_picture">
-                <p><img src="/static/assets/{{ candidate.user.profile_picture }}" width="200" /></p>
-            </div>
-            <div id="election_candidate_information">
-                <h2 style="padding:0px; margin:0px"><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
-                <br />
-                <p><strong>Running for: </strong>{{ candidate.office }}</p>
-                <p><strong>About me: </strong>{{ candidate.description|slice:":255" }}</p>
-                {% get_comment_count for candidate as comment_count %}
-                {{ comment_count }} comment{{ comment_count|pluralize }}
-            </div>
+      <div id="election_candidate_profile">
+        <div id="election_candidate_list_picture">
+          <img src="/static/assets/{{ candidate.user.profile_picture }}" />
         </div>
-        <br />
-        <hr style="clear:both">
+        <div id="election_candidate_list_info">
+          <h2><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
+          <br />
+          <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
+          <p><strong>About me: </strong>{{ candidate.description|slice:":255" }}</p>
+        </div>
+      </div>
+      <br />
+      {% if forloop.last %}
+      {% else %}
+      <hr style="clear:both;">
+      {% endif %}
     {% endfor %}
+  </div>
+</div>
 {% endblock %}

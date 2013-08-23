@@ -1,23 +1,32 @@
 {% extends "base.html" %}
 
-{% block box1 %}
-  <h2>{{ parent_constituency.name }}</h2>
-  <p><strong>Select your group:</strong></p>
-    <form method="POST">
-      <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
-        <option></option>
-        {% for constituency in parent_constituency.constituency_set.all %}
-        <option value="/groups/{{ constituency.id }}">{{ constituency.name }}</option>
-        {% endfor %}
-      </select>
-    </form>
-  <span class="help-block">Please select a constituency to view the available elections.</span>
-  <div id="parent_constituency_about" class="well">
-    <p><strong>About {{ parent_constituency.name }}: </strong>
-    <p>{{ parent_constituency.description|linebreaks }}</p>
-  </div>
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="/">back</a></li>
+</ol>
 {% endblock %}
 
-
-{% block box2 %}
+{% block box1 %}
+<div id="parent_constituency_infobox_border">
+  <div id="parent_constituency_infobox_inside">
+    <span style="font-size:2.25em; padding:0; margin:0;">{{parent_constituency.name }}</span><br />
+    <hr>
+    <div id="parent_constituency_infobox_constituency_selector">
+      <p><strong>Select your group:</strong></p>
+        <form method="POST">
+          <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
+            <option></option>
+            {% for constituency in parent_constituency.constituency_set.all %}
+              <option value="/groups/{{ constituency.id }}">{{ constituency.name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      <span class="help-block">Please select a constituency to view the available elections.</span>
+    </div>
+    <div id="parent_constituency_infobox_about">
+        <p><strong>About {{ parent_constituency.name }}: </strong>
+        <p>{{ parent_constituency.description }}: </strong></p>
+    </div>
+  </div>
+</div>
 {% endblock %}

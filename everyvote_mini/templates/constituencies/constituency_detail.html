@@ -15,22 +15,27 @@
 {% endblock %}
 
 {% block box1 %}
-<h2>{{ constituency.name }}</h2>
-<p><strong>Select your election:</strong></p>
-        <form method="POST">
+<div id="constituency_infobox_border">
+  <div id="constituency_infobox_inside">
+    <span style="font-size:2.25em; padding:0; margin:0;">{{ constituency.parent_constituency.name }}</span><br />
+    <span style="font-size:2.25em; padding:0; margin:0;">{{ constituency.name }}</span></h2>
+    <hr>
+    <div id="constituency_infobox_election_selector">
+      <p><strong>Select your election:</strong></p>
+      <form method="POST">
         <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
                 <option></option>
             {% for election in constituency.election_set.all %}
                 <option value="/elections/{{ election.id }}">{{ election.name }}</option>
             {% endfor %}
         </select>
-        </form>
-        <span class="help-block">Please select a constituency to view the available elections.</span>
-{% endblock %}
-
-{% block box2 %}
-<div id="constituency_about" class="well">
-  <p><strong>About {{ constituency.name }}: </strong>
-  <p>{{ constituency.description|linebreaks }}</p>
+      </form>
+      <span class="help-block">Please select a constituency to view the available elections.</span>
+    </div>
+    <div id="constituency_infobox_about">
+      <p><strong>About {{ constituency.name }}: </strong>
+      <p>{{ constituency.description|linebreaks }}</p>
+    </div>
+  </div>
 </div>
 {% endblock %}

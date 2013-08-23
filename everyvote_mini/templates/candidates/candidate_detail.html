@@ -2,35 +2,56 @@
 {% load comments %}
 
 {% block extrahead %}
-
 {% endblock %}
 
-{% block extrabuttons %}
-    {% for moderator in election.moderators.all %}
-        {% if user == moderator %}
-            <li><a href="{% url 'election_update' pk=election.pk %}" class="btn btn-small btn-primary"><i class=icon-pencil icon-white"></i>Edit Election</a></li>
-        {% endif %}
-    {% endfor %}
-{% endblock %}
-
-{% block breadcrumbs %}
-<h4><a href="/groups/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a> > <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a></h4>
+{% block breadcrumb %}
+<div class="row">
+  <ol class="breadcrumb">
+    <li><a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a></li>
+    <li><a href="/groups/{{ election.constituency.id}}">{{ election.constituency.name }}</a></li>
+    <li><a href="/elections/{{ election.id }}">{{ election.name }}</a></li>
+  </ol>
+</div>
 {% endblock %}
 
 {% block box1 %}
-<h2>Candidate Profile</h2>
-    <a data-toggle="modal" href="#sharecandidateModal">Share this Candidate</a>
-<h3>{{ candidate.user.first_name }} {{ candidate.user.last_name }}</h3>
-{% if candidate.user.profile_picture %}
-    <p><img src="/static/assets/{{candidate.user.profile_picture}}" width="200"/></p>
+<div id="candidate_infobox_border">
+<div id="candidate_infobox_inside">
+<button class="btn btn-info" style="display:inline; float:right" data-toggle="modal" href="#sharecandidateModal">Share this Candidate</button>
+{% if user.pk == candidate.user.pk %}
+  <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning" id="election_infobox_edit_group_button"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
 {% endif %}
-<p><strong>Election: </strong>{{ candidate.election.name }}</p>
-<p><strong>Office: </strong>{{ candidate.office.name }}</p>
-<p><strong>About me: </strong>{{ candidate.description|linebreaks }}</p>
-        {% if user.pk == candidate.user.pk %}
-            <a href="{% url 'candidate_update' pk=object.pk %}" class="btn btn-small btn-primary">
-            <i class=icon-pencil icon-white"></i>Edit Profile</a>
-        {% endif %}
+<div id="candidate_infobox_name">
+  <span style="font-size:2.25em; padding:0; margin:0;">{{ candidate.election.constituency.parent_constituency.name }}</span><br />
+  <span style="font-size:2.25em; padding:0; margin:0;">{{ candidate.election.constituency.name }}<br /></span>
+  <span style="font-size:2.25em; padding:0; margin:0;">{{ candidate.election.name }}</span>
+</div>
+<hr>
+{% if candidate.user.profile_picture %}
+  <div id="candidate_picture">
+    <p><img src="/static/assets/{{candidate.user.profile_picture}}" /></p>
+  </div>
+{% endif %}
+  <h1 style="clear:both">{{ candidate.user.first_name }} {{candidate.user.last_name }}</h1>
+  <h4><strong>Running for: </strong>{{ candidate.office.name }} of {{ candidate.election.constituency.name }}</h4>
+  {% if candidate.key_issues %}
+  <p><strong>Key Issues: </strong>{{ candidate.key_issues }}</p>
+  {% endif %}
+  <strong>About me: </strong>{{ candidate.description|linebreaks }}
+  {% if candidate.user.twitter_name %}
+    <p><strong>Twitter: </strong>{{ candidate.user.twitter_name }}</p>
+  {% endif %}
+  {% if candidate.user.facebook_page %}
+    <p><strong>Facebook: </strong>{{ candidate.user.facebook_page }}</p>
+  {% endif %}
+  {% if candidate.user.linkedin_page %}
+    <p><strong>Linkedin: </strong>{{ candidate.user.linkedin_page }}</p>
+  {% endif %}
+  {% if candidate.user.personal_homepage %}
+    <p><strong>Homepage: </strong>{{ candidate.user.personal_homepage}}</p>
+  {% endif %}
+</div>
+</div>
 
 <div class="modal fade" id="sharecandidateModal">
     <div class="modal-dialog">
@@ -54,7 +75,8 @@
 {% block box2 %}
 <div class="comments">
   <h3>Comments</h3>
-
+  {% get_comment_count for candidate as comment_count %}
+  {{ comment_count }} comment{{ comment_count|pluralize }}
   <div class="comment_form">
 {% if user.is_authenticated %}
   {% get_comment_form for candidate as form %}

@@ -88,7 +88,7 @@ class UserProfile(models.Model):
     facebook_page = models.URLField(blank=True)
     linkedin_page = models.URLField(blank=True)
     personal_homepage = models.URLField(blank=True)
-
+    
     def __unicode__(self):
         return unicode(self.user)
 
@@ -98,6 +98,7 @@ class Candidate(models.Model):
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
     description = models.TextField()
+
     
     class Meta:
         ordering = ['?']
