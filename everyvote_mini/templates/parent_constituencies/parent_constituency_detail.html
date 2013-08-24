@@ -1,17 +1,24 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-<ol class="breadcrumb">
-  <li><a href="/">back</a></li>
-</ol>
+<div class="row">
+  <ol class="breadcrumb">
+    <li><a href="/">EV</a></li>
+  </ol>
+</div>
 {% endblock %}
 
 {% block box1 %}
-<div id="parent_constituency_infobox_border">
-  <div id="parent_constituency_infobox_inside">
-    <span style="font-size:2.25em; padding:0; margin:0;">{{parent_constituency.name }}</span><br />
-    <hr>
-    <div id="parent_constituency_infobox_constituency_selector">
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      {{ parent_constituency.name }}
+    </div>
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareparent_constituencyModal">Share this University</button>
+    {% if user in parent_constituency.administrators.all %}
+      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+    {% endif %}
+    <div class="infobox-selector">
       <p><strong>Select your group:</strong></p>
         <form method="POST">
           <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
@@ -21,12 +28,37 @@
             {% endfor %}
           </select>
         </form>
-      <span class="help-block">Please select a constituency to view the available elections.</span>
+      <span class="help-block">Please select a group to view its available elections.</span>
+      <hr style="clear:both;">
     </div>
-    <div id="parent_constituency_infobox_about">
-        <p><strong>About {{ parent_constituency.name }}: </strong>
-        <p>{{ parent_constituency.description }}: </strong></p>
+    
+    {% if parent_constituency.profile_picture %}  
+      <div class="infobox-picture">
+        <p><img src="/static/assets/{{parent_constituency.profile_picture}}" /></p>
+      </div>
+    {% endif %}
+    
+    <div class="infobox-about">
+      <p><strong>About {{ parent_constituency.name }}: </strong>
+      <p>{{ parent_constituency.about|linebreaks }}: </strong></p>
     </div>
-  </div>
-</div>
+  </div><!-- .infobox-inside -->
+</div><!-- .infobox -->
+
+    <div class="modal fade" id="shareparent_constituencyModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Share this University</h3>
+          </div>
+          <div class="modal-body">
+            <strong>Copy the link below to share this election page:</strong>
+            <br />
+            <br />
+            <p>www.everyvote.org/universities/{{parent_constituency.id}}</p>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}

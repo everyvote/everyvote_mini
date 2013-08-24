@@ -12,7 +12,7 @@
         <h2><a href="/elections/get/{{ election.id }}/">{{ election.name }}</a></h2>
         <p><strong>Election ID:</strong> {{ election.id }}</p>
         <p><strong>Constituency:</strong> {{ election.constituency }}</p>
-        <p><strong>Description:</strong> {{ election.description }}</p>
+        <p><strong>about:</strong> {{ election.about }}</p>
         <p><strong>Candidates:</strong>
         {% for candidate in election.candidate_set.all %}
             <p>{{ candidate.user }} - <em>Running for: </em>{{ candidate.office }}</p>

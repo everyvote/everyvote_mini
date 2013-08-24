@@ -1,19 +1,13 @@
 {% extends "base.html" %}
 
-{% block constituency_selector %}
-{% endblock %}
-
 {% block box1 %}
-<h1>Constituencies</h1>
+<h1>Universities</h1>
 
-{% for constituency in constituency_list %}
+{% for parent_constituency in parent_constituency_list %}
     <div>
-        <h2><a href="/groups/{{ constituency.id }}/">{{ constituency.name }}</a></h2>
-        <p>{{ constituency.description }}</p>
+        <h2><a href="/universities/{{ parent_constituency.id }}/">{{ parent_constituency.name }}</a></h2>
+        <p>{{ parent_constituency.about }}</p>
     </div>
 {% endfor %}
 
-{% endblock %}
-
-{% block box2 %}
 {% endblock %}

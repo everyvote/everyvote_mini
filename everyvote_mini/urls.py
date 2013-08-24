@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import ListView, DetailView
 from everyvote_mini.views.election import ElectionListView, ElectionDetailView, ElectionCreateView, ElectionUpdateView, ElectionDeleteView
-from everyvote_mini.views.parent_constituency import ParentConstituencyListView, ParentConstituencyDetailView
+from everyvote_mini.views.parent_constituency import ParentConstituencyCreateView, ParentConstituencyListView, ParentConstituencyDetailView, ParentConstituencyUpdateView, ParentConstituencyDeleteView
 from everyvote_mini.views.constituency import ConstituencyListView, ConstituencyDetailView, ConstituencyCreateView, ConstituencyUpdateView, ConstituencyDeleteView
 from everyvote_mini.views.office import OfficeCreateView, OfficeDetailView, OfficeUpdateView, OfficeDeleteView
 from everyvote_mini.views.candidate import CandidateCreateView, CandidateDetailView, CandidateUpdateView, CandidateDeleteView
@@ -11,8 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 admin.autodiscover()
 
+
 # HOME PAGE
-# PARENT CONSTITUENCIES (universities): list, show
+# PARENT CONSTITUENCIES (universities): create, list, show, update, delete
 # CONSTITUENCIES (groups): create, list, show, update, delete
 # OFFICES: create, show, update, delete
 # ELECTIONS: create, list, show-random, show-alphabetical, update, delete
@@ -27,14 +28,17 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
 ###
-# HOME PAGE
+#HOME PAGE
 ###
+# SHOW HOME PAGE
     url(r'^$', 'everyvote_mini.views.home.home', name='home'),
 
 ###
-# PARENT CONSTITUENCIES (called 'universities' in the UI): list, show
+#PARENT CONSTITUENCIES (called 'universities' in the UI): create, list, show, update, delete
 ###
-
+# CREATE PARENT CONSTITUENCY
+    url(r'^universities/add/$', login_required(ParentConstituencyCreateView.as_view()),
+        name='parent_constituency_create',),
 # LIST PARENT CONSTITUENCIES
     url(r'^universities/all', ParentConstituencyListView.as_view(
         model=ParentConstituency,
@@ -48,11 +52,16 @@ urlpatterns = patterns('',
         context_object_name='parent_constituency'),
         name='parent_constituency_detail',
         ),
-
+# UPDATE PARENT CONSTITUENCY
+    url(r'^universities/update/(?P<pk>\d+)/$', login_required(ParentConstituencyUpdateView.as_view()),
+        name='parent_constituency_update',),
+# DELETE PARENT CONSTITUENCY
+    url(r'^universities/delete/(?P<pk>\d+)/$', login_required(ParentConstituencyDeleteView.as_view()),
+        name='parent_constituency_delete',),
+        
 ###
-# CONSTITUENCIES (called 'groups' in the UI): create, list, show, update, delete
+#CONSTITUENCIES (called 'groups' in the UI): create, list, show, update, delete
 ###
-
 # CREATE CONSTITUENCY
     url(r'^groups/add/$', login_required(ConstituencyCreateView.as_view()),
         name='constituency_create',),
@@ -77,9 +86,8 @@ urlpatterns = patterns('',
         name='constituency_delete',),
 
 ###
-# OFFICES: create, show, update, delete
+#OFFICES: create, show, update, delete
 ###
-
 # CREATE OFFICE
     url(r'^offices/add/$', login_required(OfficeCreateView.as_view()),
         name='office_create',),
@@ -100,7 +108,6 @@ urlpatterns = patterns('',
 ###
 # ELECTIONS: create, list, show-random, show-alphabetical, update, delete
 ###
-
 # CREATE ELECTION
     url(r'^elections/add/$', login_required(ElectionCreateView.as_view()),
         name='election_create',),
@@ -134,7 +141,6 @@ urlpatterns = patterns('',
 ###
 # CANDIDATES: create, show, update, delete
 ###
-
 # CREATE CANDIDATE
     url(r'^candidates/add/$', login_required(CandidateCreateView.as_view()),
         name='candidate_create',),
@@ -155,7 +161,6 @@ urlpatterns = patterns('',
 ###
 # USERS AND AUTHENTICATION: login, logout, show, update
 ###
-
 # LOGIN
     url(r'^login/$', 'django.contrib.auth.views.login',
         {'template_name': 'login.html'}, name='login'),
@@ -164,10 +169,10 @@ urlpatterns = patterns('',
         name='logout'),    
 # SHOW USER
     url(r'^users/(?P<slug>\w+)/$', UserProfileDetailView.as_view(),
-        name='profile'),
+        name='user_detail'),
 # UPDATE USER
-    url(r'^edit_profile/', login_required(UserProfileUpdateView.as_view()),
-        name='edit_profile'),
+    url(r'^user_form/', login_required(UserProfileUpdateView.as_view()),
+        name='user_form'),
 
 ###
 # REGISTRATION: register
@@ -175,6 +180,7 @@ urlpatterns = patterns('',
 # and you need to pip install it in order for everyvote_mini to work.
 # Type into your console: pip install git+git://github.com/arocks/django-registration-1.5.git
 ###
+# REGISTER NEW USER
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
 ###

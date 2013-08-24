@@ -4,31 +4,40 @@
 {% endblock %}
 
 {% block box1 %}
-<div class="well">
-  <h1>Run for Office</h1>
-  <form method="post" action="">
-    {% csrf_token %}
-    {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}
-    <div class="candidate_create_div">
-      {% if form.election.errors %}<p class="error">{{ form.election.errors }}</p>{% endif %}
-      <p><label for="election"{% if form.election.errors %} class="error"{% endif %}>Election:</label></p>
-      <p>{{ form.election }}</p>
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Run for Office
     </div>
-    <div class="candidate_create_div">
-      {% if form.office.errors %}<p class="error">{{ form.office.errors }}</p>{% endif %}
-      <p><label for="office"{% if form.office.errors %} class="error"{% endif %}>Office:</label></p>
-      <p>{{ form.office }}</p>
+    <hr style="clear:both;">
+    <div class="infobox-disclaimer">
+      <h3>*Disclaimer*</h3>
+      <p>Running for office on EveryVote does not officially register you as a candidate for office. You need to contact the Elections Commissioner of your group to make sure you are officially registered as a candidate.</p>
+      <p>EveryVote is a way to raise awareness for your campaign by connecting you with your constituency (your group of voters).</p>
+      <p>If your USA college is not available on EveryVote, please email contact@everyvote.org.</p>
     </div>
-    <div class="candidate_create_div">
-      {% if form.description.errors %}<p class="error">{{ form.description.errors }}</p>{% endif %}
-      <p><label for="description"{% if form.description.errors %} class="error"{% endif %}>About Me:</label></p>
-      <p>{{ form.description }}</p>
+    <form method="post" action="">
+      {% csrf_token %}
+      {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}
+        <div class="infobox-selector">
+        {% if form.election.errors %}<p class="error">{{ form.election.errors }}</p>{% endif %}
+        <p><label for="election"{% if form.election.errors %} class="error"{% endif %}>Election:</label></p>
+        <p>{{ form.election }}</p>
+      </div>
+      <div class="infobox-selector">
+        {% if form.office.errors %}<p class="error">{{ form.office.errors }}</p>{% endif %}
+          <p><label for="office"{% if form.office.errors %} class="error"{% endif %}>Office:</label></p>
+          <p>{{ form.office }}</p>
+      </div>
+    <div class="infobox-selector">
+      {% if form.about.errors %}<p class="error">{{ form.about.errors }}</p>{% endif %}
+        <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About Me:</label></p>
+        <p>{{ form.about }}</p>
     </div>
     <br />
     <p><input type="submit" value="Submit">
-  </form>
+    </form>
+  </div>
 </div>
-{% endblock %}
-
-{% block box2 %}
+</div>
 {% endblock %}

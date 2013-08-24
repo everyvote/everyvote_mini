@@ -63,6 +63,7 @@
 {% block breadcrumb %}
 <div class="row">
   <ol class="breadcrumb">
+    <li><a href="/">EV</a></li>
     <li><a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a></li>
     <li><a href="/groups/{{ election.constituency.id}}">{{ election.constituency.name }}</a></li>
   </ol>
@@ -70,26 +71,25 @@
 {% endblock %}
 
 {% block box1 %}
-<div id="election_infobox_border">
-<div class="row">
-  <div id="election_infobox_inside">
-  <button id="election_infobox_share_election_button" class="btn btn-info" data-toggle="modal" href="#shareelectionModal">Share this Election</button>
-  {% if user in election.constituency.moderators.all %}
-    <a href="/groups/update/{{election.constituency.id}}"><button class="btn btn-warning" id="election_infobox_edit_group_button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
-    <a href="/elections/update/{{election.id}}"><button class="btn btn-warning" id="election_infobox_edit_election_button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
-  {% endif %}
-    <div id="election_infobox_name">
-      <span style="font-size:2.25em; padding:0; margin:0;">{{ election.constituency.parent_constituency.name }}</span><br />
-      <span style="font-size:2.25em; padding:0; margin:0;">{{ election.constituency.name }}<br /></span>
-      <span style="font-size:2.25em; padding:0; margin:0;">{{ election.name }}</span>
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      {{ election.constituency.parent_constituency.name }}<br />
+      {{ election.constituency.name }}<br />
+      {{ election.name }}
     </div>
-<hr>
-    <div id="election_infobox_voting_days">
-    <p><strong>Voting day(s):</strong><br />
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareelectionModal">Share this Election</button>
+      {% if user in election.constituency.moderators.all %}
+        <a href="/groups/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+        <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
+      {% endif %}
+    <hr style="clear:both">
+    <div class="infobox-voting-days">
+    <p><big><strong>Voting day(s):</strong></big><br />
       {{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}</p>
     </div>
-    <div id="election_infobox_moderators">
-      <strong>Moderator(s):</strong>
+    <div class="infobox-moderators">
+      <big><strong>Moderator(s):</strong></big>
       {% for moderator in election.constituency.moderators.all %}
         <br />
         <a href="/users/{{ moderator }}">
@@ -100,35 +100,34 @@
           {% endif %}
         </a>
       {% endfor %}
-      <br />
-      <br />
     </div>
-    <br />
-    <div id="election_infobox_about_election">
-      <strong>About Election:</strong>
-      {{ election.description|linebreaks }}
+    <div class="infobox-about">
+      <big><strong>About {{ election.name }}:</strong></big>
+      {{ election.about|linebreaks }}
     </div>
-<div class="modal fade" id="shareelectionModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">Share this Election</h3>
-        </div>
-        <div class="modal-body">
+
+    <div class="modal fade" id="shareelectionModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Share this Election</h3>
+          </div>
+          <div class="modal-body">
             <strong>Copy the link below to share this election page:</strong>
             <br />
             <br />
             <p>www.everyvote.org/elections/{{election.id}}</p>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-</div>
-</div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div>
 </div>
 
-<div id="election_candidate_list_border">
+<br />
+
+<div class="infobox-list">
   <div style="float:left">
     <strong>Showing:</strong>
     <br />
@@ -145,28 +144,26 @@
     <br />
     <form method="POST">
       <select name="sort_by_form" onChange="top.location.href = this.form.sort_by_form.options[this.form.sort_by_form.selectedIndex].value; return false;">
-        <option value="/elections/{{ election.id }}/alpha">Alphabetical</option>
         <option value="/elections/{{ election.id }}">Random</option>
+        <option value="/elections/{{ election.id }}/alpha">Alphabetical</option>
       </select>
     </form>
   </div>
   <br />
   <br />
-  <hr>
-  <div id="election_candidate_list_inside">
+  <div class="infobox-list-inside">
     {% for candidate in election.candidate_set.all|dictsort:"user.last_name" %}
-      <div id="election_candidate_profile">
-        <div id="election_candidate_list_picture">
+      <div class="infobox-list-profile">
+        <div class="infobox-list-picture">
           <img src="/static/assets/{{ candidate.user.profile_picture }}" />
         </div>
-        <div id="election_candidate_list_info">
+        <div class="infobox-list-info">
           <h2><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
           <br />
           <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
-          <p><strong>About me: </strong>{{ candidate.description|slice:":255" }}</p>
+          <p><strong>About me: </strong>{{ candidate.about|slice:":200" }}</p>
         </div>
       </div>
-      <br />
       {% if forloop.last %}
       {% else %}
       <hr style="clear:both;">

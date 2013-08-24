@@ -7,7 +7,7 @@
   run for office<br />
   add your group<br />
   add your elections</h4>
-  <div id="parent_constituency_selector">
+  <div class="infobox-selector">
     <p><strong>Select your university:</strong></p>
       <form method="POST">
         <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
@@ -20,7 +20,4 @@
       <span class="help-block">Please select a university to view the available elections.</span>
   </div>
 </div>
-{% endblock %}
-
-{% block box2 %}
 {% endblock %}

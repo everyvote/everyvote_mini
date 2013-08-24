@@ -15,11 +15,11 @@ from everyvote_mini.models import Constituency, Office
 class MockConstituencies():
     _data = [
         {'name': 'Northern Igloo University',
-         'description': "Brrrr"},
+         'about': "Brrrr"},
         {'name': 'Underwater Naked Kings',
-         'description': 'We like fish.'},
+         'about': 'We like fish.'},
         {'name': u'Pokémon Academy',
-         'description': 'Gotta catch\'em all!'}
+         'about': 'Gotta catch\'em all!'}
     ]
 
     @staticmethod
@@ -42,7 +42,7 @@ class MockConstituencies():
     def _create_from_dict(dict):
         return Constituency.objects.create(
             name=dict['name'],
-            description=dict['description']
+            about=dict['about']
         )
 
 
@@ -64,17 +64,17 @@ class ConstituencyTests(TestCase):
 class OfficeTest(TestCase):
     def test_office_creation_fails_with_no_constituency(self):
         with self.assertRaises(django.db.IntegrityError):
-            Office.objects.create(name='test', description='test')
+            Office.objects.create(name='test', about='test')
 
     def test_office_creation_fails_with_no_name(self):
         test_constituency = MockConstituencies.getOne()
 
         with self.assertRaises(django.db.IntegrityError):
             Office.objects.create(
-                description='test',
+                about='test',
                 constituency=test_constituency)
 
-    def test_office_creation_ok_with_no_description(self):
+    def test_office_creation_ok_with_no_about(self):
         test_constituency = MockConstituencies.getOne()
 
         Office.objects.create(
@@ -82,5 +82,5 @@ class OfficeTest(TestCase):
             constituency=test_constituency)
         """
         with self.assertRaises(django.db.IntegrityError):
-            Office.objects.create(description='test')
+            Office.objects.create(about='test')
         """

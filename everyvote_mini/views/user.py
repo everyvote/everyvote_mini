@@ -21,10 +21,10 @@ class UserProfileDetailView(DetailView):
 class UserProfileUpdateView(UpdateView):
     model = UserProfile
     form_class = UserProfileForm
-    template_name = "edit_profile.html"
+    template_name = "user_form.html"
         
     def get_object(self, queryset=None):
         return UserProfile.objects.get_or_create(user=self.request.user)[0]
     
     def get_success_url(self):
-        return reverse('profile', kwargs={'slug': self.request.user})
+        return reverse('user_detail', kwargs={'slug': self.request.user})

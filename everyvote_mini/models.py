@@ -19,8 +19,9 @@ def get_upload_file_name(instance, filename):
 
 class ParentConstituency(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    about = models.TextField()
     administrators = models.ManyToManyField(User)
+    profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
     
     def __unicode__(self):
         return unicode(self.name)
@@ -29,9 +30,10 @@ class ParentConstituency(models.Model):
 class Constituency(models.Model):
     parent_constituency = models.ForeignKey(ParentConstituency)
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    about = models.TextField()
     moderators = models.ManyToManyField(User, related_name='moderator')
     blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True)
+    profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
     
     def __unicode__(self):
         return u'%s - %s' % (self.parent_constituency.name, self.name)
@@ -43,7 +45,7 @@ class Constituency(models.Model):
 class Office(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=30)
-    description = models.TextField()
+    about = models.TextField()
 
     def __unicode__(self):
         return u'%s - %s - %s' % (self.constituency.parent_constituency.name, self.constituency.name, self.name)
@@ -52,7 +54,7 @@ class Office(models.Model):
 class Election(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=50)
-    description = models.TextField()
+    about = models.TextField()
     first_voting_day = models.DateField()
     last_voting_day = models.DateField(null=True, blank=True)
     offices = models.ManyToManyField(Office)
@@ -83,7 +85,7 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(blank=True)
     profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
-    about_me = models.TextField(blank=True)
+    about = models.TextField(blank=True)
     twitter_name = models.CharField(max_length=20, blank=True)
     facebook_page = models.URLField(blank=True)
     linkedin_page = models.URLField(blank=True)
@@ -97,7 +99,7 @@ class Candidate(models.Model):
     user = models.ForeignKey(UserProfile)
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
-    description = models.TextField()
+    about = models.TextField()
 
     
     class Meta:
@@ -142,7 +144,7 @@ class Comment(models.Model):
 
 class Stance(models.Model):
     name = models.TextField()
-    description = models.TextField()
+    about = models.TextField()
 
     
 class Vote(models.Model):

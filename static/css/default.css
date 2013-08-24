@@ -1,115 +1,11 @@
 <style>
 
+<hr> {
+    clear:both;
+}
+
 .dropdown-menu {
-  min-width: 100px;
-}
-
-#parent_constituency_infobox_border {
-    border: 1px dashed black;
-    border-radius: 5px;
-}
-
-#parent_constituency_infobox_inside {
-    padding:15px 40px;
-}
-
-#parent_constituency_infobox_constituency_selector {
-    margin:25px 0 0 0;
-}
-
-#parent_constituency_infobox_about {
-    margin:30px 0 0 0;
-}
-
-#constituency_infobox_border {
-    border:1px dashed black;
-    border-radius:5px;
-}
-
-#constituency_infobox_inside {
-    padding:15px 40px;
-}
-
-#constituency_infobox_election_selector {
-    margin:25px 0 0 0;
-}
-
-#constituency_infobox_about {
-    margin:30px 0 0 0;
-}
-
-#election_infobox_border {
-    border:1px dashed black;
-    border-radius:5px;
-    margin: 0px 0px 10px 0px;
-}
-
-#election_infobox_inside {
-    padding:15px 40px;
-}
-
-#election_infobox_election_name {
-    display:inline;
-    float:left;
-}
-
-#election_infobox_share_election_button {
-    float:right;
-    margin:5px 0;
-}
-
-#election_infobox_edit_group_button {
-    float:right;
-    clear:right;
-    margin:5px 0;
-}
-
-#election_infobox_edit_election_button {
-    float:right;
-    clear:right;
-    margin: 5px 0;
-}
-
-#election_infobox_about_election {
-    clear:both;
-}
-
-#election_infobox_voting_days {
-    clear:both;
-    float:left;
-}
-
-#election_infobox_moderators {
-    float:right;
-}
-
-#election_candidate_list_border {
-    margin:0 25px;
-}
-
-#election_candidate_list_inside {
-
-}
-
-#election_candidate_list_picture {
-    float:left;
-    width:200px;
-    margin: 0 20px 20px 0;
-}
-
-#election_candidate_list_info {
-    padding:0 20px;
-    margin:0 20px;
-}
-
-#candidate_infobox_border {
-    border:1px dashed black;
-    border-radius:5px;
-    margin:;
-}
-
-#candidate_infobox_inside {
-    padding:15px 30px;
+    min-width: 100px;
 }
 
 a.disabled-link,
@@ -120,89 +16,106 @@ a.disabled-link:hover {
     color:#aaa !important;
 }
 
-#election_candidate_list {
+.infobox {
+    border: 1px dashed black;
+    border-radius: 5px;
+}
+
+.infobox-inside {
+    padding:15px 15px;
+}
+
+.infobox-name {
+    float:left;
+    font-size:2.25em; 
+    padding:0; 
+    margin:0;
+    clear:left;
+    margin:0 0 10px 0;
+}
+
+.infobox-button {
+    float:right;
+    clear:right;
+    margin:5px 0;
+}
+
+.infobox-disclaimer {
     clear:both;
 }
 
-#election_candidate_list_picture img {
-    float:left;
-    margin:0px 25px 0px 0px;
-    width:200px;
-    height:200px;
-}
-
-#candidate_picture img {
-    width:200px;
-    height:200px;
-    float:left;
-    margin: 0px 20px 10px 0px;
-}
-
-#candidate_about_me {
+.infobox-selector {
+    margin:25px 0 0 0;
     clear:both;
 }
 
-.caret-white
-{
-border-top-color: white !important;
-border-bottom-color: white !important;
+.infobox-picture img {
+    width:150px;
+    height:150px;
+    float:left;
+    margin: 0px 20px 20px 0px;
+    clear:left;
 }
 
-.caret-black
-{
-border-top-color: black !important;
-border-bottom-color: black !important;
+.infobox-about {
+    clear:both;
 }
 
-.btn-more-top-margin {
-margin: 12px 0px 0px 0px;
+.infobox-voting-days {
+    clear:both;
+    float:left;
 }
 
-.header, #header {
-	background: #FFF;
-
-	
+.infobox-moderators {
+    float:right;
+    margin: 0px 0px 25px 0px;
 }
 
-.sub_header {
-	clear:both;
-	float: left;
+.infobox-list {
+    clear:both;
+    margin:0 15px;
 }
 
-.a_sub_header {
-	padding:0px 30px 0px 0px;
+.infobox-list-inside {
+
 }
 
+.infobox-list-profile {
 
-.footer {
-	clear:both;
 }
 
-#evLogo {
-	width: 200px;
-	display:inline-block;
+.infobox-list-picture img {
+    float:left;
+    margin:0px 20px 20px 0px;
+    width:150px;
+    height:150px;
 }
 
-#box1 {
-	clear:both;
-	outline:#F60 striped thick;
-
-	
-}
-
-#box2 {
-	clear:both;
+.infobox-list-about {
+    padding:0 20px;
+    margin:0 20px;
 }
 
 .ui-helper-hidden-accessible {
-	display:none;
+    display:none;
 }
 
 #id_honeypot {
     display: none;
 }
 
-#constituency_selector {
-	clear:both;
+.caret-white {
+    border-top-color: white !important;
+    border-bottom-color: white !important; /*these carets aren't needed*/
 }
+
+.caret-black {
+    border-top-color: black !important; /*but they make me think of this */
+    border-bottom-color: black !important; /*http://www.youtube.com/watch?v=F2AitTPI5U0*/
+}
+
+.footer {
+    clear:both;
+}
+
 </style>

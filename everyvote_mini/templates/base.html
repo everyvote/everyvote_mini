@@ -58,18 +58,9 @@
         <span class="glyphicon glyphicon-plus"></span>&nbsp Add 
         <b class="caret"></b></a>
         <ul class="dropdown-menu">
+          <li><a href="/universities/add">University</a></li>
           <li><a href="/groups/add">Group</a></li>
-          <li><a class="disabled-link" href="#addelectionhelpModal" data-toggle="modal">Election</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <span class="glyphicon glyphicon-pencil"></span>&nbsp Edit
-        <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="/users/{{ user }}">Profile</a></li>
-          <li><a class="disabled-link" href="#editgrouphelpModal" data-toggle="modal">Group</a></li>
-          <li><a class="disabled-link" href="#editelectionhelpModal" data-toggle="modal">Election</a></li>
+          <li><a href="/elections/add">Election</a></li>
         </ul>
       </li>
       <li class="dropdown">
@@ -82,6 +73,7 @@
         {% endif %}
         <b class="caret"></b></a>
         <ul class="dropdown-menu">
+          <li><a href="/users/{{ user }}">Edit Profile</a>
           <li><a href="#">Settings</a></li>
           <li><a href="/logout/">Logout</a></li>
         </ul>
@@ -99,7 +91,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <strong><a class="navbar-brand" href="/"><span style="color:black">Every</span><span style="color:red">Vote</span></a></strong>
+    <a class="navbar-brand" href="/"><span style="color:black">Every</span><span style="color:red">Vote</span></a>
   </div><!-- .navbar-header -->
   
   <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -166,30 +158,24 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 {% endblock %}
 
 <div class="container"> 
 
-<big>
-<div id="breadcrumb" class="col-xs-12 col-sm-12 col-md-10 col-lg-10  col-md-offset-1 col-lg-offset-1">
-  {% block breadcrumb %}
-  {% endblock %}
-</div>
-</big>
+  <big><div id="breadcrumb" class="col-xs-12 col-sm-12 col-md-10 col-lg-10  col-md-offset-1 col-lg-offset-1">
+    {% block breadcrumb %}
+    {% endblock %}
+  </div></big>
 
-   <div id="box1" class="col-xs-12 col-sm-12 col-md-10 col-lg-10  col-md-offset-1 col-lg-offset-1">
+  <div id="box1" class="col-xs-12 col-sm-12 col-md-10 col-lg-10  col-md-offset-1 col-lg-offset-1">
       {% block box1 %}
-      <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h3>
-      <h3>When viewing a candidate page, the candidate_infobox is inserted here in box 1.</h3>
+        <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h3>
+        <h3>When viewing a candidate page, the candidate_infobox is inserted here in box 1.</h3>
       <hr>
       {% endblock %}
   </div><!-- /#box1 -->
+  
   <!--goodbye #box2  (っ˘̩╭╮˘̩)っ-->
-</div>
-
-
-
   
   <div id="footer" class="footer text-center col-xs-12 col-sm-12 col-md-10 col-lg-10  col-md-offset-1 col-lg-offset-1">
     <hr >
@@ -206,7 +192,7 @@
     {% endblock %}
   </div><!-- /.footer -->
 
-<div class="modal fade" id="contactModal">
+  <div class="modal fade" id="contactModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -235,5 +221,6 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+</div><!-- /.container -->
 </body>
 </html>

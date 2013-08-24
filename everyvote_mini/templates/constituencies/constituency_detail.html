@@ -9,18 +9,27 @@
 {% block breadcrumb %}
 <div class="row">
   <ol class="breadcrumb">
+    <li><a href="/">EV</a></li>
     <li><a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a></li>
   </ol>
 </div>
 {% endblock %}
 
 {% block box1 %}
-<div id="constituency_infobox_border">
-  <div id="constituency_infobox_inside">
-    <span style="font-size:2.25em; padding:0; margin:0;">{{ constituency.parent_constituency.name }}</span><br />
-    <span style="font-size:2.25em; padding:0; margin:0;">{{ constituency.name }}</span></h2>
-    <hr>
-    <div id="constituency_infobox_election_selector">
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      {{ constituency.parent_constituency.name }}<br />
+      {{ constituency.name }}
+    </div>
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareconstituencyModal">Share this Group</button>
+    {% if user in constituency.parent_constituency.administrators.all %}
+      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+    {% endif %}
+    {% if user in constituency.moderators.all %}
+      <a href="/groups/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+    {% endif %}
+    <div class="infobox-selector">
       <p><strong>Select your election:</strong></p>
       <form method="POST">
         <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
@@ -30,12 +39,35 @@
             {% endfor %}
         </select>
       </form>
-      <span class="help-block">Please select a constituency to view the available elections.</span>
+      <span class="help-block">Please select an election to view your candidates.</span>
     </div>
-    <div id="constituency_infobox_about">
+    <hr style="clear:both;">
+    {% if constituency.profile_picture %}  
+      <div class="infobox-picture">
+        <p><img src="/static/assets/{{constituency.profile_picture}}" /></p>
+      </div>
+    {% endif %}
+    <div class="infobox-about">
       <p><strong>About {{ constituency.name }}: </strong>
-      <p>{{ constituency.description|linebreaks }}</p>
+      <p>{{ constituency.about|linebreaks }}</p>
     </div>
   </div>
 </div>
+
+    <div class="modal fade" id="shareconstituencyModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Share this Group</h3>
+          </div>
+          <div class="modal-body">
+            <strong>Copy the link below to share this group page:</strong>
+            <br />
+            <br />
+            <p>www.everyvote.org/groups/{{constituency.id}}</p>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}

@@ -1,20 +1,63 @@
 {% extends "base.html" %}
 
-{% block extrahead %}
-{% endblock %}
-
 {% block box1 %}
-
-<form method="post" action="">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Add">
-</form>
-<br />
-<br />
-
-<a href="{% url 'election_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete Election</a>
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Edit Election
+    </div>
+    <hr style="clear:both;">
+    <form method="post" action="">
+      {% csrf_token %}
+      {% if form.errors %}
+        <p>Please correct the following fields:</p>
+      {% endif %}
+        <div class="infobox-selector">
+          {% if form.constituency.errors %}
+            <p class="error">{{ form.constituency.errors }}</p>
+          {% endif %}
+          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Group:</label></p>
+          <p>{{ form.constituency }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.name.errors %}
+            <p class="error">{{ form.name.errors }}</p>
+          {% endif %}
+          <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
+          <p>{{ form.name }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.offices.errors %}
+            <p class="error">{{ form.offices.errors }}</p>
+          {% endif %}
+          <p><label for="offices"{% if form.offices.errors %} class="error"{% endif %}>Offices:</label></p>
+          <p>{{ form.offices }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.about.errors %}
+            <p class="error">{{ form.about.errors }}</p>
+          {% endif %}
+          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
+          <p>{{ form.about }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.first_voting_day.errors %}
+            <p class="error">{{ form.first_voting_day.errors }}</p>
+          {% endif %}
+          <p><label for="first_voting_day"{% if form.first_voting_day.errors %} class="error"{% endif %}>First voting day:</label></p>
+          <p>{{ form.first_voting_day }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.last_voting_day.errors %}
+            <p class="error">{{ form.last_voting_day.errors }}</p>
+          {% endif %}
+          <p><label for="last_voting_day"{% if form.last_voting_day.errors %} class="error"{% endif %}>Last voting day:</label></p>
+          <p>{{ form.last_voting_day }}</p>
+        </div>
+      <input type="submit" value="Edit">
+      <a href="{% url 'election_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete Election</a>
+    </form>
+  </div><!-- .infobox-inside -->
+</div><!-- .infobox -->
 {% endblock %}
 
-{% block box2 %}
-{% endblock %}

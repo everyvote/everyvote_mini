@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block box1 %}
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Edit User Profile
+    </div>
+    <hr style="clear:both;">
+    <form method="post" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% if form.errors %}
+        <p>Please correct the following fields:</p>
+      {% endif %}
+        <div class="infobox-selector">
+          {% if form.first_name.errors %}
+            <p class="error">{{ form.first_name.errors }}</p>
+          {% endif %}
+          <p><label for="first_name"{% if form.first_name.errors %} class="error"{% endif %}>First name:</label></p>
+          <p>{{ form.first_name }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.last_name.errors %}
+            <p class="error">{{ form.last_name.errors }}</p>
+          {% endif %}
+          <p><label for="last_name"{% if form.last_name.errors %} class="error"{% endif %}>Last name:</label></p>
+          <p>{{ form.last_name }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.email.errors %}
+            <p class="error">{{ form.email.errors }}</p>
+          {% endif %}
+          <p><label for="email"{% if form.email.errors %} class="error"{% endif %}>Email:</label></p>
+          <p>{{ form.email }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.profile_picture.errors %}
+            <p class="error">{{ form.profile_picture.errors }}</p>
+          {% endif %}
+          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
+          <p>{{ form.profile_picture }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.about.errors %}
+            <p class="error">{{ form.about.errors }}</p>
+          {% endif %}
+          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
+          <p>{{ form.about }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.twitter_name.errors %}
+            <p class="error">{{ form.twitter_name.errors }}</p>
+          {% endif %}
+          <p><label for="twitter_name"{% if form.twitter_name.errors %} class="error"{% endif %}>Twitter name:</label></p>
+          <p>{{ form.twitter_name }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.facebook_page.errors %}
+            <p class="error">{{ form.facebook_page.errors }}</p>
+          {% endif %}
+          <p><label for="facebook_page"{% if form.facebook_page.errors %} class="error"{% endif %}>Facebook page:</label></p>
+          <p>{{ form.facebook_page }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.linkedin_page.errors %}
+            <p class="error">{{ form.linkedin_page.errors }}</p>
+          {% endif %}
+          <p><label for="linkedin_page"{% if form.linkedin_page.errors %} class="error"{% endif %}>Linkedin page:</label></p>
+          <p>{{ form.linkedin_page }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.personal_homepage.errors %}
+            <p class="error">{{ form.personal_homepage.errors }}</p>
+          {% endif %}
+          <p><label for="personal_homepage"{% if form.personal_homepage.errors %} class="error"{% endif %}>Homepage:</label></p>
+          <p>{{ form.personal_homepage }}</p>
+        </div>
+      <input type="submit" value="Edit">
+    </form>
+  </div><!-- .infobox-inside -->
+</div><!-- .infobox -->
+{% endblock %}
+

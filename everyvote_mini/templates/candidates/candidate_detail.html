@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block extrahead %}
-{% endblock %}
-
 {% block breadcrumb %}
 <div class="row">
   <ol class="breadcrumb">
+    <li><a href="/">EV</a></li>
     <li><a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a></li>
     <li><a href="/groups/{{ election.constituency.id}}">{{ election.constituency.name }}</a></li>
     <li><a href="/elections/{{ election.id }}">{{ election.name }}</a></li>
@@ -15,103 +13,105 @@
 {% endblock %}
 
 {% block box1 %}
-<div id="candidate_infobox_border">
-<div id="candidate_infobox_inside">
-<button class="btn btn-info" style="display:inline; float:right" data-toggle="modal" href="#sharecandidateModal">Share this Candidate</button>
-{% if user.pk == candidate.user.pk %}
-  <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning" id="election_infobox_edit_group_button"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
-{% endif %}
-<div id="candidate_infobox_name">
-  <span style="font-size:2.25em; padding:0; margin:0;">{{ candidate.election.constituency.parent_constituency.name }}</span><br />
-  <span style="font-size:2.25em; padding:0; margin:0;">{{ candidate.election.constituency.name }}<br /></span>
-  <span style="font-size:2.25em; padding:0; margin:0;">{{ candidate.election.name }}</span>
-</div>
-<hr>
-{% if candidate.user.profile_picture %}
-  <div id="candidate_picture">
-    <p><img src="/static/assets/{{candidate.user.profile_picture}}" /></p>
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      {{ candidate.election.constituency.parent_constituency.name }}<br />
+      {{ candidate.election.constituency.name }}<br />
+      {{ candidate.election.name }}<br />
+    </div>
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#sharecandidateModal">Share this Candidate</button>
+    {% if user.pk == candidate.user.pk %}
+      <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
+    {% endif %}
+    <hr style="clear:both">
+    {% if candidate.user.profile_picture %}  
+      <div class="infobox-picture">
+        <p><img src="/static/assets/{{candidate.user.profile_picture}}" /></p>
+      </div>
+    {% endif %}
+    <div class="infobox-name">
+      {{ candidate.user.first_name }} {{ candidate.user.last_name }}
+    </div>
+    <div class="infobox-about">
+      <h4><strong>Running for: </strong>{{ candidate.office.name }} of {{ candidate.election.constituency.name }}</h4>
+      {% if candidate.key_issues %}
+        <p><strong>Key Issues: </strong>{{ candidate.key_issues }}</p>
+      {% endif %}
+        <strong>About me: </strong>{{ candidate.about|linebreaks }}
+      {% if candidate.user.twitter_name %}
+        <p><strong>Twitter: </strong>{{ candidate.user.twitter_name }}</p>
+      {% endif %}
+      {% if candidate.user.facebook_page %}
+        <p><strong>Facebook: </strong>{{ candidate.user.facebook_page }}</p>
+      {% endif %}
+      {% if candidate.user.linkedin_page %}
+        <p><strong>Linkedin: </strong>{{ candidate.user.linkedin_page }}</p>
+      {% endif %}
+      {% if candidate.user.personal_homepage %}
+        <p><strong>Homepage: </strong>{{ candidate.user.personal_homepage}}</p>
+      {% endif %}
+    </div>
   </div>
-{% endif %}
-  <h1 style="clear:both">{{ candidate.user.first_name }} {{candidate.user.last_name }}</h1>
-  <h4><strong>Running for: </strong>{{ candidate.office.name }} of {{ candidate.election.constituency.name }}</h4>
-  {% if candidate.key_issues %}
-  <p><strong>Key Issues: </strong>{{ candidate.key_issues }}</p>
-  {% endif %}
-  <strong>About me: </strong>{{ candidate.description|linebreaks }}
-  {% if candidate.user.twitter_name %}
-    <p><strong>Twitter: </strong>{{ candidate.user.twitter_name }}</p>
-  {% endif %}
-  {% if candidate.user.facebook_page %}
-    <p><strong>Facebook: </strong>{{ candidate.user.facebook_page }}</p>
-  {% endif %}
-  {% if candidate.user.linkedin_page %}
-    <p><strong>Linkedin: </strong>{{ candidate.user.linkedin_page }}</p>
-  {% endif %}
-  {% if candidate.user.personal_homepage %}
-    <p><strong>Homepage: </strong>{{ candidate.user.personal_homepage}}</p>
-  {% endif %}
 </div>
-</div>
-
 <div class="modal fade" id="sharecandidateModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">Share this Candidate</h3>
-        </div>
-        <div class="modal-body">
-            <strong>Copy the link below to share this candidate page:</strong>
-            <br />
-            <br />
-            <p>www.everyvote.org/candidates/{{candidate.id}}</p>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-{% endblock %}
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Share this Candidate</h3>
+      </div>
+      <div class="modal-body">
+        <strong>Copy the link below to share this candidate page:</strong>
+        <br />
+        <br />
+        <p>www.everyvote.org/candidates/{{candidate.id}}</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
+<hr style="clear:both;">
 
-{% block box2 %}
 <div class="comments">
   <h3>Comments</h3>
   {% get_comment_count for candidate as comment_count %}
   {{ comment_count }} comment{{ comment_count|pluralize }}
   <div class="comment_form">
-{% if user.is_authenticated %}
-  {% get_comment_form for candidate as form %}
-  <form action="{% comment_form_target %}" method="POST">
-    {% csrf_token %}
-    {{ form.comment }}
-    {{ form.honeypot }}
-    {{ form.content_type }}
-    {{ form.object_pk }}
-    {{ form.timestamp }}
-    {{ form.security_hash }}
-    <input type="hidden" name="name" value="{{ user }}" />
-    <input type="hidden" name="email" value="{{ user.email|default:'d@ummy.com' }}" />
-    <input type="hidden" name="url" value="" />
-    <input type="hidden" name="next" 
-        value="/candidates/{{ candidate.id }}" />
-    <input type="submit" value="Add comment" id="id_submit" />
-  </form>
-{% else %}
-  <p>Please <a href="{% url 'login' %}">log in
-  </a> to leave a comment.</p>
-{% endif %}
-  </div>
+  {% if user.is_authenticated %}
+    {% get_comment_form for candidate as form %}
+    <form action="{% comment_form_target %}" method="POST">
+      {% csrf_token %}
+      {{ form.comment }}
+      {{ form.honeypot }}
+      {{ form.content_type }}
+      {{ form.object_pk }}
+      {{ form.timestamp }}
+      {{ form.security_hash }}
+      <input type="hidden" name="name" value="{{ user }}" />
+      <input type="hidden" name="email" value="{{ user.email|default:'d@ummy.com' }}" />
+      <input type="hidden" name="url" value="" />
+      <input type="hidden" name="next" 
+          value="/candidates/{{ candidate.id }}" />
+      <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+  {% endif %}
+</div>
 
 {% get_comment_list for candidate as cmt_list %}
-    {% for comment in cmt_list %}
+  {% for comment in cmt_list %}
     <div class="comment">
-        <p><a href="/users/{{ comment.user }}">{{ comment.user_name }}</a> - {{ comment.submit_date }}
-            {% if user.is_authenticated and comment.user == user %}
-            <a href="/comments/delete/{{ comment.id }}">DELETE</a>
-            {% elif user.is_authenticated and user in election.moderators.all %}
-            <a href="/comments/delete/{{ comment.id }}">DELETE</a>
-            {% endif %}            
-        </p>
-        <p>{{ comment.comment }}</p>
+      <p><a href="/users/{{ comment.user }}">{{ comment.user_name }}</a> - {{ comment.submit_date }}
+      {% if user.is_authenticated and comment.user == user %}
+        <a href="/comments/delete/{{ comment.id }}">remove</a>
+      {% elif user.is_authenticated and user in election.moderators.all %}
+        <a href="/comments/delete/{{ comment.id }}">remove</a>
+      {% endif %}            
+      </p>
+      <p>{{ comment.comment }}</p>
     </div>
-    {% endfor %}
+  {% endfor %}
+
 {% endblock %}

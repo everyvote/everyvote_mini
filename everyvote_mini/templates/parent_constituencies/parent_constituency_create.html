@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block box1 %}
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Add University
+    </div>
+    <hr style="clear:both;">
+    <div class="infobox-disclaimer">
+      <h3>*Disclaimer*</h3>
+      <p>Anyone can add a university to EveryVote, but if an official representative from the university requests adminstration privileges for the university's page, and no official representative is already an administrator for the university page, then EveryVote will give administration privileges to the person requesting.</p>
+    </div>
+    <form method="post" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% if form.errors %}
+        <p>Please correct the following fields:</p>
+      {% endif %}
+        <div class="infobox-selector">
+          {% if form.name.errors %}
+            <p class="error">{{ form.name.errors }}</p>
+          {% endif %}
+          <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
+          <p>{{ form.name }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.about.errors %}
+            <p class="error">{{ form.about.errors }}</p>
+          {% endif %}
+          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
+          <p>{{ form.about }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.administrators.errors %}
+            <p class="error">{{ form.administrators.errors }}</p>
+          {% endif %}
+          <p><label for="administrators"{% if form.administrators.errors %} class="error"{% endif %}>Administrators:</label></p>
+          <p>{{ form.administrators }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.profile_picture.errors %}
+            <p class="error">{{ form.profile_picture.errors }}</p>
+          {% endif %}
+          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
+          <p>{{ form.profile_picture }}</p>
+        </div>
+        <br />
+        <input type="submit" value="Add">
+      </form>
+  </div><!-- /.infobox-inside -->
+</div><!-- .infobox -->
+{% endblock %}

@@ -1,20 +1,72 @@
 {% extends "base.html" %}
 
-{% block extrahead %}
-{% endblock %}
-
 {% block box1 %}
-
-<form method="post" action="">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Add">
-</form>
-<br />
-<br />
-
-<a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete Group</a>
-{% endblock %}
-
-{% block box2 %}
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Edit Group
+    </div>
+    <hr style="clear:both;">
+    <div class="infobox-disclaimer">
+      <p>Anyone can add a group to EveryVote, but if an official representative from the group requests moderator privileges for the groups's page, and no official representative is already a moderator for the group's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
+      <ol>
+        <li>Elections Commissioners
+        <li>President
+        <li>Any other officer
+        <li>The highest ranking student newspaper member
+        <li>Any other student at the school
+      </ol>
+    </div>
+    <form method="post" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% if form.errors %}
+        <p>Please correct the following fields:</p>
+      {% endif %}
+        <div class="infobox-selector">
+          {% if form.parent_constituency.errors %}
+            <p class="error">{{ form.parent_constituency.errors }}</p>
+          {% endif %}
+          <p><label for="parent_constituency"{% if form.parent_constituency.errors %} class="error"{% endif %}>University:</label></p>
+          <p>{{ form.parent_constituency }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.name.errors %}
+            <p class="error">{{ form.name.errors }}</p>
+          {% endif %}
+          <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
+          <p>{{ form.name }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.about.errors %}
+            <p class="error">{{ form.about.errors }}</p>
+          {% endif %}
+          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
+          <p>{{ form.about }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.moderators.errors %}
+            <p class="error">{{ form.moderators.errors }}</p>
+          {% endif %}
+          <p><label for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label></p>
+          <p>{{ form.moderators }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.blocked_users.errors %}
+            <p class="error">{{ form.blocked_users.errors }}</p>
+          {% endif %}
+          <p><label for="blocked_users"{% if form.blocked_users.errors %} class="error"{% endif %}>Blocked users:</label></p>
+          <p>{{ form.blocked_users }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.profile_picture.errors %}
+            <p class="error">{{ form.profile_picture.errors }}</p>
+          {% endif %}
+          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile Picture:</label></p>
+          <p>{{ form.profile_picture }}</p>
+        </div>
+      <input type="submit" value="Edit">
+    </form>
+    <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete Group</a>
+  </div><!-- .infobox-inside -->
+</div><!-- .infobox -->
 {% endblock %}
