@@ -1,25 +1,15 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block breadcrumb %}
-<div class="row">
-  <ol class="breadcrumb">
-    <li><a href="/">EV</a></li>
-    <li><a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a></li>
-    <li><a href="/groups/{{ election.constituency.id}}">{{ election.constituency.name }}</a></li>
-  </ol>
-</div>
-{% endblock %}
-
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      {{ election.constituency.parent_constituency.name }}<br />
-      {{ election.constituency.name }}<br />
+      <a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a><br />
+      <a href="/groups/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
       {{ election.name }}
     </div>
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareelectionModal">Share this Election</button>
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareelectionModal">Share</button>
     {% if user in election.constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
@@ -103,9 +93,8 @@
         </div>
         <div class="infobox-list-info">
           <h2><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
-          <br />
           <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
-          <p><strong>About me: </strong>{{ candidate.about|slice:":200" }}</p>
+          <p><strong>About me: </strong>{{ candidate.about|slice:":250" }}</p>
         </div>
       </div>
       {% if forloop.last %}

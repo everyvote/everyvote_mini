@@ -1,22 +1,13 @@
 {% extends "base.html" %}
 
-{% block breadcrumb %}
-<div class="row">
-  <ol class="breadcrumb">
-    <li><a href="/">EV</a></li>
-    <li><a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a></li>
-  </ol>
-</div>
-{% endblock %}
-
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      {{ constituency.parent_constituency.name }}<br />
+      <a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a><br />
       {{ constituency.name }}
     </div>
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareconstituencyModal">Share this Group</button>
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareconstituencyModal">Share</button>
     {% if user in constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}

@@ -4,7 +4,7 @@
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      {{ object.userprofile.first_name }} {{object.userprofile.last_name }}'s User Profile
+      {{ object.userprofile.first_name }} {{object.userprofile.last_name }}'s Global Profile
     </div>
     {% if object.username == user.username %}
       <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit User Profile</button></a>

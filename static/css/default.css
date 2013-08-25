@@ -50,8 +50,8 @@ a.disabled-link:hover {
 }
 
 .infobox-picture img {
-    width:150px;
-    height:150px;
+    width:200px;
+    height:200px;
     float:left;
     margin: 0px 20px 20px 0px;
     clear:left;
@@ -91,9 +91,8 @@ a.disabled-link:hover {
     height:150px;
 }
 
-.infobox-list-about {
-    padding:0 20px;
-    margin:0 20px;
+.infobox-list-info {
+    clear:right;
 }
 
 .ui-helper-hidden-accessible {

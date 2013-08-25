@@ -61,7 +61,7 @@ class Election(models.Model):
     about = models.TextField()
     first_voting_day = models.DateField()
     last_voting_day = models.DateField(null=True, blank=True)
-    offices = models.ManyToManyField(Office)
+    offices = models.ManyToManyField(Office, blank=True)
     """ Research: Django's Auth provides some sort of 
         access control. How/Can we use that? """
     
@@ -104,13 +104,12 @@ class Candidate(models.Model):
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
     about = models.TextField()
-
     
     class Meta:
         ordering = ['?']
     
     def __unicode__(self):
-        return unicode(self.user)
+        return u'%s %s for %s in the %s' % (self.user.first_name, self.user.last_name, self.office.name, self.election)
 
     def get_absolute_url(self):
         return reverse('candidate_detail', kwargs={'pk': str(self.id)})
@@ -135,16 +134,6 @@ def create_profile(sender, instance, created, **kwargs):
 from django.db.models.signals import post_save
 post_save.connect(create_profile, sender=User)
 
-"""
-class Comment(models.Model):
-    user = models.ForeignKey(User)
-    body = models.TextField()
-    created = models.DateTimeField(time)
-    candidate = models.ForeignKey(Candidate)
-
-    def __unicode__(self):
-        return unicode(self.user)
-"""
 
 class Stance(models.Model):
     name = models.TextField()

@@ -1,24 +1,14 @@
 {% extends "base.html" %}
 
-{% block breadcrumb %}
-<div class="row">
-  <ol class="breadcrumb">
-    <li><a href="/">EV</a></li>
-    <li><a href="/universities/{{ office.constituency.parent_constituency.id }}">{{ office.constituency.parent_constituency.name }}</a></li>
-    <li><a href="/groups/{{ office.constituency.id }}">{{ office.constituency.name }}</a></li>
-  </ol>
-</div>
-{% endblock %}
-
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      {{ office.constituency.parent_constituency.name }}<br />
-      {{ office.constituency.name }}<br />
+      <a href="/universities/{{ office.constituency.parent_constituency.id }}">{{ office.constituency.parent_constituency.name }}</a><br />
+      <a href="/groups/{{ office.constituency.id }}">{{ office.constituency.name }}</a><br />
       {{ office.name }}
     </div>
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareofficeModal">Share this Office</button>
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareofficeModal">Share</button>
     {% if user in office.constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{office.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}

@@ -35,6 +35,12 @@ class CandidateUpdateView(UpdateView):
     model = Candidate
     context_object_name = 'candidate'
     template_name = 'candidate_form.html'
+    
+    def form_valid(self, form):
+        candidate = form.save(commit=False)
+        candidate.user = UserProfile.objects.get(user=self.request.user) # use your own profile here
+        candidate.save()
+        return super(CandidateUpdateView, self).form_valid(form)
 
 # DELETE CANDIDATE
 class CandidateDeleteView(DeleteView):

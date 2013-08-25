@@ -1,26 +1,15 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block breadcrumb %}
-<div class="row">
-  <ol class="breadcrumb">
-    <li><a href="/">EV</a></li>
-    <li><a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a></li>
-    <li><a href="/groups/{{ election.constituency.id}}">{{ election.constituency.name }}</a></li>
-    <li><a href="/elections/{{ election.id }}">{{ election.name }}</a></li>
-  </ol>
-</div>
-{% endblock %}
-
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      {{ candidate.election.constituency.parent_constituency.name }}<br />
-      {{ candidate.election.constituency.name }}<br />
-      {{ candidate.election.name }}<br />
+      <a href="/universities/{{ candidate.election.constituency.parent_constituency.id }}">{{ candidate.election.constituency.parent_constituency.name }}</a><br />
+      <a href="/groups/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
+      <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a><br />
     </div>
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#sharecandidateModal">Share this Candidate</button>
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#sharecandidateModal">Share</button>
     {% if user.pk == candidate.user.pk %}
       <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
     {% endif %}
@@ -96,7 +85,7 @@
       <input type="submit" value="Add comment" id="id_submit" />
     </form>
   {% else %}
-    <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+    <p>Please <a href="/accounts/login">log in</a> to leave a comment.</p>
   {% endif %}
 </div>
 
