@@ -1,7 +1,7 @@
 everyvote_mini
 ==============
 
-In order to make the current registration system work, you will have to pip install django-registration
+In order to make the current registration system work, you will have to **pip install django-registration**
 
 Election information app for university student governments and other organizations
 
