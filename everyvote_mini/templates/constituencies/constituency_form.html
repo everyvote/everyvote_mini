@@ -8,14 +8,14 @@
     </div>
     <hr style="clear:both;">
     <div class="infobox-disclaimer">
-      <p>Anyone can add a group to EveryVote, but if an official representative from the group requests moderator privileges for the groups's page, and no official representative is already a moderator for the group's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
+      <p>In order for candidates to add themselves to your election page, you must first create offices for your group.</p>
+      <p><strong>{{ constituency.name }}'s offices:</strong></p>
       <ol>
-        <li>Elections Commissioners
-        <li>President
-        <li>Any other officer
-        <li>The highest ranking student newspaper member
-        <li>Any other student at the school
+        {% for office in constituency.office_set.all %}
+          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a></li>
+        {% endfor %}
       </ol>
+      <a href="/offices/add/"><button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Add Office</button></a>
     </div>
     <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
@@ -61,12 +61,25 @@
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
           {% endif %}
-          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile Picture:</label></p>
+          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
           <p>{{ form.profile_picture }}</p>
         </div>
-      <input type="submit" value="Edit">
+      <input type="submit" class="btn btn-primary" value="Submit">
     </form>
-    <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete Group</a>
+    <hr style="clear:both;">
+    <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Group</a>
+    
+    <div class="infobox-disclaimer">
+      <h3>*Disclaimer*</h3>
+      <p>Anyone can add a group to EveryVote, but if an official representative from the group requests moderator privileges for the groups's page, and no official representative is already a moderator for the group's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
+      <ol>
+        <li>Elections Commissioners</li>
+        <li>President</li>
+        <li>Any other officer</li>
+        <li>The highest ranking student newspaper member</li>
+        <li>Any other student at the school</li>
+      </ol>
+    </div>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
 {% endblock %}

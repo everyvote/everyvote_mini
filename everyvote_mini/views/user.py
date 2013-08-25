@@ -21,6 +21,7 @@ class UserProfileDetailView(DetailView):
 class UserProfileUpdateView(UpdateView):
     model = UserProfile
     form_class = UserProfileForm
+    slug_field = 'username'
     template_name = "user_form.html"
         
     def get_object(self, queryset=None):

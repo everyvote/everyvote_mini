@@ -14,9 +14,9 @@ admin.autodiscover()
 
 # HOME PAGE
 # PARENT CONSTITUENCIES (universities): create, list, show, update, delete
-# CONSTITUENCIES (groups): create, list, show, update, delete
+# CONSTITUENCIES (groups): create, show, update, delete
 # OFFICES: create, show, update, delete
-# ELECTIONS: create, list, show-random, show-alphabetical, update, delete
+# ELECTIONS: create, show-random, show-alphabetical, update, delete
 # USERS AND AUTHENTICATION: login, logout, show, update
 # CANDIDATES: create, show, update, delete
 # REGISTRATION
@@ -60,17 +60,11 @@ urlpatterns = patterns('',
         name='parent_constituency_delete',),
         
 ###
-#CONSTITUENCIES (called 'groups' in the UI): create, list, show, update, delete
+#CONSTITUENCIES (called 'groups' in the UI): create, show, update, delete
 ###
 # CREATE CONSTITUENCY
     url(r'^groups/add/$', login_required(ConstituencyCreateView.as_view()),
         name='constituency_create',),
-# LIST CONSTITUENCIES
-    url(r'^groups/all', ConstituencyListView.as_view(
-        model=Constituency,
-        template_name='constituency_list.html',
-        context_object_name='constituency_list',
-        )),
 # SHOW CONSTITUENCY
     url(r'^groups/(?P<pk>\d+)/$', ConstituencyDetailView.as_view(
         model=Constituency,
@@ -106,17 +100,11 @@ urlpatterns = patterns('',
         name='office_delete',),
 
 ###
-# ELECTIONS: create, list, show-random, show-alphabetical, update, delete
+# ELECTIONS: create, show-random, show-alphabetical, update, delete
 ###
 # CREATE ELECTION
     url(r'^elections/add/$', login_required(ElectionCreateView.as_view()),
         name='election_create',),
-# LIST ELECTIONS
-    url(r'^elections/all', ElectionListView.as_view(
-        model=Election,
-        template_name='election_list.html',
-        context_object_name='election_list',
-        )),
 # SHOW ELECTION - RANDOM CANDIDATES
     url(r'^elections/(?P<pk>\d+)/$', ElectionDetailView.as_view(
         model=Election,
@@ -171,7 +159,7 @@ urlpatterns = patterns('',
     url(r'^users/(?P<slug>\w+)/$', UserProfileDetailView.as_view(),
         name='user_detail'),
 # UPDATE USER
-    url(r'^user_form/', login_required(UserProfileUpdateView.as_view()),
+    url(r'^users/update/(?P<slug>\w+)/$', login_required(UserProfileUpdateView.as_view()),
         name='user_form'),
 
 ###

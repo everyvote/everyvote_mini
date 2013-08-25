@@ -54,8 +54,10 @@
           <p><label for="last_voting_day"{% if form.last_voting_day.errors %} class="error"{% endif %}>Last voting day:</label></p>
           <p>{{ form.last_voting_day }}</p>
         </div>
-      <input type="submit" value="Edit">
-      <a href="{% url 'election_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete Election</a>
+        <br />
+      <input type="submit" class="btn btn-primary" value="Submit">
+      <hr style="clear:both;">
+      <a href="{% url 'election_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Election</a>
     </form>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->

@@ -55,8 +55,9 @@
           <p><label for="last_voting_day"{% if form.last_voting_day.errors %} class="error"{% endif %}>Last voting day:</label></p>
           <p>{{ form.last_voting_day }}</p>
         </div>
-      <input type="submit" value="Add">
-    </form>
+        <br />
+        <input type="submit" class="btn btn-success" value="Add Election" />
+      </form>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
 {% endblock %}

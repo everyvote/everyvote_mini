@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 
 {% block box1 %}
-
-<p>Are you sure you want to delete "{{ object.name }}"?</p>
-
-<form method="post" action="{% url 'office_delete' pk=object.pk %}">
-  {% csrf_token %}
-  <a href="{% url 'office_detail' pk=object.pk %}">Go back</a> 
-  <p><input type="submit" value="Confirm deletion" /></p>
-</form> 
-
-{% endblock %}
-
-{% block box2 %}
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Delete Office
+    </div>
+    <hr style="clear:both;">
+    <p>Are you sure you want to delete "{{ object.name }}"?</p>
+    <form method="post" action="{% url 'office_delete' pk=object.pk %}">
+      {% csrf_token %}
+      <a class="btn btn-primary" href="{% url 'office_detail' pk=object.pk %}">Go back</a>&nbsp &nbsp
+      <input type="submit" class="btn btn-danger" value="Confirm deletion" />
+    </form> 
+  </div>
+</div>
 {% endblock %}

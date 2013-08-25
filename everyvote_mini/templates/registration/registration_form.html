@@ -1,25 +1,18 @@
 {% extends 'base.html' %}
 
-{% block extrahead %}
-    <script>
-        $(function() {
-            $( "#id_birthday" ).datepicker();
-        });
-    </script>
-{% endblock %}
-
-
 {% block box1 %}
-<div class="well">
-  <h2>Register</h2>
-  <form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Register" />
-  </form>
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Register
+    </div>
+    <hr style="clear:both;">
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <br />
+      <input type="submit" class="btn btn-success" value="Register" />
+    </form>
+  </div>
 </div>
-{% endblock %}
-
-
-{% block box2 %}
 {% endblock %}

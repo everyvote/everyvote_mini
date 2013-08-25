@@ -41,8 +41,11 @@
           <p>{{ form.profile_picture }}</p>
         </div>
         <br />
-        <input type="submit" value="Edit">
+        <input type="submit" class="btn btn-primary" value="Submit">      
       </form>
+      <hr style="clear:both;">
+      <br />
+      <a href="{% url 'parent_constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this University</a>
   </div><!-- /.infobox-inside -->
 </div><!-- .infobox -->
 {% endblock %}

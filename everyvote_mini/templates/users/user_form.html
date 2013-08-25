@@ -4,7 +4,7 @@
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      Edit User Profile
+      Edit Your Account Profile
     </div>
     <hr style="clear:both;">
     <form method="post" action="" enctype="multipart/form-data">
@@ -75,8 +75,11 @@
           <p><label for="personal_homepage"{% if form.personal_homepage.errors %} class="error"{% endif %}>Homepage:</label></p>
           <p>{{ form.personal_homepage }}</p>
         </div>
-      <input type="submit" value="Edit">
-    </form>
+        <br />
+      <input type="submit" class="btn btn-primary" value="Submit">
+      <hr style="clear:both;">
+      <a href="/users/delete/{{ user.username }}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete Your Account</a>
+    </form>    
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
 {% endblock %}

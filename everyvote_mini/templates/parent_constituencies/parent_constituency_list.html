@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 
 {% block box1 %}
-<h1>Universities</h1>
-
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Universities
+    </div>
+    <hr style="clear:both;">
 {% for parent_constituency in parent_constituency_list %}
     <div>
         <h2><a href="/universities/{{ parent_constituency.id }}/">{{ parent_constituency.name }}</a></h2>
-        <p>{{ parent_constituency.about }}</p>
+        <p>{{ parent_constituency.about|slice:"500" }}</p>
     </div>
+  </div>
+</div>
 {% endfor %}
 
 {% endblock %}

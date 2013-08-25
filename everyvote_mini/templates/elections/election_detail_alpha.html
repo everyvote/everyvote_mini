@@ -1,65 +1,6 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block buttons %}
-    <script>$(".disabled-link").click(function(event) {
-         event.preventDefault();
-    });</script>
-    <ul class="nav nav-pills pull-right navFix">
-    {% if user.is_authenticated %}
-      <div class="btn-group btn-more-top-margin">
-            <a href="/candidates/add/"><button type="button" class="btn btn-success dropdown-toggle">
-            Run for Office
-            </button></a>
-      </div>
-      <div class="btn-group btn-more-top-margin">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            <span class="glyphicon glyphicon-plus"></span>&nbsp Add
-            </button>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            <span class="caret caret-white"></span></button>
-            <ul class="dropdown-menu" role="menu">
-            <li><a href="/groups/add">Group</a></li>
-            <li><a class="disabled-link" href="/elections/add">Election</a></li>
-            </ul>
-        </div>
-        <div class="btn-group btn-more-top-margin">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            <span class="glyphicon glyphicon-pencil"></span>&nbsp Edit
-            </button>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            <span class="caret caret-white"></span></button>
-            <ul class="dropdown-menu" role="menu">
-            <li><a href="/users/{{ user }}">Profile</a></li>
-                {% if user in election.constituency.moderators.all %}
-                    <li><a href="/groups/update/{{ election.constituency.id }}">Group</a></li>
-                    <li><a href="/elections/update/{{ election.id }}">Election</a></li>
-                {% endif %}
-            </ul>
-        </div>
-        <div class="btn-group btn-more-top-margin">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-user"></span>&nbsp
-                {% if user.userprofile.first_name %} {{ user.userprofile.first_name }} {{ user.userprofile.last_name }} 
-                {% else %} 
-                {{ user.username }} 
-                {% endif %}</button>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span class="caret caret-black"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Settings</a></li>
-            <li class="divider"></li>
-            <li><a href="/logout/">Logout</a></li>
-            </ul>
-        </div>
-    {% else %} 
-        <li><a href="/accounts/register/" class="btn btn-primary pull-right">Register</a></li>
-        <li><a href="/login/" class="btn btn-primary pull-right">Login</a></li>
-    {% endif %}
-    </ul>
-{% endblock %}
-
 {% block breadcrumb %}
 <div class="row">
   <ol class="breadcrumb">

@@ -26,6 +26,8 @@ class ParentConstituency(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
+    def get_absolute_url(self):
+        return reverse('parent_constituency_detail', kwargs={'pk': str(self.id)})
 
 class Constituency(models.Model):
     parent_constituency = models.ForeignKey(ParentConstituency)
@@ -39,7 +41,7 @@ class Constituency(models.Model):
         return u'%s - %s' % (self.parent_constituency.name, self.name)
         
     def get_absolute_url(self):
-        return reverse('parent_constituency_detail', kwargs={'pk': str(self.id)})
+        return reverse('constituency_detail', kwargs={'pk': str(self.id)})
 
 
 class Office(models.Model):
@@ -50,6 +52,8 @@ class Office(models.Model):
     def __unicode__(self):
         return u'%s - %s - %s' % (self.constituency.parent_constituency.name, self.constituency.name, self.name)
 
+    def get_absolute_url(self):
+        return reverse('office_detail', kwargs={'pk': str(self.id)})
 
 class Election(models.Model):
     constituency = models.ForeignKey(Constituency)

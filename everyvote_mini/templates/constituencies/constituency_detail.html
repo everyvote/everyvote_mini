@@ -1,11 +1,5 @@
 {% extends "base.html" %}
 
-        {% block buttons %}
-        <script>$(".disabled-link").click(function(event) {
-             event.preventDefault();
-        });</script>
-        {% endblock %}
-
 {% block breadcrumb %}
 <div class="row">
   <ol class="breadcrumb">
@@ -54,20 +48,20 @@
   </div>
 </div>
 
-    <div class="modal fade" id="shareconstituencyModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 class="modal-title">Share this Group</h3>
-          </div>
-          <div class="modal-body">
-            <strong>Copy the link below to share this group page:</strong>
-            <br />
-            <br />
-            <p>www.everyvote.org/groups/{{constituency.id}}</p>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+<div class="modal fade" id="shareconstituencyModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Share this Group</h3>
+      </div>
+      <div class="modal-body">
+        <strong>Copy the link below to share this group page:</strong>
+        <br />
+        <br />
+        <p>www.everyvote.org/groups/{{constituency.id}}</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endblock %}

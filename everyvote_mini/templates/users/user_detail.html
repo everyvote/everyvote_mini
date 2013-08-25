@@ -3,36 +3,50 @@
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
-    <h2>{{ object.userprofile.first_name }} {{object.userprofile.last_name }}'s User Profile</h2>
+    <div class="infobox-name">
+      {{ object.userprofile.first_name }} {{object.userprofile.last_name }}'s User Profile
+    </div>
+    {% if object.username == user.username %}
+      <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit User Profile</button></a>
+    {% endif %}
     <hr style="clear:both">
     {% if object.userprofile.profile_picture %}
-      <p><img src="/static/assets/{{object.userprofile.profile_picture}}" width="200"/></p>
+      <div class="infobox-picture">
+        <p><img src="/static/assets/{{object.userprofile.profile_picture}}" /></p>
+      </div>
     {% endif %}
-    <p><strong>Username: </strong>{{ object.username }}</p>
-    <p><strong>First name: </strong>{{ object.userprofile.first_name }}</p>
-    <p><strong>Last name: </strong>{{object.userprofile.last_name }}</p>
-    <p><strong>Email: </strong>{{ object.userprofile.email }}</p>
-    {% if object.userprofile.about_me %}
-      <p><strong>About me: </strong>{{ object.userprofile.about_me }}</p>
-    {% endif %}
-    {% if object.userprofile.twitter_name %}
-      <p><strong>Twitter: </strong>{{ object.userprofile.twitter_name }}</p>
-    {% endif %}
-    {% if object.userprofile.facebook_page %}
-      <p><strong>Facebook: </strong>{{ object.userprofile.facebook_page }}</p>
-    {% endif %}
-    {% if object.userprofile.linkedin_page %}
-      <p><strong>Linkedin: </strong>{{ object.userprofile.linkedin_page }}</p>
-    {% endif %}
-    {% if object.userprofile.personal_homepage %}
-      <p><strong>Personal Homepage: </strong>{{ object.userprofile.personal_homepage }}</p>
-    {% endif %}
-    {% for candidate in object.userprofile.candidate_set.all %}
-      <p><strong>Running for: </strong><a href="/candidates/{{candidate.id}}">{{ candidate.office.name }} in the {{candidate.election.constituency.parent_constituency.name}} {{ candidate.election.constituency.name }} {{ candidate.election.name }} election</a></p>
-    {% endfor %}
-    {% if object.username == user.username %}
-      <p><a href='{% url "user_form" %}'>Edit my profile</a></p>
-    {% endif %}
+    <div class="infobox-about">
+      <p><strong>Username: </strong>{{ object.username }}</p>
+      <p><strong>First name: </strong>{{ object.userprofile.first_name }}</p>
+      <p><strong>Last name: </strong>{{object.userprofile.last_name }}</p>
+      <p><strong>Email: </strong>{{ object.userprofile.email }}</p>
+      {% if object.userprofile.about_me %}
+        <p><strong>About me: </strong>{{ object.userprofile.about_me }}</p>
+      {% endif %}
+      {% if object.userprofile.twitter_name %}
+        <p><strong>Twitter: </strong>{{ object.userprofile.twitter_name }}</p>
+      {% endif %}
+      {% if object.userprofile.facebook_page %}
+        <p><strong>Facebook: </strong>{{ object.userprofile.facebook_page }}</p>
+      {% endif %}
+      {% if object.userprofile.linkedin_page %}
+        <p><strong>Linkedin: </strong>{{ object.userprofile.linkedin_page }}</p>
+      {% endif %}
+      {% if object.userprofile.personal_homepage %}
+        <p><strong>Personal Homepage: </strong>{{ object.userprofile.personal_homepage }}</p>
+      {% endif %}
+      {% if object.userprofile.candidate_set.all %}
+        {% for candidate in object.userprofile.candidate_set.all %}
+          <p><strong>Running for: </strong><a href="/candidates/{{candidate.id}}">{{ candidate.office.name }} in the {{candidate.election.constituency.parent_constituency.name}} {{ candidate.election.constituency.name }} {{ candidate.election.name }} election</a></p>
+        {% endfor %}
+      {% else %}
+        {% if object.userprofile.first_name and object.userprofile.last_name %}
+          <p>{{ object.userprofile.first_name }} {{ object.userprofile.last_name}} is not currently running for office in an election.</p>
+        {% else %}
+          <p>{{ object.username }} is not currently running for office in an election.</p>
+        {% endif %}
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock %}

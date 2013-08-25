@@ -1,22 +1,53 @@
 {% extends "base.html" %}
-{% load comments %}
 
-{% block extrahead %}
-{% endblock %}
-
-{% block extrabuttons %}
-{% endblock %}
-
-{% block breadcrumbs %}
-    <h4><a href="/groups/{{ election.constituency.id }}">{{ election.constituency.name }}</a></h4>
+{% block breadcrumb %}
+<div class="row">
+  <ol class="breadcrumb">
+    <li><a href="/">EV</a></li>
+    <li><a href="/universities/{{ office.constituency.parent_constituency.id }}">{{ office.constituency.parent_constituency.name }}</a></li>
+    <li><a href="/groups/{{ office.constituency.id }}">{{ office.constituency.name }}</a></li>
+  </ol>
+</div>
 {% endblock %}
 
 {% block box1 %}
-    <h2>{{ office.name }}</h2>
-    <p><strong>About Office:</strong>
-    <br />
-    {{ office.about|linebreaks }}</p>
-{% endblock %}
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      {{ office.constituency.parent_constituency.name }}<br />
+      {{ office.constituency.name }}<br />
+      {{ office.name }}
+    </div>
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareofficeModal">Share this Office</button>
+    {% if user in office.constituency.parent_constituency.administrators.all %}
+      <a href="/universities/update/{{office.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+    {% endif %}
+    {% if user in office.constituency.moderators.all %}
+      <a href="/groups/update/{{office.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+      <a href="/offices/update/{{office.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Office</button></a>
+    {% endif %}
+    <hr style="clear:both;">
+    <div class="infobox-about">
+      <p><strong>About {{ office.name }}: </strong>
+      <p>{{ office.about|linebreaks }}</p>
+    </div>
+  </div>
+</div>
 
-{% block box2 %}
+<div class="modal fade" id="shareofficeModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Share this Office</h3>
+      </div>
+      <div class="modal-body">
+        <strong>Copy the link below to share this office page:</strong>
+        <br />
+        <br />
+        <p>www.everyvote.org/offices/{{office.id}}</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endblock %}
