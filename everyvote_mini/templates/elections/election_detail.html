@@ -89,7 +89,7 @@
     {% for candidate in election.candidate_set.all %}
       <div class="infobox-list-profile">
         <div class="infobox-list-picture">
-          <img src="/static/assets/{{ candidate.user.profile_picture }}" />
+          <img src="/static/uploaded_files/{{ candidate.user.profile_picture }}" />
         </div>
         <div class="infobox-list-info">
           <h2><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
