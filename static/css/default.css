@@ -92,15 +92,19 @@ a.disabled-link:hover {
 .infobox-list {
     clear:both;
     margin:0 15px;
+    padding:0 20px;
+    border-right:1px dotted #aaa;
+    border-left:1px dotted #aaa;
+    
 }
 
 .infobox-list-showing {
-    margin: 0 20px 10px 0;
+    margin: 5px 20px 10px 0;
     float:left;
 }
 
 .infobox-list-sort-by {
-    margin: 0 20px 10px 0;
+    margin: 5px 20px 10px 0;
     float:left;
 }
 
