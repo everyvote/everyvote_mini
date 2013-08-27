@@ -17,12 +17,12 @@ a.disabled-link:hover {
 }
 
 .infobox {
-    border: 1px dotted black;
+    border: 1px dotted #555;
     border-radius: 5px;
 }
 
 .infobox-inside {
-    padding:15px 20px;
+    padding:10px 15px;
 }
 
 .infobox-point {
@@ -91,10 +91,10 @@ a.disabled-link:hover {
 
 .infobox-list {
     clear:both;
-    margin:0 15px;
-    padding:0 20px;
-    border-right:1px dotted #aaa;
-    border-left:1px dotted #aaa;
+    padding: 0 10px;
+    margin: 0 5px;
+    border-right:1px dotted #ccc;
+    border-left:1px dotted #ccc;
     
 }
 
@@ -109,11 +109,10 @@ a.disabled-link:hover {
 }
 
 .infobox-list-inside {
-
 }
 
 .infobox-list-profile {
-
+    padding: 5px 0 0 0;
 }
 
 .infobox-list-picture img {
@@ -125,6 +124,11 @@ a.disabled-link:hover {
 
 .infobox-list-info {
     clear:right;
+}
+
+.infobox-list-info h2 {
+    padding:5px 0 10px 0;
+    margin:0;
 }
 
 .ui-helper-hidden-accessible {
