@@ -6,16 +6,16 @@
     <title>{% block title %}EveryVote{% endblock %}</title>
     
     <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static "css/datepicker.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/default.css" %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/datepicker.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/default.css" %}">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <script type="text/javascript" src="{% static "js/jquery-1.10.2.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/jquery-ui.js" %}"></script>
+    <script type="text/javascript" src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "assets/js/jquery-ui.js" %}"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     
     <!-- this script enables links in dropdown menus to appear disabled -->
@@ -45,12 +45,14 @@
       <li><a href="#contactModal" data-toggle="modal">Contact EV</a></li>
     </ul>
     
+    <!-- search bar is currently not active
     <form class="navbar-form navbar-left" role="search">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Search">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
+    -->
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/candidates/add">Run for Office</a></li>
       <li class="dropdown">
@@ -74,7 +76,7 @@
         <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="/users/{{ user }}">Edit Account</a>
-          <li><a href="/logout/">Logout</a></li>
+          <li><a href="/accounts/logout/">Logout</a></li>
         </ul>
       </li>
     </ul>
@@ -98,61 +100,47 @@
       <li><a href="/about/">About</a></li>
       <li><a href="#contactModal" data-toggle="modal">Contact EV</a></li>
     </ul>
+    <!-- search bar is currently not active
     <form class="navbar-form navbar-left" role="search">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Search">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
+    -->
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/login/">Login</a></li>
+      <li><a href="/accounts/login/">Login</a></li>
       <li><a href="/accounts/register">Register</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
 {% endif %}
 
-<!-- help modals to explain how to access navbar features -->
-<div class="modal fade" id="addelectionhelpModal">
+<div class="modal fade" id="contactModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">How to Add an Election</h3>
+        <h3 class="modal-title">Contact EveryVote</h3>
       </div>
       <div class="modal-body">
-      <p>You must be a <strong>moderator</strong> for a group in order to create an election.</p>
-      <p>If you are a moderator, then open your group's page, and the Add Election button will be active.</p>
+          <form>
+              <div class="controls controls-row">
+                 <input id="name" name="name" type="text" class="form-control span3" placeholder="Name">
+                 <input id="email" name="email" type="email" class="form-control span3" placeholder="Email address">
+               </div>
+              <div class="controls controls-row">
+                <input id="university" name="university" type="text" class="form-control span3" placeholder="University">
+                <input id="subject" name="subject" type="text" class="form-control span3" placeholder="Subject">
+              </div>
+              <div class="controls">
+                <textarea id="message" name="message" class="form-control span6" placeholder="Your Message" rows="5"></textarea>
+              </div>
+          </form>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="editelectionhelpModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">How to Edit an Election</h3>
-      </div>
-      <div class="modal-body">
-      <p>You must be a <strong>moderator</strong> for a group in order to edit an election.</p>
-      <p>If you are a moderator, then open the election page you want to edit, and the Edit Election button will be active.</p>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="editgrouphelpModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">How to Edit a Group</h3>
-      </div>
-      <div class="modal-body">
-      <p>You must be a <strong>moderator</strong> for a group in order to edit a group.</p>
-      <p>If you are a moderator, then open the group page you want to edit, and the Edit Group button will be active.</p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -161,12 +149,12 @@
 
 <div class="container"> 
 
-  <big><div id="breadcrumb" class="col-xs-12 col-sm-12 col-md-10 col-lg-10  col-md-offset-1 col-lg-offset-1">
+  <big><div id="breadcrumb" class="col-xs-12 col-sm-12 col-md-10 col-lg-8  col-md-offset-1 col-lg-offset-2">
     {% block breadcrumb %}
     {% endblock %}
   </div></big>
 
-  <div id="box1" class="col-xs-12 col-sm-12 col-md-10 col-lg-10  col-md-offset-1 col-lg-offset-1">
+  <div id="box1" class="col-xs-12 col-sm-12 col-md-10 col-lg-8  col-md-offset-1 col-lg-offset-2">
       {% block box1 %}
         <h3>Hi, I'm box1. The election_infobox is inserted here when viewing an election page.</h3>
         <h3>When viewing a candidate page, the candidate_infobox is inserted here in box 1.</h3>
@@ -176,50 +164,19 @@
   
   <!--goodbye #box2  (っ˘̩╭╮˘̩)っ-->
   
-  <div id="footer" class="footer text-center col-xs-12 col-sm-12 col-md-10 col-lg-10  col-md-offset-1 col-lg-offset-1">
+  <div id="footer" class="footer text-center col-xs-12 col-sm-12 col-md-10 col-lg-8  col-md-offset-1 col-lg-offset-2">
     <hr >
     {% block footer %}
     {% if user.is_authenticated %}
-      <p><a href="/logout">Logout</a></p>
+      <p><a href="/accounts/logout">Logout</a></p>
     {% else %}
-      <p><a href="/login">Login</a></p>
+      <p><a href="/accounts/login">Login</a></p>
       <p><a href="accounts/register">Register</a></p>
     {% endif %}
       <p>EveryVote is free and open source under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">Affero GPL</a>.</p>
-      <p><a href="https://github.com/everyvote">EveryVote on GitHub</a></p>
       <br />
     {% endblock %}
   </div><!-- /.footer -->
-
-  <div class="modal fade" id="contactModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">Contact EveryVote</h3>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="controls controls-row">
-                   <input id="name" name="name" type="text" class="form-control span3" placeholder="Name">
-                   <input id="email" name="email" type="email" class="form-control span3" placeholder="Email address">
-                 </div>
-                <div class="controls controls-row">
-                <input id="university" name="university" type="text" class="form-control span3" placeholder="University">
-            <input id="subject" name="subject" type="text" class="form-control span3" placeholder="Subject">
-        </div>
-      <div class="controls">
-          <textarea id="message" name="message" class="form-control span6" placeholder="Your Message" rows="5"></textarea>
-      </div>
-  </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
 </div><!-- /.container -->
 </body>
 </html>

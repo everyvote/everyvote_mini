@@ -2,12 +2,10 @@
 
 {% block box1 %}
 <div class="container">
-<h1 style="text-align:center">Every<span style="color:red">Vote</span></h1>
-  <h4 style="text-align:center;">find your candidates<br />
-  run for office<br />
-  add your group<br />
-  add your elections</h4>
-  <div class="infobox-selector">
+<h1 style="text-align:center;">Every<span style="color:red">Vote</span></h1>
+  <h4 style="text-align:center; padding:10px 0;">university election directory</h4>
+  <br />
+  <div class="well infobox-selector">
     <p><strong>Select your university:</strong></p>
       <form method="POST">
         <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">

@@ -147,14 +147,8 @@ urlpatterns = patterns('',
         name='candidate_delete',),
 
 ###
-# USERS AND AUTHENTICATION: login, logout, show, update
-###
-# LOGIN
-    url(r'^login/$', 'django.contrib.auth.views.login',
-        {'template_name': 'login.html'}, name='login'),
-# LOGOUT
-    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login',
-        name='logout'),    
+# USERS: show, update
+###    
 # SHOW USER
     url(r'^users/(?P<slug>\w+)/$', UserProfileDetailView.as_view(),
         name='user_detail'),
@@ -169,7 +163,7 @@ urlpatterns = patterns('',
 # Type into your console: pip install git+git://github.com/arocks/django-registration-1.5.git
 ###
 # REGISTER NEW USER
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^accounts/', include('registration.backends.default.urls')),
 
 ###
 # COMMENTS

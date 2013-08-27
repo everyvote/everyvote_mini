@@ -7,6 +7,13 @@
       Edit Election
     </div>
     <hr style="clear:both;">
+    <p><strong>{{ election.constituency.name }}'s offices:</strong></p>
+      <ol>
+        {% for office in election.constituency.office_set.all %}
+          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a></li>
+        {% endfor %}
+      </ol>
+      <a href="/offices/add/"><button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Add Office</button></a>
     <form method="post" action="">
       {% csrf_token %}
       {% if form.errors %}

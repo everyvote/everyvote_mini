@@ -9,9 +9,9 @@
       <hr style="padding:0; margin:0; clear:left;">
       <a href="/groups/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
       <hr style="padding:0; margin:0; clear:left;">
-    {{ election.name }}
+      {{ election.name }}
     </div>
-    
+
     <!--infobox buttons-->
     {% if user in election.constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
@@ -22,8 +22,8 @@
         <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
       {% endif %}
     <!--/infobox buttons-->
-
-    <hr style="clear:both; padding:5px 0 0 0;">
+    
+    <hr style="clear:both; padding:5px 0;">
     
     <div class="infobox-voting-days">
     <p><big><strong>Voting day(s):</strong></big><br />
@@ -31,9 +31,8 @@
     </div>
     <div class="infobox-about">
       <big><strong>About {{ election.name }}:</strong></big>
-      {{ election.about|linebreaks|urlize }}
     </div>
-    
+    {{ election.about|urlize|linebreaks }}
     <div class="infobox-moderators">
       <p><big><strong>Moderator(s):</strong></big>
       {% for moderator in election.constituency.moderators.all %}
@@ -44,10 +43,10 @@
           {% else %}
             {{ moderator }}<br />
           {% endif %}
-        </a>
-      {% endfor %}</p>
+        </a></p>
+      {% endfor %}
     </div>
-    
+
     <div class="modal fade" id="shareelectionModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -85,22 +84,22 @@
     <br />
     <form method="POST">
       <select name="sort_by_form" onChange="top.location.href = this.form.sort_by_form.options[this.form.sort_by_form.selectedIndex].value; return false;">
-        <option value="/elections/{{ election.id }}/alpha">Alphabetical</option>
         <option value="/elections/{{ election.id }}">Random</option>
+        <option value="/elections/{{ election.id }}/alpha">Alphabetical</option>
       </select>
     </form>
   </div>
   <br />
+  
   <hr style="clear:both;">
   <div class="infobox-list-inside">
-    {% for candidate in election.candidate_set.all|dictsort:"user.last_name" %}
+    {% for candidate in election.candidate_set.all %}
       <div class="infobox-list-profile">
         <div class="infobox-list-picture">
           <img src="/static/uploaded_files/{{ candidate.user.profile_picture }}" />
         </div>
         <div class="infobox-list-info">
           <h2><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
-          <br />
           <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
           <p><strong>About me: </strong>{{ candidate.about|slice:":200" }}</p>
         </div>

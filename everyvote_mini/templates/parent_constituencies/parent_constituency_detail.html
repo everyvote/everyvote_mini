@@ -1,24 +1,21 @@
 {% extends "base.html" %}
 
-{% block breadcrumb %}
-<div class="row">
-  <ol class="breadcrumb">
-    <li><a href="/">EV</a></li>
-  </ol>
-</div>
-{% endblock %}
-
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
       {{ parent_constituency.name }}
     </div>
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareparent_constituencyModal">Share this University</button>
+    
+    <!--infobox buttons-->
     {% if user in parent_constituency.administrators.all %}
-      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <div class="infobox-selector">
+    <!--/infobox buttons-->
+
+    <hr style="clear:both; padding:5px 0 0 0;">
+
+    <div class="well infobox-selector">
       <p><strong>Select your group:</strong></p>
         <form method="POST">
           <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
@@ -29,18 +26,17 @@
           </select>
         </form>
       <span class="help-block">Please select a group to view its available elections.</span>
-      <hr style="clear:both;">
     </div>
     
     {% if parent_constituency.profile_picture %}  
       <div class="infobox-picture">
-        <p><img src="/static/assets/{{parent_constituency.profile_picture}}" /></p>
+        <p><img src="/static/uploaded_files/{{parent_constituency.profile_picture}}" /></p>
       </div>
     {% endif %}
     
     <div class="infobox-about">
       <p><strong>About {{ parent_constituency.name }}: </strong>
-      <p>{{ parent_constituency.about|linebreaks }}: </strong></p>
+      <p>{{ parent_constituency.about|linebreaks|urlize }}</strong></p>
     </div>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->

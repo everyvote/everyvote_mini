@@ -17,21 +17,36 @@ a.disabled-link:hover {
 }
 
 .infobox {
-    border: 1px dashed black;
+    border: 1px dotted black;
     border-radius: 5px;
 }
 
 .infobox-inside {
-    padding:15px 15px;
+    padding:15px 20px;
+}
+
+.infobox-point {
+    position:absolute;
+    left: 22px;
 }
 
 .infobox-name {
     float:left;
-    font-size:2.25em; 
+    font-size:2.1em; 
     padding:0; 
     margin:0;
     clear:left;
     margin:0 0 10px 0;
+}
+
+.infobox-share-button {
+    float:right;
+    margin: 5px 5px 5px 0;
+}
+
+.infobox-university-button {
+    float:right;
+    margin: 5px 0 5px 5px;
 }
 
 .infobox-button {
@@ -45,35 +60,45 @@ a.disabled-link:hover {
 }
 
 .infobox-selector {
-    margin:25px 0 0 0;
     clear:both;
 }
 
 .infobox-picture img {
-    width:150px;
-    height:150px;
+    width:200px;
+    height:200px;
     float:left;
-    margin: 0px 20px 20px 0px;
+    margin: 10px 20px 20px 0px;
     clear:left;
 }
 
 .infobox-about {
     clear:both;
+    padding: 10px 0 0 0;
 }
 
 .infobox-voting-days {
     clear:both;
-    float:left;
+    padding: 10px 0 0 0;
 }
 
 .infobox-moderators {
-    float:right;
-    margin: 0px 0px 25px 0px;
+    clear:both;
+    padding: 10px 0 0 0;
 }
 
 .infobox-list {
     clear:both;
     margin:0 15px;
+}
+
+.infobox-list-showing {
+    margin: 0 20px 10px 0;
+    float:left;
+}
+
+.infobox-list-sort-by {
+    margin: 0 20px 10px 0;
+    float:left;
 }
 
 .infobox-list-inside {
@@ -91,9 +116,8 @@ a.disabled-link:hover {
     height:150px;
 }
 
-.infobox-list-about {
-    padding:0 20px;
-    margin:0 20px;
+.infobox-list-info {
+    clear:right;
 }
 
 .ui-helper-hidden-accessible {
@@ -103,6 +127,17 @@ a.disabled-link:hover {
 #id_honeypot {
     display: none;
 }
+
+textarea#id_comment {
+    width:275px;
+    height:80px;
+    border-radius:3px;
+}
+textarea#id_comment:focus {
+    border-color: #004422;
+    box-shadow: 0 0 10px #004422;
+}
+
 
 .caret-white {
     border-top-color: white !important;

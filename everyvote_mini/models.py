@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 
 # This doesn't belong here
 def get_upload_file_name(instance, filename):
-    return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
+    return "%s_%s" % (str(time()).replace('.', '_'), filename)
 
 # ParentConstituency
 # Constituency
@@ -23,6 +23,9 @@ class ParentConstituency(models.Model):
     administrators = models.ManyToManyField(User)
     profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
     
+    class Meta:
+        ordering = ['name']
+    
     def __unicode__(self):
         return unicode(self.name)
 
@@ -36,6 +39,9 @@ class Constituency(models.Model):
     moderators = models.ManyToManyField(User, related_name='moderator')
     blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True)
     profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
+    
+    class Meta:
+        ordering = ['name']
     
     def __unicode__(self):
         return u'%s - %s' % (self.parent_constituency.name, self.name)
@@ -104,13 +110,12 @@ class Candidate(models.Model):
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
     about = models.TextField()
-
     
     class Meta:
         ordering = ['?']
     
     def __unicode__(self):
-        return unicode(self.user)
+        return u'%s %s for %s in the %s' % (self.user.first_name, self.user.last_name, self.office.name, self.election)
 
     def get_absolute_url(self):
         return reverse('candidate_detail', kwargs={'pk': str(self.id)})
@@ -135,16 +140,6 @@ def create_profile(sender, instance, created, **kwargs):
 from django.db.models.signals import post_save
 post_save.connect(create_profile, sender=User)
 
-"""
-class Comment(models.Model):
-    user = models.ForeignKey(User)
-    body = models.TextField()
-    created = models.DateTimeField(time)
-    candidate = models.ForeignKey(Candidate)
-
-    def __unicode__(self):
-        return unicode(self.user)
-"""
 
 class Stance(models.Model):
     name = models.TextField()
