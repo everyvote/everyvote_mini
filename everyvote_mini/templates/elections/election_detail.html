@@ -6,9 +6,7 @@
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
       <a href="/groups/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
       {{ election.name }}
     </div>
 
@@ -16,7 +14,7 @@
     {% if user in election.constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Election</button>
       {% if user in election.constituency.moderators.all %}
         <a href="/groups/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
         <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
@@ -65,8 +63,6 @@
     </div><!-- /.modal -->
   </div>
 </div>
-
-<br />
 
 <div class="infobox-list">
   <div class="infobox-list-showing">

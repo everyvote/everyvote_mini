@@ -5,9 +5,7 @@
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ office.constituency.parent_constituency.id }}">{{ office.constituency.parent_constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
       <a href="/groups/{{ office.constituency.id }}">{{ office.constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
       {{ office.name }}
     </div>
     
@@ -15,7 +13,7 @@
     {% if user in office.constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{office.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareofficeModal">Share Office</button>
       {% if user in office.constituency.moderators.all %}
         <a href="/groups/update/{{office.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
       {% endif %}

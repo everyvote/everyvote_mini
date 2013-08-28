@@ -6,9 +6,7 @@
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ candidate.election.constituency.parent_constituency.id }}">{{ candidate.election.constituency.parent_constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
       <a href="/groups/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
       <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a><br />
     </div>
     
@@ -16,10 +14,13 @@
     {% if user in election.constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{candidate.election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Candidate</button>
       {% if user in candidate.election.constituency.moderators.all %}
         <a href="/groups/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
         <a href="/elections/update/{{candidate.election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
+      {% endif %}
+      {% if candidate.user.id = user.userprofile.id %}
+        <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
       {% endif %}
     <!--/infobox buttons-->
 

@@ -3,6 +3,7 @@ from everyvote_mini.forms import ElectionForm
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.http import Http404
 
 """
 ELECTION
@@ -45,8 +46,20 @@ class ElectionUpdateView(UpdateView):
     form_class = ElectionForm
     template_name='election_form.html'
 
+    def get_object(self, *args, **kwargs):
+        obj = super(ElectionUpdateView, self).get_object(*args, **kwargs)
+        if not obj.constituency.moderators.get(id = self.request.user.id).pk == self.request.user.id:
+            raise Http404 # maybe you'll need to write a middleware to catch 403's same way
+        return obj
+    
 # DELETE ELECTION
 class ElectionDeleteView(DeleteView):
     model = Election
     success_url = reverse_lazy('home')
     template_name='election_delete.html'
+    
+    def get_object(self, *args, **kwargs):
+        obj = super(ElectionDeleteView, self).get_object(*args, **kwargs)
+        if not obj.constituency.moderators.get(id = self.request.user.id).pk == self.request.user.id:
+            raise Http404 # maybe you'll need to write a middleware to catch 403's same way
+        return obj
