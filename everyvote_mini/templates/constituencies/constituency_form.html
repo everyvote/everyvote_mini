@@ -9,14 +9,16 @@
     <hr style="clear:both;">
     <div class="infobox-disclaimer">
       <p>In order for candidates to add themselves to your election page, you must first create offices for your group.</p>
+    </div>
       <p><strong>{{ constituency.name }}'s offices:</strong></p>
       <ol>
         {% for office in constituency.office_set.all %}
-          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a></li>
+          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a> - <a href="/offices/delete/{{ office.id }}">delete</a></li>
         {% endfor %}
       </ol>
       <a href="/offices/add/"><button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Add Office</button></a>
-    </div>
+    <br />
+    <br />
     <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
       {% if form.errors %}
