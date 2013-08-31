@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+<<<<<<< HEAD
+{% block title %}Thank You!{% endblock %}
+
+=======
+>>>>>>> 3238077c484161004301f852c2631ea0cb6e2fcb
+{% block box1 %}
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      Thank you for your feedback
+    </div><!-- /.infobox-name -->
+    <hr style="clear:both;">
+    <div class="infobox-disclaimer">
+      <p>If you're a real person with a question or comment and not a malicious spambot, we'll write you back asap.
+      <p>Thanks for contacting EveryVote!</p>
+    </div><!-- /.infobox-disclaimer -->
+    <div class="well infobox-selector">
+      <p><strong>Select your university:</strong></p>
+      <form method="POST">
+        <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
+           <option></option>
+        {% for parent_constituency in parent_constituencies %}
+          <option value="/universities/{{ parent_constituency.id }}">{{ parent_constituency.name }}</option>
+        {% endfor %}
+        </select>
+      </form>
+<<<<<<< HEAD
+      <span class="help-block">Please select a university to view the available organizations.</span>
+=======
+      <span class="help-block">Please select a university to view the available groups.</span>
+>>>>>>> 3238077c484161004301f852c2631ea0cb6e2fcb
+    </div>
+  </div><!-- /.infobox-inside -->
+</div><!-- /.infobox -->
+
+
+<<<<<<< HEAD
+{% endblock %}
+=======
+{% endblock %}
+>>>>>>> 3238077c484161004301f852c2631ea0cb6e2fcb

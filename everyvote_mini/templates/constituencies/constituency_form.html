@@ -4,19 +4,21 @@
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      Edit Group
+      Edit Organization
     </div>
     <hr style="clear:both;">
     <div class="infobox-disclaimer">
-      <p>In order for candidates to add themselves to your election page, you must first create offices for your group.</p>
+      <p>In order for candidates to add themselves to your election page, you must first create offices for your organization.</p>
+    </div>
       <p><strong>{{ constituency.name }}'s offices:</strong></p>
       <ol>
         {% for office in constituency.office_set.all %}
-          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a></li>
+          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a> - <a href="/offices/delete/{{ office.id }}">delete</a></li>
         {% endfor %}
       </ol>
       <a href="/offices/add/"><button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Add Office</button></a>
-    </div>
+    <br />
+    <br />
     <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
       {% if form.errors %}
@@ -67,11 +69,11 @@
       <input type="submit" class="btn btn-primary" value="Submit">
     </form>
     <hr style="clear:both;">
-    <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Group</a>
+    <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Organization</a>
     
     <div class="infobox-disclaimer">
       <h3>*Disclaimer*</h3>
-      <p>Anyone can add a group to EveryVote, but if an official representative from the group requests moderator privileges for the groups's page, and no official representative is already a moderator for the group's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
+      <p>Anyone can add a organization to EveryVote, but if an official representative from the organization requests moderator privileges for the organization's page, and no official representative is already a moderator for the organization's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
       <ol>
         <li>Elections Commissioners</li>
         <li>President</li>

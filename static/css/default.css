@@ -4,6 +4,8 @@
     clear:both;
 }
 
+
+
 .dropdown-menu {
     min-width: 100px;
 }
@@ -16,7 +18,63 @@ a.disabled-link:hover {
     color:#aaa !important;
 }
 
+
+
+.showbox {
+    font-family: 'Arimo', sans-serif;
+    text-align: center;
+}
+
+.showbox-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.1em;
+    text-align: center;
+    margin: 45px 0 0 0;
+}
+
+.showbox-subtitle {
+    font-family: 'Arimo', sans-serif;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.showbox-selector {
+    font-family: 'Arimo', sans-serif;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.showbox-button {
+    clear: both;
+    margin: 35px 0 35px 0;
+}
+
+.featurebox {
+    font-family: 'Arimo', sans-serif;
+    clear:both;
+}
+
+.featurebox-item {
+    clear:both;
+}
+
+.featurebox-picture {
+    background-color:black;
+    width:150px;
+    height:150px;
+    float:left;
+    margin: 35px 35px 35px 10px;
+}
+
+.featurebox-text {
+    padding: 20px 0;
+    text-align: left;
+
+}
+
 .infobox {
+    font-family: 'Arimo', sans-serif;
     border: 1px dotted #555;
     border-radius: 5px;
 }
@@ -31,22 +89,30 @@ a.disabled-link:hover {
 }
 
 .infobox-name {
+    font-family: 'Oswald', sans-serif;
     float:left;
     font-size:2.1em; 
     padding:0; 
+    margin:0 0 5px 0;
+    clear:left;
+}
+
+.infobox-below-name {
+    float:left;
+    font-size:1.4em;
+    padding:0;
     margin:0;
     clear:left;
-    margin:0 0 10px 0;
 }
 
 .infobox-share-button {
     float:right;
-    margin: 2px 10px 10px 0;
+    margin: 2px 0 10px 0;
 }
 
 .infobox-university-button {
     float:right;
-    margin: 2px 0 10px 0;
+    margin: 2px 0 10px 10px;
 }
 
 .infobox-button {
@@ -90,6 +156,7 @@ a.disabled-link:hover {
 }
 
 .infobox-list {
+    font-family: 'Arimo', sans-serif;
     clear:both;
     padding: 0 10px;
     margin: 0 5px;
@@ -162,6 +229,7 @@ textarea#id_comment:focus {
 
 .footer {
     clear:both;
+    font-family: 'Arimo', sans-serif;
 }
 
 </style>

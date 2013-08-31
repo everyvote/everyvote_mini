@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% load comments %}
 
+{% block title %}{{ election.constituency.name }} Election - {{ election.name }}{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a><br />
-      <a href="/groups/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
+      <a href="/organizations/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
     {{ election.name }}
     </div>
     
@@ -16,7 +18,7 @@
     {% endif %}
     <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Election</button>
       {% if user in election.constituency.moderators.all %}
-        <a href="/groups/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+        <a href="/organizations/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
         <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
       {% endif %}
     <!--/infobox buttons-->
@@ -28,7 +30,7 @@
       {{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}</p>
     </div>
     <div class="infobox-about">
-      <big><strong>About {{ election.name }}:</strong></big>
+      <big><strong>About Election:</strong></big>
       {{ election.about|linebreaks|urlize }}
     </div>
     
@@ -98,7 +100,7 @@
           <h2><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
           <br />
           <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
-          <p><strong>About me: </strong>{{ candidate.about|slice:":200" }}</p>
+          <p><strong>About me: </strong>{{ candidate.about|truncatechars:200 }}</p>
         </div>
       </div>
       {% if forloop.last %}

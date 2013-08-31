@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% block title %}Add an Election{% endblock %}
 
 {% block box1 %}
 <div class="infobox">
@@ -17,7 +18,7 @@
           {% if form.constituency.errors %}
             <p class="error">{{ form.constituency.errors }}</p>
           {% endif %}
-          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Group:</label></p>
+          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label></p>
           <p>{{ form.constituency }}</p>
         </div>
         <div class="infobox-selector">

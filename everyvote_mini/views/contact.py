@@ -1,33 +1,44 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
+from django.http import HttpResponseRedirect
 from everyvote_mini.forms import ContactForm
 from django.template import RequestContext
 from django.core.mail import send_mail
-
+from everyvote_mini.models import ParentConstituency
 
 def contact(request):
     success = False
+    sender = ""
     email = ""
     university = ""
-    subject = ""
-    text = ""
+    message = ""
 
     if request.method == "POST":
-        contact_form = ContactForm(request.POST)
+        form = ContactForm(request.POST)
 
-        if contact_form.is_valid():
+        if form.is_valid():
             success = True
-            email = contact_form.cleaned_data['email']
-            subject = contact_form.cleaned_data['subject']
-            university = contact_form.cleaned_data['university']
-            text = contact_form.cleaned_data['text']
+            sender = form.cleaned_data['sender']
+            email = form.cleaned_data['email']
+            university = form.cleaned_data['university']
+            message = form.cleaned_data.get('message')
 
-            send_mail("Your subject", "Your text message! Data sent: %s %s %s %s" % (subject, university, text, email),
-                      'bc789ok@gmail.com', ['mitchldowney@gmail.com'])
-            # mail_admins("Your other subject", "Your other text")
+            recipients = ['contactus@everyvote.org']
+            
+            send_mail('Contact EV', 'Email: %s - University: %s - Message: %s' % (email, university, message), sender, recipients)
+            return HttpResponseRedirect('/thanks/')
+
     else:
-        contact_form = ContactForm()
-
-    ctx = {'contact_form': contact_form, 'email': email, 'subject': subject, 'university': university, 'text': text,
-           'success': success}
-
+        form = ContactForm()
+    
+    ctx = {'form':form, 'sender':sender, 'email':email, 'university':university, 'message':message, 'success':success}
+    
     return render_to_response('contact.html', ctx, context_instance=RequestContext(request))
+    
+def thanks(request):
+    return render_to_response('thanks.html',
+                              {'parent_constituencies': ParentConstituency.objects.all()},
+<<<<<<< HEAD
+                              context_instance=RequestContext(request))
+=======
+                              context_instance=RequestContext(request))
+>>>>>>> 3238077c484161004301f852c2631ea0cb6e2fcb

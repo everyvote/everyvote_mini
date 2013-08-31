@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}{{ constituency.name }} Elections{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
@@ -12,9 +14,9 @@
     {% if user in constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Group</button>
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Organization</button>
       {% if user in constituency.moderators.all %}
-        <a href="/groups/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+        <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
       {% endif %}
     <!--/infobox buttons-->
     
@@ -50,13 +52,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3 class="modal-title">Share this Group</h3>
+        <h3 class="modal-title">Share this Organization</h3>
       </div>
       <div class="modal-body">
-        <strong>Copy the link below to share this group page:</strong>
+        <strong>Copy the link below to share this organization page:</strong>
         <br />
         <br />
-        <p>www.everyvote.org/groups/{{constituency.id}}</p>
+        <p>www.everyvote.org/organizations/{{constituency.id}}</p>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

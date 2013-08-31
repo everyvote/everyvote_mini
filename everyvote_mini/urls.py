@@ -9,17 +9,19 @@ from everyvote_mini.views.user import UserProfileDetailView, UserProfileUpdateVi
 from everyvote_mini.models import ParentConstituency, Constituency, Office, Election, Candidate
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
+from registration.views import register
+from everyvote_mini.forms import RegistrationForm
 admin.autodiscover()
 
 
 # HOME PAGE
 # PARENT CONSTITUENCIES (universities): create, list, show, update, delete
-# CONSTITUENCIES (groups): create, show, update, delete
+# CONSTITUENCIES (organizations): create, show, update, delete
 # OFFICES: create, show, update, delete
 # ELECTIONS: create, show-random, show-alphabetical, update, delete
 # USERS AND AUTHENTICATION: login, logout, show, update
 # CANDIDATES: create, show, update, delete
-# REGISTRATION
+# REGISTRATION (with recaptcha)
 # COMMENTS
 # CONTACT
 # ADMIN INTERFACE
@@ -60,23 +62,23 @@ urlpatterns = patterns('',
         name='parent_constituency_delete',),
         
 ###
-#CONSTITUENCIES (called 'groups' in the UI): create, show, update, delete
+#CONSTITUENCIES (called 'organizations' in the UI): create, show, update, delete
 ###
 # CREATE CONSTITUENCY
-    url(r'^groups/add/$', login_required(ConstituencyCreateView.as_view()),
+    url(r'^organizations/add/$', login_required(ConstituencyCreateView.as_view()),
         name='constituency_create',),
 # SHOW CONSTITUENCY
-    url(r'^groups/(?P<pk>\d+)/$', ConstituencyDetailView.as_view(
+    url(r'^organizations/(?P<pk>\d+)/$', ConstituencyDetailView.as_view(
         model=Constituency,
         template_name='constituency_detail.html',
         context_object_name='constituency'),
         name='constituency_detail',
         ),
 # UPDATE CONSTITUENCY
-    url(r'^groups/update/(?P<pk>\d+)/$', login_required(ConstituencyUpdateView.as_view()),
+    url(r'^organizations/update/(?P<pk>\d+)/$', login_required(ConstituencyUpdateView.as_view()),
         name='constituency_update',),
 # DELETE CONSTITUENCY
-    url(r'^groups/delete/(?P<pk>\d+)/$', login_required(ConstituencyDeleteView.as_view()),
+    url(r'^organizations/delete/(?P<pk>\d+)/$', login_required(ConstituencyDeleteView.as_view()),
         name='constituency_delete',),
 
 ###
@@ -162,8 +164,9 @@ urlpatterns = patterns('',
 # and you need to pip install it in order for everyvote_mini to work.
 # Type into your console: pip install git+git://github.com/arocks/django-registration-1.5.git
 ###
-# REGISTER NEW USER
-    url(r'^accounts/', include('registration.backends.default.urls')),
+# REGISTER NEW USER, WITH RECAPTCHA
+    (r'^accounts/register/$', 'registration.views.register',    {'form_class':RegistrationForm,'backend': 'registration.backends.default.DefaultBackend'}),
+    (r'^accounts/', include('registration.urls')),
 
 ###
 # COMMENTS
@@ -172,9 +175,15 @@ urlpatterns = patterns('',
     (r'^comments/delete/(?P<comment_id>\d+)/$', 'everyvote_mini.views.comment.delete'),
 
 ###
-# CONTACT
+# CONTACT / THANKS FOR CONTACTING!
 ###
     url(r'^contact/$', 'everyvote_mini.views.contact.contact'),
+    url(r'^thanks/$', 'everyvote_mini.views.contact.thanks'),
+
+###
+# ABOUT
+###
+    url(r'^about/$', 'everyvote_mini.views.about.about'),
 
 ###
 # ADMIN INTERFACE

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}{{ parent_constituency.name }} - Elections{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
@@ -17,16 +19,16 @@
     <hr style="clear:both; padding:5px 0 0 0;">
 
     <div class="well infobox-selector">
-      <p><strong>Select your group:</strong></p>
+      <p><strong>Select your organization:</strong></p>
         <form method="POST">
           <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
             <option></option>
             {% for constituency in parent_constituency.constituency_set.all %}
-              <option value="/groups/{{ constituency.id }}">{{ constituency.name }}</option>
+              <option value="/organizations/{{ constituency.id }}">{{ constituency.name }}</option>
             {% endfor %}
           </select>
         </form>
-      <span class="help-block">Please select a group to view its available elections.</span>
+      <span class="help-block">Please select an organization to view its available elections.</span>
     </div>
     
     {% if parent_constituency.profile_picture %}  
@@ -36,8 +38,8 @@
     {% endif %}
     
     <div class="infobox-about">
-      <p><strong>About {{ parent_constituency.name }}: </strong>
-      <p>{{ parent_constituency.about|linebreaks|urlize }}</strong></p>
+      <p><strong>About {{ parent_constituency.name }}: </strong></p>
+      <p>{{ parent_constituency.about|urlize|linebreaks }}</p>
     </div>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->

@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 
+{% block title %}EveryVote - University Elections{% endblock %}
+
 {% block box1 %}
 <div class="container">
-<h1 style="text-align:center;">Every<span style="color:red">Vote</span></h1>
-  <h4 style="text-align:center; padding:10px 0;">university election directory</h4>
-  <br />
-  <div class="well infobox-selector">
-    <p><strong>Select your university:</strong></p>
+  <div class="showbox">
+    <div class="showbox-title">
+      ALL YOUR UNIVERSITY CANDIDATES IN ONE PLACE
+    </div>
+    <br />
+    <div class="showbox-subtitle">
+      <strong>GET CANDIDATE PROFILES</strong><br />
+      <strong>SHARE AN ELECTION</strong><br />
+      <strong>BOOST VOTER TURNOUT</strong><br />
+    </div>
+    <br />
+    <div class="showbox-selector col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+      SELECT YOUR UNIVERSITY TO VIEW ITS ORGANIZATIONS
       <form method="POST">
         <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
            <option></option>
@@ -15,7 +25,45 @@
         {% endfor %}
         </select>
       </form>
-      <span class="help-block">Please select a university to view the available groups.</span>
+    </div>
+  <br />
+  <br />
+  <a href="/moderator/" class="showbox-button centered btn btn-success">Become a Moderator</a>  
   </div>
+  <hr style="clear:both; padding:0; margin:0">
+  <div class="featurebox">
+  <div class="featurebox-item">
+    <div class="featurebox-picture">
+    
+    </div>
+    <div class="featurebox-text">
+      <br />
+      <p><big><strong>GET CANDIDATE PROFILES</strong></big></p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque augue vitae rhoncus laoreet. Vivamus tellus tellus, luctus ac arcu eu, vehicula vulputate magna. Duis viverra imperdiet arcu non rhoncus.</p>
+    </div>
+  </div>
+  <hr style="clear:both; padding:0; margin:0">
+  <div class="featurebox-item">
+    <div class="featurebox-picture">
+    
+    </div>
+    <div class="featurebox-text">
+      <br />
+      <p><big><strong>CREATE AN ELECTION PAGE</strong></big></p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque augue vitae rhoncus laoreet. Vivamus tellus tellus, luctus ac arcu eu, vehicula vulputate magna. Duis viverra imperdiet arcu non rhoncus.</p>
+    </div>
+  </div>
+  <hr style="clear:both; padding:0; margin:0">
+  <div class="featurebox-item">
+    <div class="featurebox-picture">
+    
+    </div>
+    <div class="featurebox-text">
+      <br />
+      <p><big><strong>BOOST VOTER TURNOUT</strong></big></p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque augue vitae rhoncus laoreet. Vivamus tellus tellus, luctus ac arcu eu, vehicula vulputate magna. Duis viverra imperdiet arcu non rhoncus.</p>
+    </div>
+  </div>
+</div>
 </div>
 {% endblock %}

@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% load comments %}
 
+{% block title %}{{ candidate.user.first_name }} {{ candidate.user.last_name }} Running for {{ candidate.office }} of {{ candidate.election.constituency }}{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ candidate.election.constituency.parent_constituency.id }}">{{ candidate.election.constituency.parent_constituency.name }}</a><br />
-      <a href="/groups/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
+      <a href="/organizations/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
       <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a><br />
     </div>
     
@@ -16,7 +18,7 @@
     {% endif %}
     <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Candidate</button>
       {% if user in candidate.election.constituency.moderators.all %}
-        <a href="/groups/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+        <a href="/organizations/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
         <a href="/elections/update/{{candidate.election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
       {% endif %}
       {% if candidate.user.id = user.userprofile.id %}
@@ -34,8 +36,10 @@
     <div class="infobox-name">
       {{ candidate.user.first_name }} {{ candidate.user.last_name }}
     </div>
+    <div class="infobox-below-name">
+      <strong>Running for: </strong>{{ candidate.office.name }}
+    </div>
     <div class="infobox-about">
-      <h4><strong>Running for: </strong>{{ candidate.office.name }} of {{ candidate.election.constituency.name }}</h4>
       {% if candidate.key_issues %}
         <p><strong>Key Issues: </strong>{{ candidate.key_issues }}</p>
       {% endif %}

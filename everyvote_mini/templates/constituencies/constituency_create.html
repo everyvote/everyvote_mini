@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %}Add an Organization{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      Add Group
+      Add Organization
     </div>
     <hr style="clear:both;">
     <div class="infobox-disclaimer">
       <h3>*Disclaimer*</h3>
-      <p>Anyone can add a group to EveryVote, but if an official representative from the group requests moderator privileges for the groups's page, and no official representative is already a moderator for the group's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
+      <p>Anyone can add an organization to EveryVote, but if an official representative from the organization requests moderator privileges for the organization's page, and no official representative is already a moderator for the page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
       <ol>
         <li>Elections Commissioners
         <li>President
@@ -66,7 +68,7 @@
           <p>{{ form.profile_picture }}</p>
         </div>
       <br />
-      <input type="submit" class="btn btn-success" value="Add Group">
+      <input type="submit" class="btn btn-success" value="Add Organization">
     </form>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->

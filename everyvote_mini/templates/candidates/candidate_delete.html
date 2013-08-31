@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 
-{% block extrahead %}
-{% endblock %}
-
-{% block extrabuttons %}
-    {% for moderator in election.moderators.all %}
-        {% if user == moderator %}
-            <li><a href="{% url 'election_update' pk=object.pk %}" class="btn btn-small btn-primary"><i class=icon-pencil icon-white"></i>Edit Election</a></li>
-        {% endif %}
-    {% endfor %}
-{% endblock %}
+{% block title %}EveryVote - Delete Candidate Profile{% endblock %}
 
 {% block box1 %}
 

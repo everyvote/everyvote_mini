@@ -53,7 +53,7 @@ class Constituency(models.Model):
 class Office(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=30)
-    about = models.TextField()
+    about = models.TextField(blank=True)
 
     def __unicode__(self):
         return u'%s - %s - %s' % (self.constituency.parent_constituency.name, self.constituency.name, self.name)
@@ -64,10 +64,10 @@ class Office(models.Model):
 class Election(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=50)
-    about = models.TextField()
+    about = models.TextField(blank=True, null=True)
     first_voting_day = models.DateField()
     last_voting_day = models.DateField(null=True, blank=True)
-    offices = models.ManyToManyField(Office)
+    offices = models.ManyToManyField(Office, blank=True, null=True)
     """ Research: Django's Auth provides some sort of 
         access control. How/Can we use that? """
     
@@ -109,7 +109,7 @@ class Candidate(models.Model):
     user = models.ForeignKey(UserProfile)
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
-    about = models.TextField()
+    about = models.TextField(blank=True)
     
     class Meta:
         ordering = ['?']
