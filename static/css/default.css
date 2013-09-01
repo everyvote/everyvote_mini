@@ -4,7 +4,9 @@
     clear:both;
 }
 
-
+body {
+    background-color:#fefdfd;
+}
 
 .dropdown-menu {
     min-width: 100px;
@@ -18,41 +20,55 @@ a.disabled-link:hover {
     color:#aaa !important;
 }
 
-
-
 .showbox {
     font-family: 'Arimo', sans-serif;
     text-align: center;
+    background-image: url(http://everyvote.org/static/images/UIUC%20campus%20-%20Chen%20Qian%20-%20750x420.jpg);
+    background-repeat: no-repeat;
+    padding: 35px 0 0px 0;
+    margin: 20px 0 0 0;
+    border: 1px solid #ddd;
 }
 
 .showbox-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 2.1em;
+    font-size: 2.3em;
+    color: #f8fc90;
+    text-shadow: 2px 2px #511;
     text-align: center;
-    margin: 45px 0 0 0;
-}
-
-.showbox-subtitle {
-    font-family: 'Arimo', sans-serif;
-    font-size: 1.2em;
-    text-align: center;
-    margin: 15px 0;
+    background: rgba(80, 80, 80, 0.6);
+    margin: 0 0 25px 0;
 }
 
 .showbox-selector {
     font-family: 'Arimo', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.4em;
+    color: #f8fc90;
+    background: rgba(80, 80, 80, 0.5);
+    text-shadow: 2px 1px #000;
     text-align: center;
+    padding: 5px 20px 20px 20px;
 }
 
 .showbox-button {
-    clear: both;
-    margin: 35px 0 35px 0;
+    margin: 20px 0;
+}
+
+.darker-background {
+    background-color:#f8f6f6;
+}
+
+.lighter-background {
+    background-color:#fff;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .featurebox {
     font-family: 'Arimo', sans-serif;
     clear:both;
+    border: 1px solid #ddd;
+    margin: 15px 0 0 0;
 }
 
 .featurebox-item {
@@ -60,15 +76,14 @@ a.disabled-link:hover {
 }
 
 .featurebox-picture {
-    background-color:black;
     width:150px;
     height:150px;
     float:left;
-    margin: 35px 35px 35px 10px;
+    margin: 20px 45px 20px 15px;
 }
 
 .featurebox-text {
-    padding: 20px 0;
+    padding: 20px 15px 35px 0;
     text-align: left;
 
 }
@@ -77,10 +92,11 @@ a.disabled-link:hover {
     font-family: 'Arimo', sans-serif;
     border: 1px dotted #555;
     border-radius: 5px;
+    background-color: #fff;
 }
 
 .infobox-inside {
-    padding:10px 15px;
+    padding:15px 15px;
 }
 
 .infobox-point {
@@ -162,6 +178,7 @@ a.disabled-link:hover {
     margin: 0 5px;
     border-right:1px dotted #ccc;
     border-left:1px dotted #ccc;
+    background-color:#fff;
     
 }
 
