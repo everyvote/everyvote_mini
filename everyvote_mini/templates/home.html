@@ -4,22 +4,17 @@
 
 {% block box1 %}
 <div class="container">
+  <h1 style="font-size:4em; text-align:center; font-family:'Oswald', sans-serif; padding:0; margin:0;">Every<span style="color:red">Vote</span></h1>
   <div class="showbox">
     <div class="showbox-title">
       ALL YOUR UNIVERSITY CANDIDATES IN ONE PLACE
     </div>
     <br />
-    <div class="showbox-subtitle">
-      <strong>GET CANDIDATE PROFILES</strong><br />
-      <strong>SHARE AN ELECTION</strong><br />
-      <strong>BOOST VOTER TURNOUT</strong><br />
-    </div>
-    <br />
     <div class="showbox-selector col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-      SELECT YOUR UNIVERSITY TO VIEW ITS ORGANIZATIONS
+      SELECT YOUR UNIVERSITY 
       <form method="POST">
         <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
-           <option></option>
+           <option>Select university</option>
         {% for parent_constituency in parent_constituencies %}
           <option value="/universities/{{ parent_constituency.id }}">{{ parent_constituency.name }}</option>
         {% endfor %}
@@ -27,25 +22,24 @@
       </form>
     </div>
   <br />
+  <a href="/moderator/" class="showbox-button centered btn btn-success">Become a Moderator</a>
   <br />
-  <a href="/moderator/" class="showbox-button centered btn btn-success">Become a Moderator</a>  
   </div>
-  <hr style="clear:both; padding:0; margin:0">
+  <br />
   <div class="featurebox">
-  <div class="featurebox-item">
+  <div class="featurebox-item darker-background">
     <div class="featurebox-picture">
-    
+      <img src="/static/images/people-icon.png" />
     </div>
     <div class="featurebox-text">
       <br />
-      <p><big><strong>GET CANDIDATE PROFILES</strong></big></p>
+      <p><big><strong>FIND YOUR CANDIDATE PROFILES</strong></big></p>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque augue vitae rhoncus laoreet. Vivamus tellus tellus, luctus ac arcu eu, vehicula vulputate magna. Duis viverra imperdiet arcu non rhoncus.</p>
     </div>
   </div>
-  <hr style="clear:both; padding:0; margin:0">
-  <div class="featurebox-item">
+  <div class="featurebox-item lighter-background">
     <div class="featurebox-picture">
-    
+      <img src="/static/images/plus-icon.png" />
     </div>
     <div class="featurebox-text">
       <br />
@@ -53,14 +47,13 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque augue vitae rhoncus laoreet. Vivamus tellus tellus, luctus ac arcu eu, vehicula vulputate magna. Duis viverra imperdiet arcu non rhoncus.</p>
     </div>
   </div>
-  <hr style="clear:both; padding:0; margin:0">
-  <div class="featurebox-item">
+  <div class="featurebox-item darker-background">
     <div class="featurebox-picture">
-    
+      <img src="/static/images/boost-icon.png" />
     </div>
     <div class="featurebox-text">
       <br />
-      <p><big><strong>BOOST VOTER TURNOUT</strong></big></p>
+      <p><big><strong>INCREASE VOTER TURNOUT</strong></big></p>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque augue vitae rhoncus laoreet. Vivamus tellus tellus, luctus ac arcu eu, vehicula vulputate magna. Duis viverra imperdiet arcu non rhoncus.</p>
     </div>
   </div>
