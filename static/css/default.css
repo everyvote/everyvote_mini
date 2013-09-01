@@ -27,31 +27,29 @@ a.disabled-link:hover {
     background-repeat: no-repeat;
     padding: 35px 0 0px 0;
     margin: 20px 0 0 0;
-    border: 1px solid #ddd;
 }
 
 .showbox-title {
     font-family: 'Oswald', sans-serif;
     font-size: 2.3em;
-    color: #f8fc90;
-    text-shadow: 2px 2px #511;
+    color: #fff;
     text-align: center;
-    background: rgba(80, 80, 80, 0.6);
-    margin: 0 0 25px 0;
+    background: rgba(80, 80, 80, 0.7);
+    margin: 0 0 15px 0;
 }
 
 .showbox-selector {
     font-family: 'Arimo', sans-serif;
     font-size: 1.4em;
     color: #f8fc90;
-    background: rgba(80, 80, 80, 0.5);
-    text-shadow: 2px 1px #000;
+    background: rgba(80, 80, 80, 0.7);
+    text-shadow: 1px 1px #000;
     text-align: center;
-    padding: 5px 20px 20px 20px;
+    padding: 5px 20px 25px 20px;
 }
 
 .showbox-button {
-    margin: 20px 0;
+    margin: 25px 0;
 }
 
 .darker-background {
@@ -60,18 +58,21 @@ a.disabled-link:hover {
 
 .lighter-background {
     background-color:#fff;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
 }
 
 .featurebox {
     font-family: 'Arimo', sans-serif;
     clear:both;
-    border: 1px solid #ddd;
     margin: 15px 0 0 0;
+    border: 1px solid #ddd;
 }
 
 .featurebox-item {
+    clear:both;
+    border-bottom: 1px solid #ddd;
+}
+
+.featurebox-item-last {
     clear:both;
 }
 
@@ -206,13 +207,16 @@ a.disabled-link:hover {
     height:150px;
 }
 
-.infobox-list-info {
+.infobox-list-info p {
     clear:right;
+    font-family: 'Arimo', sans-serif
 }
 
 .infobox-list-info h2 {
     padding:5px 0 10px 0;
     margin:0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.0em;
 }
 
 .ui-helper-hidden-accessible {
