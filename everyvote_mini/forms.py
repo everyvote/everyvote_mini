@@ -2,10 +2,10 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from everyvote_mini.models import ParentConstituency, Constituency, Office, Election, Candidate, UserProfile
-from registration.forms import RegistrationForm
+from registration.forms import RegistrationFormUniqueEmail
 from captcha.fields import ReCaptchaField
 
-class RegistrationForm(RegistrationForm):
+class RegistrationFormUniqueEmail(RegistrationFormUniqueEmail):
     captcha = ReCaptchaField()
 
 class LoginForm(forms.Form):
