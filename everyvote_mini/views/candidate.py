@@ -4,6 +4,7 @@ from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render_to_response
+from django.http import Http404
 
 """
 CANDIDATE
@@ -42,9 +43,21 @@ class CandidateUpdateView(UpdateView):
         candidate.save()
         return super(CandidateUpdateView, self).form_valid(form)
 
+    def get_object(self, *args, **kwargs):
+        obj = super(CandidateUpdateView, self).get_object(*args, **kwargs)
+        if not obj.user.id == self.request.user.userprofile.id:
+            raise Http404 # maybe you'll need to write a middleware to catch 403's same way
+        return obj
+        
 # DELETE CANDIDATE
 class CandidateDeleteView(DeleteView):
     model = Candidate
     success_url = reverse_lazy('home')
     template_name = 'candidate_delete.html'
+    
+    def get_object(self, *args, **kwargs):
+        obj = super(CandidateDeleteView, self).get_object(*args, **kwargs)
+        if not obj.user.id == self.request.user.userprofile.id:
+            raise Http404 # maybe you'll need to write a middleware to catch 403's same way
+        return obj
     

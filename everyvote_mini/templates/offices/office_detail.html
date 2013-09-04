@@ -1,25 +1,37 @@
 {% extends "base.html" %}
 
+{% block title %}{{ office.constituency }} {{ office.name }} at {{ office.constituency.university }}{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ office.constituency.parent_constituency.id }}">{{ office.constituency.parent_constituency.name }}</a><br />
-      <a href="/groups/{{ office.constituency.id }}">{{ office.constituency.name }}</a><br />
+      <a href="/organizations/{{ office.constituency.id }}">{{ office.constituency.name }}</a><br />
       {{ office.name }}
     </div>
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareofficeModal">Share</button>
+    
+    <!--infobox buttons-->
     {% if user in office.constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{office.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+      <a href="/universities/update/{{office.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    {% if user in office.constituency.moderators.all %}
-      <a href="/groups/update/{{office.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
-      <a href="/offices/update/{{office.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Office</button></a>
-    {% endif %}
-    <hr style="clear:both;">
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareofficeModal">Share Office</button>
+      {% if user in office.constituency.moderators.all %}
+        <a href="/organizations/update/{{office.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
+      {% endif %}
+    <!--/infobox buttons-->
+    
+    <hr style="clear:both; padding:5px 0 0 0;">
+    
     <div class="infobox-about">
-      <p><strong>About {{ office.name }}: </strong>
-      <p>{{ office.about|linebreaks }}</p>
+      <p><strong>About {{ office.name }}: </strong><br />
+      <p>{{ office.about|linebreaks|urlize }}</p>
+      <p><strong>Elections: </strong><br />
+      <p>
+        {% for election in office.election_set.all %}
+        <a href="/elections/{{ election.id }}">{{ election.name }}</a><br />
+        {% endfor %}
+      </p>
     </div>
   </div>
 </div>

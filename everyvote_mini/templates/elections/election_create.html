@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% block title %}Add an Election{% endblock %}
 
 {% block box1 %}
 <div class="infobox">
@@ -8,6 +9,9 @@
       Add Election
     </div>
     <hr style="clear:both;">
+    <div class="infobox-disclaimer">
+      <p>You must be a <strong>moderator</strong> of an organization to add an election for that organization.</p>
+    </div>
     <form method="post" action="">
       {% csrf_token %}
       {% if form.errors %}
@@ -17,7 +21,7 @@
           {% if form.constituency.errors %}
             <p class="error">{{ form.constituency.errors }}</p>
           {% endif %}
-          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Group:</label></p>
+          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label></p>
           <p>{{ form.constituency }}</p>
         </div>
         <div class="infobox-selector">
@@ -56,6 +60,7 @@
           <p>{{ form.last_voting_day }}</p>
         </div>
         <br />
+        <a href="/" class="btn btn-small btn-danger">Cancel</a>
         <input type="submit" class="btn btn-success" value="Add Election" />
       </form>
   </div><!-- .infobox-inside -->

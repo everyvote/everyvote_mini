@@ -20,8 +20,11 @@ def get_upload_file_name(instance, filename):
 class ParentConstituency(models.Model):
     name = models.CharField(max_length=100)
     about = models.TextField()
-    administrators = models.ManyToManyField(User)
+    administrators = models.ManyToManyField(User, blank=True, null=True)
     profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
+    
+    class Meta:
+        ordering = ['name']
     
     def __unicode__(self):
         return unicode(self.name)
@@ -34,8 +37,11 @@ class Constituency(models.Model):
     name = models.CharField(max_length=100)
     about = models.TextField()
     moderators = models.ManyToManyField(User, related_name='moderator')
-    blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True)
-    profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
+    blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True, null=True)
+    profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True, null=True)
+    
+    class Meta:
+        ordering = ['parent_constituency']
     
     def __unicode__(self):
         return u'%s - %s' % (self.parent_constituency.name, self.name)
@@ -47,8 +53,11 @@ class Constituency(models.Model):
 class Office(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=30)
-    about = models.TextField()
+    about = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['constituency']
+    
     def __unicode__(self):
         return u'%s - %s - %s' % (self.constituency.parent_constituency.name, self.constituency.name, self.name)
 
@@ -58,16 +67,19 @@ class Office(models.Model):
 class Election(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=50)
-    about = models.TextField()
+    about = models.TextField(blank=True, null=True)
     first_voting_day = models.DateField()
     last_voting_day = models.DateField(null=True, blank=True)
-    offices = models.ManyToManyField(Office, blank=True)
+    offices = models.ManyToManyField(Office, blank=True, null=True)
     """ Research: Django's Auth provides some sort of 
         access control. How/Can we use that? """
-    
+
+    class Meta:
+        ordering = ['-first_voting_day']
+
     def eligible_candidates(self):
         
-        blocked_users = self.blocked_users.all()
+        blocked_users = self.constituency.blocked_users.all()
         print blocked_users
         
         eligible_candidates = self.candidate_set.exclude(
@@ -95,6 +107,9 @@ class UserProfile(models.Model):
     linkedin_page = models.URLField(blank=True)
     personal_homepage = models.URLField(blank=True)
     
+    class Meta:
+        ordering = ['user']
+    
     def __unicode__(self):
         return unicode(self.user)
 
@@ -103,7 +118,7 @@ class Candidate(models.Model):
     user = models.ForeignKey(UserProfile)
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
-    about = models.TextField()
+    about = models.TextField(blank=True)
     
     class Meta:
         ordering = ['?']

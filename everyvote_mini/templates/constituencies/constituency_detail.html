@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}{{ constituency.name }} Elections{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
@@ -7,14 +9,20 @@
       <a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a><br />
       {{ constituency.name }}
     </div>
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareconstituencyModal">Share</button>
+
+    <!--infobox buttons-->
     {% if user in constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    {% if user in constituency.moderators.all %}
-      <a href="/groups/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
-    {% endif %}
-    <div class="infobox-selector">
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Organization</button>
+      {% if user in constituency.moderators.all %}
+        <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
+      {% endif %}
+    <!--/infobox buttons-->
+    
+    <hr style="clear:both; padding:5px 0 0 0;">
+    
+    <div class="well infobox-selector">
       <p><strong>Select your election:</strong></p>
       <form method="POST">
         <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
@@ -26,7 +34,7 @@
       </form>
       <span class="help-block">Please select an election to view your candidates.</span>
     </div>
-    <hr style="clear:both;">
+    
     {% if constituency.profile_picture %}  
       <div class="infobox-picture">
         <p><img src="/static/uploaded_files/{{constituency.profile_picture}}" /></p>
@@ -34,7 +42,7 @@
     {% endif %}
     <div class="infobox-about">
       <p><strong>About {{ constituency.name }}: </strong>
-      <p>{{ constituency.about|linebreaks }}</p>
+      <p>{{ constituency.about|urlize|linebreaks }}</p>
     </div>
   </div>
 </div>
@@ -44,13 +52,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3 class="modal-title">Share this Group</h3>
+        <h3 class="modal-title">Share this Organization</h3>
       </div>
       <div class="modal-body">
-        <strong>Copy the link below to share this group page:</strong>
+        <strong>Copy the link below to share this organization page:</strong>
         <br />
         <br />
-        <p>www.everyvote.org/groups/{{constituency.id}}</p>
+        <p>www.everyvote.org/organizations/{{constituency.id}}</p>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

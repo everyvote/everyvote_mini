@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Edit Election{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
@@ -10,10 +12,12 @@
     <p><strong>{{ election.constituency.name }}'s offices:</strong></p>
       <ol>
         {% for office in election.constituency.office_set.all %}
-          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a></li>
+          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a> - <a href="offices/delete/{{ office.id }}">delete</a></li>
         {% endfor %}
       </ol>
       <a href="/offices/add/"><button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Add Office</button></a>
+    <br />
+    <br />
     <form method="post" action="">
       {% csrf_token %}
       {% if form.errors %}
@@ -23,7 +27,7 @@
           {% if form.constituency.errors %}
             <p class="error">{{ form.constituency.errors }}</p>
           {% endif %}
-          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Group:</label></p>
+          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label></p>
           <p>{{ form.constituency }}</p>
         </div>
         <div class="infobox-selector">
@@ -39,6 +43,7 @@
           {% endif %}
           <p><label for="offices"{% if form.offices.errors %} class="error"{% endif %}>Offices:</label></p>
           <p>{{ form.offices }}</p>
+          <p>Hold down the Ctrl or Cmd key to select multiple offices.
         </div>
         <div class="infobox-selector">
           {% if form.about.errors %}
@@ -62,7 +67,8 @@
           <p>{{ form.last_voting_day }}</p>
         </div>
         <br />
-      <input type="submit" class="btn btn-primary" value="Submit">
+      <a href="{% url 'election_detail' pk=object.pk %}" class="btn btn-small btn-danger">Cancel</a>
+      <input type="submit" class="btn btn-primary" value="Submit">      
       <hr style="clear:both;">
       <a href="{% url 'election_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Election</a>
     </form>

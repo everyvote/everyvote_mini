@@ -3,6 +3,9 @@ from everyvote_mini.forms import ConstituencyForm
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 """
 CONSTITUENCY
@@ -18,6 +21,9 @@ class ConstituencyCreateView(CreateView):
         f.save()
         return super(ConstituencyCreateView, self).form_valid(form)
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ConstituencyCreateView, self).dispatch(*args, **kwargs)
 
 # LIST CONSTITUENCY
 class ConstituencyListView(ListView):
@@ -41,9 +47,20 @@ class ConstituencyUpdateView(UpdateView):
     form_class = ConstituencyForm
     template_name='constituency_form.html'
 
+    def get_object(self, *args, **kwargs):
+        obj = super(ConstituencyUpdateView, self).get_object(*args, **kwargs)
+        if not obj.moderators.get(id = self.request.user.id).pk == self.request.user.id:
+            raise Http404 # maybe you'll need to write a middleware to catch 403's same way
+        return obj
 
 # DELETE CONSTITUENCY
 class ConstituencyDeleteView(DeleteView):
     model = Constituency
     success_url = reverse_lazy('home')
     template_name='constituency_delete.html'
+    
+    def get_object(self, *args, **kwargs):
+        obj = super(ConstituencyDeleteView, self).get_object(*args, **kwargs)
+        if not obj.moderators.get(id = self.request.user.id).pk == self.request.user.id:
+            raise Http404 # maybe you'll need to write a middleware to catch 403's same way
+        return obj

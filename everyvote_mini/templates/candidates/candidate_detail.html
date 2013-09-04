@@ -1,19 +1,34 @@
 {% extends "base.html" %}
 {% load comments %}
 
+{% block title %}{{ candidate.user.first_name }} {{ candidate.user.last_name }} Running for {{ candidate.office }} of {{ candidate.election.constituency }}{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ candidate.election.constituency.parent_constituency.id }}">{{ candidate.election.constituency.parent_constituency.name }}</a><br />
-      <a href="/groups/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
+      <a href="/organizations/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
       <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a><br />
+      Candidate
     </div>
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#sharecandidateModal">Share</button>
-    {% if user.pk == candidate.user.pk %}
-      <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
+    
+    <!--infobox buttons-->
+    {% if user in election.constituency.parent_constituency.administrators.all %}
+      <a href="/universities/update/{{candidate.election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <hr style="clear:both">
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Candidate</button>
+      {% if user in candidate.election.constituency.moderators.all %}
+        <a href="/organizations/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
+        <a href="/elections/update/{{candidate.election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
+      {% endif %}
+      {% if candidate.user.id = user.userprofile.id %}
+        <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
+      {% endif %}
+    <!--/infobox buttons-->
+
+    <hr style="clear:both; padding:5px 0 0 0;">
+
     {% if candidate.user.profile_picture %}  
       <div class="infobox-picture">
         <p><img src="/static/uploaded_files/{{candidate.user.profile_picture}}" /></p>
@@ -22,23 +37,30 @@
     <div class="infobox-name">
       {{ candidate.user.first_name }} {{ candidate.user.last_name }}
     </div>
+    <div class="infobox-below-name">
+      <strong>Running for: </strong>{{ candidate.office.name }}
+    </div>
     <div class="infobox-about">
-      <h4><strong>Running for: </strong>{{ candidate.office.name }} of {{ candidate.election.constituency.name }}</h4>
       {% if candidate.key_issues %}
         <p><strong>Key Issues: </strong>{{ candidate.key_issues }}</p>
       {% endif %}
-        <strong>About me: </strong>{{ candidate.about|linebreaks }}
+      <hr style="clear:both;">
+      <p><strong>About Me</strong>{{ candidate.about|linebreaks|urlize }}</p>
+      {% if candidate.user.twitter_name or candidate.user.facebook_page or candidate.user.linkedin_page or candidate.user.personal_homepage %}
+        <hr style="clear:both;">
+        <p><strong>Contact Info</strong></p>
+      {% endif %}
       {% if candidate.user.twitter_name %}
-        <p><strong>Twitter: </strong>{{ candidate.user.twitter_name }}</p>
+        <p><a target="_blank" href="https://www.twitter.com/{{ candidate.user.twitter_name|slice:"1:" }}">Twitter</a></p>
       {% endif %}
       {% if candidate.user.facebook_page %}
-        <p><strong>Facebook: </strong>{{ candidate.user.facebook_page }}</p>
+        <p><a target="_blank" href="{{ candidate.user.facebook_page }}">Facebook page</a></p>
       {% endif %}
       {% if candidate.user.linkedin_page %}
-        <p><strong>Linkedin: </strong>{{ candidate.user.linkedin_page }}</p>
+        <p><a target="_blank" href="{{ candidate.user.linkedin_page }}">Linkedin page</a></p>
       {% endif %}
       {% if candidate.user.personal_homepage %}
-        <p><strong>Homepage: </strong>{{ candidate.user.personal_homepage}}</p>
+        <p><a target="_blank" href="{{ candidate.user.personal_homepage }}">Homepage</a></p>
       {% endif %}
     </div>
   </div>
@@ -82,7 +104,7 @@
       <input type="hidden" name="url" value="" />
       <input type="hidden" name="next" 
           value="/candidates/{{ candidate.id }}" />
-      <input type="submit" value="Add comment" id="id_submit" />
+      <input type="submit" class="btn btn-primary" value="Add comment" id="id_submit" />
     </form>
   {% else %}
     <p>Please <a href="/accounts/login">log in</a> to leave a comment.</p>

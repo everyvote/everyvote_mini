@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Edit an Office{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
@@ -7,17 +9,6 @@
       Edit Office
     </div>
     <hr style="clear:both;">
-    <div class="infobox-disclaimer">
-      <p>In order for candidates to add themselves to your election page, you must first create offices for your group.</p>
-      <ol>Example office names:
-        <li>President</li>
-        <li>Vice-President</li>
-        <li>Treasurer</li>
-        <li>Secretary</li>
-        <li>Senator - District 1</li>
-        <li>Senator - District 2</li>
-      </ol>
-    </div>
     <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
       {% if form.errors %}
@@ -27,7 +18,7 @@
           {% if form.constituency.errors %}
             <p class="error">{{ form.constituency.errors }}</p>
           {% endif %}
-          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Group:</label></p>
+          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label></p>
           <p>{{ form.constituency }}</p>
         </div>
         <div class="infobox-selector">
@@ -44,6 +35,7 @@
           <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
           <p>{{ form.about }}</p>
         </div>
+      <a href="{% url 'office_detail' pk=object.pk %}" class="btn btn-small btn-danger">Cancel</a>
       <input type="submit" class="btn btn-primary" value="Submit">
     </form>
     <hr style="clear:both;">

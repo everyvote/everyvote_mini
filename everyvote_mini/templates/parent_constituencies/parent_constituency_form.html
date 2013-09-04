@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Edit University{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
@@ -26,13 +28,16 @@
           <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
           <p>{{ form.about }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
+          <p><strong>Important:</strong> select yourself as an Administrator for your university page, or you will not be able to edit your university page. To add more than 1 person as a moderator, hold down the Ctrl key (on Windows) or Cmd key (on Mac) and select each user you want to make an administrator for this university.</p>
           {% if form.administrators.errors %}
             <p class="error">{{ form.administrators.errors }}</p>
           {% endif %}
           <p><label for="administrators"{% if form.administrators.errors %} class="error"{% endif %}>Administrators:</label></p>
           <p>{{ form.administrators }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
@@ -41,6 +46,7 @@
           <p>{{ form.profile_picture }}</p>
         </div>
         <br />
+        <a href="{% url 'parent_constituency_detail' pk=object.pk %}" class="btn btn-small btn-danger">Cancel</a>
         <input type="submit" class="btn btn-primary" value="Submit">      
       </form>
       <hr style="clear:both;">
