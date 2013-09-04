@@ -216,3 +216,4 @@ pip-log.txt
 
 *.db 
 *settings.py
+static/*
