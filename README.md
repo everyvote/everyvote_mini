@@ -9,7 +9,7 @@ INSTALLATION
 
 You will need to install two things:
 
-1) pip install django-registration
+1) pip install django-registration==0.8
 
 2) pip install django-recaptcha
 
