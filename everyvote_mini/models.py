@@ -77,6 +77,11 @@ class Election(models.Model):
     class Meta:
         ordering = ['-first_voting_day']
 
+    def get_office_candidates(self, office_id):
+        office_candidates = self.candidate_set.filter(office_id=office_id)
+        
+        return office_candidates
+        
     def eligible_candidates(self):
         
         blocked_users = self.constituency.blocked_users.all()
