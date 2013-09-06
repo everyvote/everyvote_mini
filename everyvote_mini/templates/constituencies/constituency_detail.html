@@ -14,7 +14,7 @@
     {% if user in constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Organization</button>
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareconstituencyModal">Share Organization</button>
       {% if user in constituency.moderators.all %}
         <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
       {% endif %}
