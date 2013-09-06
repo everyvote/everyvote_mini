@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import ListView, DetailView
 from everyvote_mini.views.election import ElectionListView, ElectionDetailView, ElectionCreateView, ElectionUpdateView, ElectionDeleteView
+from everyvote_mini.views.election import ElectionOfficeDetailView
 from everyvote_mini.views.parent_constituency import ParentConstituencyCreateView, ParentConstituencyListView, ParentConstituencyDetailView, ParentConstituencyUpdateView, ParentConstituencyDeleteView
 from everyvote_mini.views.constituency import ConstituencyListView, ConstituencyDetailView, ConstituencyCreateView, ConstituencyUpdateView, ConstituencyDeleteView
 from everyvote_mini.views.office import OfficeCreateView, OfficeDetailView, OfficeUpdateView, OfficeDeleteView
@@ -120,6 +121,12 @@ urlpatterns = patterns('',
         template_name='election_detail_alpha.html',
         context_object_name='election'),
         name='election_detail_alpha',
+        ),
+# SHOW ELECTION - SHOW ONLY ONE OFFICE
+    url(r'^elections/(?P<pk>\d+)/office/(?P<office_id>\d+)/$', ElectionOfficeDetailView.as_view(
+        model=Election,
+        template_name='election_detail_by_office.html'),
+        name='election_detail_by_office',
         ),
 # UPDATE ELECTION
     url(r'^elections/update/(?P<pk>\d+)/$', login_required(ElectionUpdateView.as_view()),
