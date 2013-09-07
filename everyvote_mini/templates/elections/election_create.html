@@ -31,6 +31,8 @@
           <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
           <p>{{ form.name }}</p>
         </div>
+        <hr style="clear:both;">
+        <p><strong>Select your offices below</strong>. To add more than 1 office, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each office in this election.</p>
         <div class="infobox-selector">
           {% if form.offices.errors %}
             <p class="error">{{ form.offices.errors }}</p>
@@ -38,6 +40,7 @@
           <p><label for="offices"{% if form.offices.errors %} class="error"{% endif %}>Offices:</label></p>
           <p>{{ form.offices }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
           {% if form.about.errors %}
             <p class="error">{{ form.about.errors }}</p>
