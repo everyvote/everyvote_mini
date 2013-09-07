@@ -46,13 +46,16 @@
           <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
           <p>{{ form.about }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
+          <p><strong>You must select yourself as a moderator</strong> or you will not be able to edit your organization page. To add more than 1 person as a moderator, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make a moderator for this organization.</p>
           {% if form.moderators.errors %}
             <p class="error">{{ form.moderators.errors }}</p>
           {% endif %}
           <p><label for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label></p>
           <p>{{ form.moderators }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
           {% if form.blocked_users.errors %}
             <p class="error">{{ form.blocked_users.errors }}</p>
