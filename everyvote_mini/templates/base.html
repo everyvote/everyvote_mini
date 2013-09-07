@@ -3,6 +3,11 @@
 <html lang="en">
 <head>
     <meta charset=”utf-8”> 
+    
+    <!-- This is a temporary fix for an error that occurs when uploading files with a Django form on IE9.
+         For some reason forcing IE=9 fixes the error. I don't know why this works, because I was using IE9 to begin with.-->
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    
     <title>{% block title %}EveryVote - University Elections{% endblock %}</title>
     
     <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
@@ -39,7 +44,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a href="/" class="navbar-brand"><span style="color:black">Every</span><span style="color:red">Vote</span></a>
+    <a href="/" class="navbar-brand"><span style="color:black">Every</span><span style="color:red">Vote</span>&nbsp<span style="color:black"><small><small>beta</small></small></span></a>
   </div><!-- .navbar-header -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
@@ -95,7 +100,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="/"><span style="color:black">Every</span><span style="color:red">Vote</span></a>
+    <a href="/" class="navbar-brand"><span style="color:black">Every</span><span style="color:red">Vote</span>&nbsp<span style="color:black"><small><small>beta</small></small></span></a>
   </div><!-- .navbar-header -->
   
   <div class="collapse navbar-collapse navbar-ex1-collapse">
