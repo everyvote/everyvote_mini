@@ -34,6 +34,7 @@ class CandidateDetailView(DetailView):
 # UPDATE CANDIDATE
 class CandidateUpdateView(UpdateView):
     model = Candidate
+    form_class = CandidateForm
     context_object_name = 'candidate'
     template_name = 'candidate_form.html'
     
