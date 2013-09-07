@@ -154,13 +154,17 @@ a.disabled-link:hover {
     width:200px;
     height:200px;
     float:left;
-    margin: 10px 20px 20px 0px;
-    clear:left;
+    margin: 0px 20px 15px 0px;
+    clear:both;
 }
 
 .infobox-about {
     clear:both;
     padding: 10px 0 0 0;
+}
+
+.infobox-about-no-padding {
+    clear:both;
 }
 
 .infobox-voting-days {
