@@ -20,16 +20,16 @@
       {% endif %}
     <!--/infobox buttons-->
     
-    <hr style="clear:both; padding:5px 0 0 0;">
+    <hr style="clear:both; padding:5px 0; margin:5px 0;">
     
     <div class="well infobox-selector">
       <p><strong>Select your election:</strong></p>
       <form method="POST">
         <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
-                <option></option>
-            {% for election in constituency.election_set.all %}
-                <option value="/elections/{{ election.id }}">{{ election.name }}</option>
-            {% endfor %}
+          <option></option>
+          {% for election in constituency.election_set.all %}
+            <option value="/elections/{{ election.id }}">{{ election.name }}</option>
+          {% endfor %}
         </select>
       </form>
       <span class="help-block">Please select an election to view your candidates.</span>
@@ -37,15 +37,15 @@
     
     {% if constituency.profile_picture %}  
       <div class="infobox-picture">
-        <p><img src="/static/uploaded_files/{{constituency.profile_picture}}" /></p>
+        <img src="/static/uploaded_files/{{constituency.profile_picture}}" />
       </div>
     {% endif %}
-    <div class="infobox-about-no-padding">
+    <div class="infobox-about">
       <h3>About {{ constituency.name }}</h3>
       <p>{{ constituency.about|urlize|linebreaks }}</p>
     </div>
-    <hr style="clear:both;">
-    <div class="infobox-about-no-padding">
+    <hr style="clear:both; padding:0; margin:5px 0;">
+    <div class="infobox-about">
       <h3>{{ constituency.name }}'s Offices</h3>
       {% if constituency.office_set.all %}
         {% for office in constituency.office_set.all %}
@@ -55,7 +55,6 @@
         <p>No offices have been added yet for this organization.</p>
         <p>If you are a moderator for this organization, you can login and use the Add button to add an office.</p>
       {% endif %}
-      <p></p>
     </div>
   </div>
 </div>
