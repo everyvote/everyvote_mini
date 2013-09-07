@@ -75,7 +75,7 @@ class Election(models.Model):
         access control. How/Can we use that? """
 
     class Meta:
-        ordering = ['-first_voting_day']
+        ordering = ['name']
 
     def get_office_candidates(self, office_id):
         office_candidates = self.candidate_set.filter(office_id=office_id)
