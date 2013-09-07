@@ -69,11 +69,12 @@
 
 <div class="infobox-list">
   <div class="infobox-list-showing">
-    <strong>Showing:</strong>
+    <strong>Show only:</strong>
     <br />
     <form method="POST">
       <select name="showing_form" onChange="top.location.href = this.form.showing_form.options[this.form.showing_form.selectedIndex].value; return false;">
-        <option>All Offices</option>
+        <option>Selected Office</option>
+        <option value="/elections/{{ election.id }}">All Offices</option>
         {% for office in election.constituency.office_set.all %}
           <option value="/elections/{{ election.id }}/office/{{ office.id }}">{{ office.name }}</option>
         {% endfor %}
