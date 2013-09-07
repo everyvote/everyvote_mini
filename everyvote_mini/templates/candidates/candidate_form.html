@@ -15,7 +15,7 @@
       <p>EveryVote is a way to raise awareness for your campaign by connecting you with your constituency (your group of voters).</p>
       <p>If your USA college is not available on EveryVote, please email contactus@everyvote.org.</p>
     </div>
-    <form method="post" action="">
+    <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
       {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}
         <div class="infobox-selector">
@@ -34,11 +34,10 @@
         <p>{{ form.about }}</p>
     </div>
     <br />
-    <p><input type="submit" class="btn btn-primary" value="Submit">
+    <input type="submit" class="btn btn-primary" value="Submit">
     </form>
     <hr style="clear:both;">
     <a href="{% url 'candidate_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Leave Race</a>
   </div>
-</div>
 </div>
 {% endblock %}
