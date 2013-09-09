@@ -12,6 +12,7 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
 content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.parent_constituency.profile_picture}}" 
 {% endif %}
 />
+<meta property="og:url" content="http://www.everyvote.org/elections/{{ election.id }}" />
 {% endblock %}
 
 {% block box1 %}
@@ -129,4 +130,5 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     {% endfor %}
   </div>
 </div>
+{% endblock %}
 {% endblock %}
