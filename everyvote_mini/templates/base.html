@@ -1,9 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#">
 <head>
     <meta charset=”utf-8”> 
-    
+    {% block extrahead %}
+    <meta property="og:description" content="Learn about and contact your candidates for free with EveryVote." />
+    <meta property="og:url" content="http://www.everyvote.org" />
+    {% endblock %}
     <!-- This is a temporary fix for an error that occurs when uploading files with a Django form on IE9.
          For some reason forcing IE=9 fixes the error. I don't know why this works, because I was using IE9 to begin with.-->
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
@@ -27,9 +32,6 @@
     
     <!-- this script enables links in dropdown menus to appear disabled -->
     <script>$(".disabled-link").click(function(event) { event.preventDefault(); });</script>
-    
-    {% block extrahead %}
-    {% endblock %}
 </head>
 
 <body>
