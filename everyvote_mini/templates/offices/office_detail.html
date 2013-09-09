@@ -2,6 +2,11 @@
 
 {% block title %}{{ office.constituency }} {{ office.name }} at {{ office.constituency.university }}{% endblock %}
 
+{% block extrahead %}
+<meta property="og:url" content="http://www.everyvote.org/offices/{{ office.id }}" />
+{% endblock %}
+
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
