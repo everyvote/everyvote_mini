@@ -2,6 +2,12 @@
 
 {% block title %}{{ object.userprofile.first_name }} {{object.userprofile.last_name }}'s EveryVote Profile{% endblock %}
 
+{% block extrahead %}
+<meta property="og:url" content="http://www.everyvote.org/users/{{ user.username }}" />
+<meta property="og:description" content="Learn about and contact your university candidates for free with EveryVote." />
+<meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ user.userprofile.profile_picture }}" />
+{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
