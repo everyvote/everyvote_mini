@@ -1,7 +1,18 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block title %}{{ election.constituency.name }} Election - {{ election.name }}{% endblock %}
+{% block title %}{{ election.constituency.name }} - {{ election.name }}{% endblock %}
+
+{% block extrahead %}
+<meta property="og:description" content="Learn about and contact your {{ election.constituency.parent_constituency }} candidates in one convenient place with EveryVote." />
+<meta property="og:image" 
+{% if election.constituency.profile_picture %}
+content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.profile_picture}}" 
+{% else %}
+content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.parent_constituency.profile_picture}}" 
+{% endif %}
+/>
+{% endblock %}
 
 {% block box1 %}
 <div class="infobox">
