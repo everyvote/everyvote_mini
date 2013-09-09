@@ -3,6 +3,11 @@
 
 {% block title %}{{ candidate.user.first_name }} {{ candidate.user.last_name }} Running for {{ candidate.office }} of {{ candidate.election.constituency }}{% endblock %}
 
+{% block extrahead %}
+<meta property="og:url" content="http://www.everyvote.org/candidates/{{ candidate.id }}" />
+<meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ candidate.profile_picture }}" />
+{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
