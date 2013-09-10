@@ -1,5 +1,5 @@
 from everyvote_mini.models import Constituency
-from everyvote_mini.forms import ConstituencyForm
+from everyvote_mini.forms import ConstituencyForm, ConstituencyCreateForm
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -13,17 +13,16 @@ CONSTITUENCY
 # CREATE CONSTITUENCY
 class ConstituencyCreateView(CreateView):
     model = Constituency
-    form_class = ConstituencyForm
+    form_class = ConstituencyCreateForm
     template_name = 'constituency_create.html'
     
     def form_valid(self, form):
         f = form.save(commit=False)
         f.save()
+        f.moderators.add(self.request.user)
+        form.save_m2m()
         return super(ConstituencyCreateView, self).form_valid(form)
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(ConstituencyCreateView, self).dispatch(*args, **kwargs)
 
 # LIST CONSTITUENCY
 class ConstituencyListView(ListView):
