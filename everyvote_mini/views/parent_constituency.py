@@ -1,5 +1,5 @@
 from everyvote_mini.models import ParentConstituency
-from everyvote_mini.forms import ParentConstituencyForm
+from everyvote_mini.forms import ParentConstituencyForm, ParentConstituencyCreateForm
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -21,12 +21,14 @@ class ParentConstituencyDetailView(DetailView):
 # CREATE PARENT CONSTITUENCY
 class ParentConstituencyCreateView(CreateView):
     model = ParentConstituency
-    form_class = ParentConstituencyForm
+    form_class = ParentConstituencyCreateForm
     template_name = 'parent_constituency_create.html'
     
     def form_valid(self, form):
         f = form.save(commit=False)
         f.save()
+        f.administrators.add(self.request.user)
+        form.save_m2m()
         return super(ParentConstituencyCreateView, self).form_valid(form)
 
 # UPDATE PARENT CONSTITUENCY
