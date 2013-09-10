@@ -1,54 +1,81 @@
 {% extends "base.html" %}
 
-{% block title %}Add University{% endblock %}
+{% block title %}{{ parent_constituency.name }} - Elections{% endblock %}
+
+{% block extrahead %}
+<meta property="og:url" content="http://www.everyvote.org/universities/{{ parent_constituency.id }}" />
+<meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ parent_constituency.profile_picture }}" />
+<meta property="og:description" content="Learn about and contact {{ parent_constituency.name }} with EveryVote." />
+{% endblock %}
 
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      Add University
+      {{ parent_constituency.name }}
     </div>
-    <hr style="clear:both;">
-    <div class="infobox-disclaimer">
-      <h3>*Disclaimer*</h3>
-      <p>Anyone can add a university to EveryVote, but if an official representative from the university requests adminstration privileges for the university's page, and no official representative is already an administrator for the university page, then EveryVote will give administration privileges to the person requesting.</p>
-    </div>
-    <hr style="clear:both;">
-    <form method="post" action="" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% if form.errors %}
-        <p>Please correct the following fields:</p>
-      {% endif %}
-        <div class="infobox-selector">
-          {% if form.name.errors %}
-            <p class="error">{{ form.name.errors }}</p>
-          {% endif %}
-          <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
-          <p>{{ form.name }}</p>
-        </div>
-        <div class="infobox-selector">
-          {% if form.about.errors %}
-            <p class="error">{{ form.about.errors }}</p>
-          {% endif %}
-          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
-          <p>{{ form.about }}</p>
-        </div>
-        <hr style="clear:both;">
-        <div class="infobox-selector">
-          <p>You are automatically set as the administrator for this university. To add another person as the administrator of this university, click the "Edit University" button after you create this university.</p>
-        </div>
-        <hr style="clear:both;">
-        <div class="infobox-selector">
-          {% if form.profile_picture.errors %}
-            <p class="error">{{ form.profile_picture.errors }}</p>
-          {% endif %}
-          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
-          <p>{{ form.profile_picture }}</p>
-        </div>
-        <br />
-        <a href="/" class="btn btn-small btn-danger">Cancel</a>
-        <input type="submit" class="btn btn-success" value="Add University">
+    
+    <!--infobox buttons-->
+    {% if user in parent_constituency.administrators.all %}
+      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+    {% endif %}
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareparent_constituencyModal">Share University</button>
+    <!--/infobox buttons-->
+
+    <hr style="clear:both; padding:5px 0 0 0;">
+
+    <div class="well infobox-selector">
+      <p><strong>Select your organization:</strong></p>
+      <form method="POST">
+        <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
+          <option></option>
+          {% for constituency in parent_constituency.constituency_set.all %}
+            <option value="/organizations/{{ constituency.id }}">{{ constituency.name }}</option>
+          {% endfor %}
+        </select>
       </form>
-  </div><!-- /.infobox-inside -->
+      <span class="help-block">Please select an organization to view its available elections.</span>
+    </div>
+    
+    {% if parent_constituency.profile_picture %}  
+      <div class="infobox-picture">
+        <img src="/static/uploaded_files/{{ parent_constituency.profile_picture }}" />
+      </div>
+    {% endif %}
+    <div class="infobox-about">
+      <h3>About {{ parent_constituency.name }}</h3>
+      <p>{{ parent_constituency.about|urlize|linebreaks }}</p>
+    </div>
+    <div class="infobox-moderators">
+      <p><big><strong>Administrator(s):</strong></big>
+      {% for administrator in parent_constituency.administrators.all %}
+        <br />
+        <a href="/users/{{ administrator }}">
+          {% if administrator.userprofile.first_name and administrator.userprofile.last_name %}
+            {{ administrator.userprofile.first_name }} {{ administrator.userprofile.last_name }}<br />
+          {% else %}
+            {{ administrator }}<br />
+          {% endif %}
+        </a></p>
+      {% endfor %}
+    </div>
+  </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
+
+    <div class="modal fade" id="shareparent_constituencyModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Share this University</h3>
+          </div>
+          <div class="modal-body">
+            <strong>Copy the link below to share this election page:</strong>
+            <br />
+            <br />
+            <p>www.everyvote.org/universities/{{parent_constituency.id}}</p>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}
