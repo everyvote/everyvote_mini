@@ -48,12 +48,7 @@
         </div>
         <hr style="clear:both;">
         <div class="infobox-selector">
-          <p><strong>You must select yourself as a moderator</strong> or you will not be able to edit your organization page. To add more than 1 person as a moderator, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make a moderator for this organization.</p>
-          {% if form.moderators.errors %}
-            <p class="error">{{ form.moderators.errors }}</p>
-          {% endif %}
-          <p><label for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label></p>
-          <p>{{ form.moderators }}</p>
+          <p>You are automatically set as the moderator for this organization. To add another person as the moderator of this organization, click the "Edit Organization" button after you create this organization.</p>
         </div>
         <hr style="clear:both;">
         <div class="infobox-selector">
