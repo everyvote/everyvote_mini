@@ -35,12 +35,7 @@
         </div>
         <hr style="clear:both;">
         <div class="infobox-selector">
-          <p><strong>You must select yourself as an Administrator</strong> or you will not be able to edit your university page. To add more than 1 person as a moderator, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make an administrator for this university.</p>
-          {% if form.administrators.errors %}
-            <p class="error">{{ form.administrators.errors }}</p>
-          {% endif %}
-          <p><label for="administrators"{% if form.administrators.errors %} class="error"{% endif %}>Administrators:</label></p>
-          <p>{{ form.administrators }}</p>
+          <p>You are automatically set as the administrator for this university. To add another person as the administrator of this university, click the "Edit University" button after you create this university.</p>
         </div>
         <hr style="clear:both;">
         <div class="infobox-selector">
