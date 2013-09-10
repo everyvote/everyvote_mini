@@ -5,6 +5,7 @@
 {% block extrahead %}
 <meta property="og:url" content="http://www.everyvote.org/organizations/{{ constituency.id }}" />
 <meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ constituency.profile_picture }}" />
+<meta property="og:description" content="Learn about and contact {{ constituency.parent_constituency.name }} {{ constituency.name }} with EveryVote." />
 {% endblock %}
 
 {% block box1 %}
