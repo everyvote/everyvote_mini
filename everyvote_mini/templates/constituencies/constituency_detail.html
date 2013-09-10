@@ -58,8 +58,21 @@
         {% endfor %}
       {% else %}
         <p>No offices have been added yet for this organization.</p>
-        <p>If you are a moderator for this organization, you can login and use the Add button to <a href="/offices/add/>add an office</a>.</p>
+        <p>If you are a moderator for this organization, you can login and use the Add button to <a href="/offices/add/">add an office</a>.</p>
       {% endif %}
+    </div>
+    <div class="infobox-moderators">
+      <p><big><strong>Moderator(s):</strong></big>
+      {% for moderator in constituency.moderators.all %}
+        <br />
+        <a href="/users/{{ moderator }}">
+          {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
+            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
+          {% else %}
+            {{ moderator }}<br />
+          {% endif %}
+        </a></p>
+      {% endfor %}
     </div>
   </div>
 </div>
