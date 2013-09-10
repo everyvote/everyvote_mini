@@ -22,12 +22,23 @@ class ParentConstituencyForm(forms.ModelForm):
     class Meta:
         model = ParentConstituency
 
+class ParentConstituencyCreateForm(forms.ModelForm):
+    class Meta:
+        model = ParentConstituency
+        exclude = ('administrators', )
+
 class ConstituencyForm(forms.ModelForm):
     moderators = forms.ModelMultipleChoiceField(queryset=User.objects.order_by('username'))
     blocked_users = forms.ModelMultipleChoiceField(required=False, queryset=User.objects.order_by('username'))
     class Meta:
         model = Constituency
 
+class ConstituencyCreateForm(forms.ModelForm):
+    blocked_users = forms.ModelMultipleChoiceField(required=False, queryset=User.objects.order_by('username'))
+    class Meta:
+        model = Constituency
+        exclude = ('moderators', )
+        
 class ElectionForm(forms.ModelForm):
     class Meta:
         model = Election
