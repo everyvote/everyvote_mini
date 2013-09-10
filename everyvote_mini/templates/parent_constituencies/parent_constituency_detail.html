@@ -5,6 +5,86 @@
 {% block extrahead %}
 <meta property="og:url" content="http://www.everyvote.org/universities/{{ parent_constituency.id }}" />
 <meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ parent_constituency.profile_picture }}" />
+<meta property="og:description" content="Learn about and contact {{ parent_constituency.name }} with EveryVote." />
+{% endblock %}
+
+{% block box1 %}
+<div class="infobox">
+  <div class="infobox-inside">
+    <div class="infobox-name">
+      {{ parent_constituency.name }}
+    </div>
+    
+    <!--infobox buttons-->
+    {% if user in parent_constituency.administrators.all %}
+      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+    {% endif %}
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareparent_constituencyModal">Share University</button>
+    <!--/infobox buttons-->
+
+    <hr style="clear:both; padding:5px 0 0 0;">
+
+    <div class="well infobox-selector">
+      <p><strong>Select your organization:</strong></p>
+      <form method="POST">
+        <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
+          <option></option>
+          {% for constituency in parent_constituency.constituency_set.all %}
+            <option value="/organizations/{{ constituency.id }}">{{ constituency.name }}</option>
+          {% endfor %}
+        </select>
+      </form>
+      <span class="help-block">Please select an organization to view its available elections.</span>
+    </div>
+    
+    {% if parent_constituency.profile_picture %}  
+      <div class="infobox-picture">
+        <img src="/static/uploaded_files/{{ parent_constituency.profile_picture }}" />
+      </div>
+    {% endif %}
+    <div class="infobox-about">
+      <h3>About {{ parent_constituency.name }}</h3>
+      <p>{{ parent_constituency.about|urlize|linebreaks }}</p>
+    </div>
+    <div class="infobox-moderators">
+      <p><big><strong>Administrator(s):</strong></big>
+      {% for administrator in parent_constituency.administrators.all %}
+        <br />
+        <a href="/users/{{ administrator }}">
+          {% if administrator.userprofile.first_name and administrator.userprofile.last_name %}
+            {{ administrator.userprofile.first_name }} {{ administrator.userprofile.last_name }}<br />
+          {% else %}
+            {{ administrator }}<br />
+          {% endif %}
+        </a></p>
+      {% endfor %}
+    </div>
+  </div><!-- .infobox-inside -->
+</div><!-- .infobox -->
+
+    <div class="modal fade" id="shareparent_constituencyModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Share this University</h3>
+          </div>
+          <div class="modal-body">
+            <strong>Copy the link below to share this election page:</strong>
+            <br />
+            <br />
+            <p>www.everyvote.org/universities/{{parent_constituency.id}}</p>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock %}{% extends "base.html" %}
+
+{% block title %}{{ parent_constituency.name }} - Elections{% endblock %}
+
+{% block extrahead %}
+<meta property="og:url" content="http://www.everyvote.org/universities/{{ parent_constituency.id }}" />
+<meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ parent_constituency.profile_picture }}" />
 {% endblock %}
 
 {% block box1 %}
