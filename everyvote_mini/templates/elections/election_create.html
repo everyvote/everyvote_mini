@@ -53,7 +53,7 @@
           {% if form.first_voting_day.errors %}
             <p class="error">{{ form.first_voting_day.errors }}</p>
           {% endif %}
-          <p><label for="first_voting_day"{% if form.first_voting_day.errors %} class="error"{% endif %}>First voting day:</label></p>
+          <p><label for="first_voting_day"{% if form.first_voting_day.errors %} class="error"{% endif %}>First voting day (mm/dd/yyyy):</label></p>
           <p>{{ form.first_voting_day }}</p>
         </div>
         <div class="infobox-selector">
