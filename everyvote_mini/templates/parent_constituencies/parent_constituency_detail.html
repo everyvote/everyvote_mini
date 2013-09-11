@@ -16,10 +16,11 @@
     </div>
     
     <!--infobox buttons-->
+    <a href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info infobox-button">Share</button></a>
     {% if user in parent_constituency.administrators.all %}
-      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button"><span class="glyphicon glyphicon-plus"></span> Add Organization</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareparent_constituencyModal">Share University</button>
     <!--/infobox buttons-->
 
     <hr style="clear:both; padding:5px 0 0 0;">
