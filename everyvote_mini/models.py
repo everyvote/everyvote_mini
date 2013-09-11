@@ -19,7 +19,7 @@ def get_upload_file_name(instance, filename):
 
 class ParentConstituency(models.Model):
     name = models.CharField(max_length=100)
-    about = models.TextField()
+    about = models.TextField(blank=True, null=True)
     administrators = models.ManyToManyField(User, blank=True, null=True)
     profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
     
@@ -35,7 +35,7 @@ class ParentConstituency(models.Model):
 class Constituency(models.Model):
     parent_constituency = models.ForeignKey(ParentConstituency)
     name = models.CharField(max_length=100)
-    about = models.TextField()
+    about = models.TextField(blank=True, null=True)
     moderators = models.ManyToManyField(User, related_name='moderator')
     blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True, null=True)
     profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True, null=True)
@@ -53,7 +53,7 @@ class Constituency(models.Model):
 class Office(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=30)
-    about = models.TextField(blank=True)
+    about = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ['constituency']
