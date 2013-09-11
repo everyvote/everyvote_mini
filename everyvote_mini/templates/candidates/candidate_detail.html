@@ -22,7 +22,7 @@
     {% if user in election.constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{candidate.election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Candidate</button>
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
       {% if user in candidate.election.constituency.moderators.all %}
         <a href="/organizations/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
         <a href="/elections/update/{{candidate.election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
