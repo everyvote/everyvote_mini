@@ -28,7 +28,7 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     {% if user in election.constituency.parent_constituency.administrators.all %}
       <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share Election</button>
+    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
       {% if user in election.constituency.moderators.all %}
         <a href="/organizations/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
         <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
@@ -130,5 +130,4 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     {% endfor %}
   </div>
 </div>
-{% endblock %}
 {% endblock %}
