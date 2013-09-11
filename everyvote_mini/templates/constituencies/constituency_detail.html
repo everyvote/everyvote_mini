@@ -17,12 +17,13 @@
     </div>
 
     <!--infobox buttons-->
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareconstituencyModal">Share</button>
     {% if user in constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareconstituencyModal">Share Organization</button>
       {% if user in constituency.moderators.all %}
         <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
+        <a href="/offices/add/"><button class="btn btn-success infobox-button"><span class="glyphicon glyphicon-plus"></span> Add Office</button></a>
+        <a href="/elections/add/"><button class="btn btn-success infobox-button"><span class="glyphicon glyphicon-plus"></span> Add Election</button></a>
       {% endif %}
     <!--/infobox buttons-->
     
