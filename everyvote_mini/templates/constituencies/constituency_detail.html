@@ -1,34 +1,42 @@
 {% extends "base.html" %}
 
+{% block title %}{{ constituency.name }} Elections{% endblock %}
+
+{% block extrahead %}
+<meta property="og:url" content="http://www.everyvote.org/organizations/{{ constituency.id }}" />
+<meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ constituency.profile_picture }}" />
+<meta property="og:description" content="Learn about and contact {{ constituency.parent_constituency.name }} {{ constituency.name }} with EveryVote." />
+{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
       {{ constituency.name }}
     </div>
 
     <!--infobox buttons-->
+    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareconstituencyModal">Share</button>
     {% if user in constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
       {% if user in constituency.moderators.all %}
-        <a href="/groups/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+        <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
+        <a href="/offices/add/"><button class="btn btn-success infobox-button"><span class="glyphicon glyphicon-plus"></span> Add Office</button></a>
+        <a href="/elections/add/"><button class="btn btn-success infobox-button"><span class="glyphicon glyphicon-plus"></span> Add Election</button></a>
       {% endif %}
     <!--/infobox buttons-->
     
-    <hr style="clear:both; padding:5px 0 0 0;">
+    <hr style="clear:both; padding:5px 0; margin:5px 0;">
     
     <div class="well infobox-selector">
       <p><strong>Select your election:</strong></p>
       <form method="POST">
         <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
-                <option></option>
-            {% for election in constituency.election_set.all %}
-                <option value="/elections/{{ election.id }}">{{ election.name }}</option>
-            {% endfor %}
+          <option></option>
+          {% for election in constituency.election_set.all %}
+            <option value="/elections/{{ election.id }}">{{ election.name }}</option>
+          {% endfor %}
         </select>
       </form>
       <span class="help-block">Please select an election to view your candidates.</span>
@@ -36,12 +44,37 @@
     
     {% if constituency.profile_picture %}  
       <div class="infobox-picture">
-        <p><img src="/static/uploaded_files/{{constituency.profile_picture}}" /></p>
+        <img src="/static/uploaded_files/{{constituency.profile_picture}}" />
       </div>
     {% endif %}
     <div class="infobox-about">
-      <p><strong>About {{ constituency.name }}: </strong>
-      <p>{{ constituency.about|linebreaks|urlize }}</p>
+      <h3>About {{ constituency.name }}</h3>
+      <p>{{ constituency.about|urlize|linebreaks }}</p>
+    </div>
+    <hr style="clear:both; padding:0; margin:5px 0;">
+    <div class="infobox-about">
+      <h3>{{ constituency.name }}'s Offices</h3>
+      {% if constituency.office_set.all %}
+        {% for office in constituency.office_set.all %}
+          <p><a href="/offices/{{ office.id }}">{{ office.name }}</a></p>
+        {% endfor %}
+      {% else %}
+        <p>No offices have been added yet for this organization.</p>
+        <p>If you are a moderator for this organization, you can login and use the Add button to <a href="/offices/add/">add an office</a>.</p>
+      {% endif %}
+    </div>
+    <div class="infobox-moderators">
+      <p><big><strong>Moderator(s):</strong></big>
+      {% for moderator in constituency.moderators.all %}
+        <br />
+        <a href="/users/{{ moderator }}">
+          {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
+            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
+          {% else %}
+            {{ moderator }}<br />
+          {% endif %}
+        </a></p>
+      {% endfor %}
     </div>
   </div>
 </div>
@@ -51,13 +84,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3 class="modal-title">Share this Group</h3>
+        <h3 class="modal-title">Share this Organization</h3>
       </div>
       <div class="modal-body">
-        <strong>Copy the link below to share this group page:</strong>
+        <strong>Copy the link below to share this organization page:</strong>
         <br />
         <br />
-        <p>www.everyvote.org/groups/{{constituency.id}}</p>
+        <p>www.everyvote.org/organizations/{{constituency.id}}</p>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

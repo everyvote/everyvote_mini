@@ -1,21 +1,80 @@
 {% extends "base.html" %}
 
+{% block title %}EveryVote - University Elections{% endblock %}
+
+{% block extrahead %}
+<meta property="og:image" content="" />
+{% endblock %}
+
 {% block box1 %}
 <div class="container">
-<h1 style="text-align:center;">Every<span style="color:red">Vote</span></h1>
-  <h4 style="text-align:center; padding:10px 0;">university election directory</h4>
-  <br />
-  <div class="well infobox-selector">
-    <p><strong>Select your university:</strong></p>
+  <h1 style="font-size:4em; text-align:center; font-family:'Oswald', sans-serif; padding:0; margin:0;">Every<span style="color:red">Vote</span></h1>
+  <div class="showbox">
+    <div class="showbox-title">
+      ALL YOUR UNIVERSITY CANDIDATES IN ONE PLACE
+    </div>
+    <br />
+    <div class="showbox-selector col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+      SELECT YOUR UNIVERSITY 
       <form method="POST">
         <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
-           <option></option>
+           <option>Select university</option>
         {% for parent_constituency in parent_constituencies %}
           <option value="/universities/{{ parent_constituency.id }}">{{ parent_constituency.name }}</option>
         {% endfor %}
         </select>
       </form>
-      <span class="help-block">Please select a university to view the available groups.</span>
+    </div>
+  <br />
+  <a href="/organizations/add" class="showbox-button centered btn btn-success">Become a Moderator</a>
+  <br />
   </div>
+  <br />
+  <div class="featurebox">
+  <div class="featurebox-item darker-background">
+    <div class="featurebox-picture">
+      <img src="/static/images/people-icon.png" />
+    </div>
+    <div class="featurebox-text">
+      <br />
+      <p><big><strong>FIND YOUR CANDIDATE PROFILES</strong></big></p>
+      <p>Elections are held at universities every Fall and Spring semester. Do you know who your candidates are? EveryVote makes it easy for you to learn about and contact all of your candidates in one convenient place.</p>
+      <a href="/">Find Your University's Elections</a>
+    </div>
+  </div>
+  <div class="featurebox-item lighter-background">
+    <div class="featurebox-picture">
+      <img src="/static/images/plus-icon.png" />
+    </div>
+    <div class="featurebox-text">
+      <br />
+      <p><big><strong>CREATE AN ELECTION PAGE</strong></big></p>
+      <p>Anyone can create an election page on EveryVote for free. Elections Commissioners: share your university election and candidate information online in one organized location by creating an organization page.</p>
+      <a href="/accounts/register">Register to Create an Election Page</a>
+    </div>
+  </div>
+  <div class="featurebox-item darker-background">
+    <div class="featurebox-picture">
+      <img src="/static/images/boost-icon.png" />
+    </div>
+    <div class="featurebox-text">
+      <br />
+      <p><big><strong>INCREASE VOTER TURNOUT</strong></big></p>
+      <p>Voter turnout in university elections is down all across the United States. EveryVote can help you increase voter turnout by giving your student body a free 24/7 online town square for an upcoming election.</p>
+      <a href="/accounts/register">Register to Add Your University</a>
+    </div>
+  </div>
+  <div class="featurebox-item-last lighter-background">
+    <div class="featurebox-picture">
+      <img src="/static/images/people-icon.png" />
+    </div>
+    <div class="featurebox-text">
+      <br />
+      <p><big><strong>FIND YOUR VOTERS</strong></big></p>
+      <p>Are you a candidate looking to reach as many voters on campus as possible? With Facebook, you can only reach your friends. With EveryVote, every student at your school can read your candidate profile.</p>
+      <a href="/accounts/register">Register to Share Your Candidate Profile</a>
+    </div>
+  </div>
+</div>
 </div>
 {% endblock %}

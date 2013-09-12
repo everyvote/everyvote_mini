@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% block title %}Add an Election{% endblock %}
 
 {% block box1 %}
 <div class="infobox">
@@ -8,6 +9,9 @@
       Add Election
     </div>
     <hr style="clear:both;">
+    <div class="infobox-disclaimer">
+      <p>You must be a <strong>moderator</strong> of an organization to add an election for that organization.</p>
+    </div>
     <form method="post" action="">
       {% csrf_token %}
       {% if form.errors %}
@@ -17,7 +21,7 @@
           {% if form.constituency.errors %}
             <p class="error">{{ form.constituency.errors }}</p>
           {% endif %}
-          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Group:</label></p>
+          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label></p>
           <p>{{ form.constituency }}</p>
         </div>
         <div class="infobox-selector">
@@ -27,6 +31,9 @@
           <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
           <p>{{ form.name }}</p>
         </div>
+        <hr style="clear:both;">
+        <p><strong>Select your offices below</strong>. To add more than 1 office, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each office in this election.</p>
+        <p>If your office is not in the list below, you will need to <strong><a href="/offices/add/">add an office</a></strong>.</p>
         <div class="infobox-selector">
           {% if form.offices.errors %}
             <p class="error">{{ form.offices.errors }}</p>
@@ -34,6 +41,7 @@
           <p><label for="offices"{% if form.offices.errors %} class="error"{% endif %}>Offices:</label></p>
           <p>{{ form.offices }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
           {% if form.about.errors %}
             <p class="error">{{ form.about.errors }}</p>
@@ -45,7 +53,7 @@
           {% if form.first_voting_day.errors %}
             <p class="error">{{ form.first_voting_day.errors }}</p>
           {% endif %}
-          <p><label for="first_voting_day"{% if form.first_voting_day.errors %} class="error"{% endif %}>First voting day:</label></p>
+          <p><label for="first_voting_day"{% if form.first_voting_day.errors %} class="error"{% endif %}>First voting day (mm/dd/yyyy):</label></p>
           <p>{{ form.first_voting_day }}</p>
         </div>
         <div class="infobox-selector">
@@ -56,6 +64,7 @@
           <p>{{ form.last_voting_day }}</p>
         </div>
         <br />
+        <a href="/" class="btn btn-small btn-danger">Cancel</a>
         <input type="submit" class="btn btn-success" value="Add Election" />
       </form>
   </div><!-- .infobox-inside -->

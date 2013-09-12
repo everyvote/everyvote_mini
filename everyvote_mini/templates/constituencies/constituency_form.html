@@ -4,11 +4,11 @@
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      Edit Group
+      Edit Organization
     </div>
     <hr style="clear:both;">
     <div class="infobox-disclaimer">
-      <p>In order for candidates to add themselves to your election page, you must first create offices for your group.</p>
+      <p>In order for candidates to add themselves to your election page, you must first create offices for your organization.</p>
     </div>
       <p><strong>{{ constituency.name }}'s offices:</strong></p>
       <ol>
@@ -45,20 +45,25 @@
           <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
           <p>{{ form.about }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
+          <p><strong>You must select yourself as a moderator</strong> or you will not be able to edit your organization page. To add more than 1 person as a moderator, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make a moderator for this organization.</p>
           {% if form.moderators.errors %}
             <p class="error">{{ form.moderators.errors }}</p>
           {% endif %}
           <p><label for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label></p>
           <p>{{ form.moderators }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
+          <p><strong>Important:</strong> To block more than 1 person, hold down the Ctrl key (on Windows) or Cmd key (on Mac) and select each person you want to block from this organization.</p>
           {% if form.blocked_users.errors %}
             <p class="error">{{ form.blocked_users.errors }}</p>
           {% endif %}
           <p><label for="blocked_users"{% if form.blocked_users.errors %} class="error"{% endif %}>Blocked users:</label></p>
           <p>{{ form.blocked_users }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
@@ -66,14 +71,15 @@
           <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
           <p>{{ form.profile_picture }}</p>
         </div>
+      <a href="{% url 'constituency_detail' pk=object.pk %}" class="btn btn-small btn-danger">Cancel</a>
       <input type="submit" class="btn btn-primary" value="Submit">
     </form>
     <hr style="clear:both;">
-    <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Group</a>
+    <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Organization</a>
     
     <div class="infobox-disclaimer">
       <h3>*Disclaimer*</h3>
-      <p>Anyone can add a group to EveryVote, but if an official representative from the group requests moderator privileges for the groups's page, and no official representative is already a moderator for the group's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
+      <p>Anyone can add a organization to EveryVote, but if an official representative from the organization requests moderator privileges for the organization's page, and no official representative is already a moderator for the organization's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
       <ol>
         <li>Elections Commissioners</li>
         <li>President</li>

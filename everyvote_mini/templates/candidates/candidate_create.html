@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
-{% block extrahead %}
-{% endblock %}
+{% block title %}EveryVote - Run for Office{% endblock %}
 
 {% block box1 %}
 <div class="infobox">
@@ -12,10 +11,11 @@
     <hr style="clear:both;">
     <div class="infobox-disclaimer">
       <h3>*Disclaimer*</h3>
-      <p>Running for office on EveryVote does not officially register you as a candidate for office. You need to contact the Elections Commissioner of your group to make sure you are officially registered as a candidate.</p>
-      <p>EveryVote is a way to raise awareness for your campaign by connecting you with your constituency (your group of voters).</p>
-      <p>If your USA college is not available on EveryVote, please email contact@everyvote.org.</p>
+      <p>Running for office on EveryVote does not officially register you as a candidate for office. You need to contact the Elections Commissioner of your organization to make sure you are officially registered as a candidate.</p>
+      <p>EveryVote is a way to raise awareness for your campaign by connecting you with your constituency (your organization of voters).</p>
     </div>
+    <hr style="clear:both;">
+    <p><strong>Important:</strong> you can set your first name, last name, profile picture, & contact information by editing <a href="/users/update/{{ user.username }}">your Global Profile</a>.</p>
     <form method="post" action="">
       {% csrf_token %}
       {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}
@@ -35,7 +35,8 @@
         <p>{{ form.about }}</p>
     </div>
     <br />
-    <p><input type="submit" class="btn btn-success" value="Submit">
+    <a href="/" class="btn btn-small btn-danger">Cancel</a>
+    <input type="submit" class="btn btn-success" value="Run for Office">
     </form>
   </div>
 </div>

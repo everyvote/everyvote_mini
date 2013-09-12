@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Delete an Election{% endblock %}
+
 {% block box1 %}
 
 <p>Are you sure you want to delete "{{ object.name }}"?</p>
@@ -10,7 +12,4 @@
   <p><input type="submit" value="Confirm deletion" /></p>
 </form> 
 
-{% endblock %}
-
-{% block box2 %}
 {% endblock %}

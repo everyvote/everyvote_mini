@@ -1,14 +1,26 @@
 {% extends "base.html" %}
 {% load comments %}
 
+{% block title %}{{ election.constituency.name }} - {{ election.name }}{% endblock %}
+
+{% block extrahead %}
+<meta property="og:description" content="Learn about and contact {{ election.constituency.parent_constituency }} candidates with EveryVote." />
+<meta property="og:image" 
+{% if election.constituency.profile_picture %}
+content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.profile_picture}}" 
+{% else %}
+content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.parent_constituency.profile_picture}}" 
+{% endif %}
+/>
+<meta property="og:url" content="http://www.everyvote.org/elections/{{ election.id }}" />
+{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
-      <a href="/groups/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
-      <hr style="padding:0; margin:0; clear:left;">
+      <a href="/organizations/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
     {{ election.name }}
     </div>
     
@@ -18,7 +30,7 @@
     {% endif %}
     <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
       {% if user in election.constituency.moderators.all %}
-        <a href="/groups/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Group</button></a>
+        <a href="/organizations/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
         <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
       {% endif %}
     <!--/infobox buttons-->
@@ -30,7 +42,7 @@
       {{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}</p>
     </div>
     <div class="infobox-about">
-      <big><strong>About {{ election.name }}:</strong></big>
+      <big><strong>About Election:</strong></big>
       {{ election.about|linebreaks|urlize }}
     </div>
     
@@ -69,14 +81,16 @@
 
 <div class="infobox-list">
   <div class="infobox-list-showing">
-    <strong>Showing:</strong>
+    <strong>Show only:</strong>
     <br />
-    <select name="showing" style="float:left">
+    <form method="POST">
+      <select name="showing_form" onChange="top.location.href = this.form.showing_form.options[this.form.showing_form.selectedIndex].value; return false;">
         <option>All Offices</option>
         {% for office in election.constituency.office_set.all %}
-          <option>{{ office.name }}</option>
+          <option value="/elections/{{ election.id }}/office/{{ office.id }}">{{ office.name }}</option>
         {% endfor %}
-    </select>
+      </select>
+    </form>
   </div>
   <div class="infobox-list-sort-by">
     <strong>Sort by:</strong>
@@ -91,16 +105,21 @@
   <br />
   <hr style="clear:both;">
   <div class="infobox-list-inside">
-    {% for candidate in election.candidate_set.all|dictsort:"user.last_name" %}
+    {% for candidate in eligible_candidates|dictsort:"user.last_name" %}
       <div class="infobox-list-profile">
-        <div class="infobox-list-picture">
-          <img src="/static/uploaded_files/{{ candidate.user.profile_picture }}" />
+                <div class="infobox-list-picture">
+          <a href="/candidates/{{ candidate.pk }}"><img src="/static/uploaded_files/{{ candidate.user.profile_picture }}" /></a>
         </div>
         <div class="infobox-list-info">
-          <h2><a href="/candidates/{{ candidate.pk }}">{{ candidate.user.first_name }} {{ candidate.user.last_name }}</a></h2>
+          <h2><a href="/candidates/{{ candidate.pk }}">
+            {% if candidate.user.first_name %} 
+            {{ candidate.user.first_name }} {{ candidate.user.last_name }} 
+            {% else %}
+            {{ candidate.user.username }} 
+            {% endif %}</a></h2>
           <br />
           <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
-          <p><strong>About me: </strong>{{ candidate.about|slice:":200" }}</p>
+          <p><strong>About me: </strong>{{ candidate.about|truncatechars:200 }}</p>
         </div>
       </div>
       {% if forloop.last %}

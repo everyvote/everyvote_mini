@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %}Add an Organization{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      Add Group
+      Add Organization
     </div>
     <hr style="clear:both;">
     <div class="infobox-disclaimer">
       <h3>*Disclaimer*</h3>
-      <p>Anyone can add a group to EveryVote, but if an official representative from the group requests moderator privileges for the groups's page, and no official representative is already a moderator for the group's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
+      <p>Anyone can add an organization to EveryVote, but if an official representative from the organization requests moderator privileges for the organization's page, and no official representative is already a moderator for the page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
       <ol>
         <li>Elections Commissioners
         <li>President
@@ -44,13 +46,11 @@
           <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
           <p>{{ form.about }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
-          {% if form.moderators.errors %}
-            <p class="error">{{ form.moderators.errors }}</p>
-          {% endif %}
-          <p><label for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label></p>
-          <p>{{ form.moderators }}</p>
+          <p>You are automatically set as the moderator for this organization. To add another person as the moderator of this organization, click the "Edit Organization" button after you create this organization.</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
           {% if form.blocked_users.errors %}
             <p class="error">{{ form.blocked_users.errors }}</p>
@@ -66,7 +66,8 @@
           <p>{{ form.profile_picture }}</p>
         </div>
       <br />
-      <input type="submit" class="btn btn-success" value="Add Group">
+      <a href="/" class="btn btn-small btn-danger">Cancel</a>
+      <input type="submit" class="btn btn-success" value="Add Organization">
     </form>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->

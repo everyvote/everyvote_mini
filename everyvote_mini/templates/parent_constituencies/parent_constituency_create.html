@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Add University{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
@@ -11,6 +13,7 @@
       <h3>*Disclaimer*</h3>
       <p>Anyone can add a university to EveryVote, but if an official representative from the university requests adminstration privileges for the university's page, and no official representative is already an administrator for the university page, then EveryVote will give administration privileges to the person requesting.</p>
     </div>
+    <hr style="clear:both;">
     <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
       {% if form.errors %}
@@ -30,13 +33,11 @@
           <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
           <p>{{ form.about }}</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
-          {% if form.administrators.errors %}
-            <p class="error">{{ form.administrators.errors }}</p>
-          {% endif %}
-          <p><label for="administrators"{% if form.administrators.errors %} class="error"{% endif %}>Administrators:</label></p>
-          <p>{{ form.administrators }}</p>
+          <p>You are automatically set as the administrator for this university. To add another person as the administrator of this university, click the "Edit University" button after you create this university.</p>
         </div>
+        <hr style="clear:both;">
         <div class="infobox-selector">
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
@@ -45,6 +46,7 @@
           <p>{{ form.profile_picture }}</p>
         </div>
         <br />
+        <a href="/" class="btn btn-small btn-danger">Cancel</a>
         <input type="submit" class="btn btn-success" value="Add University">
       </form>
   </div><!-- /.infobox-inside -->

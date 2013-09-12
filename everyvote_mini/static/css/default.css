@@ -1,0 +1,271 @@
+<style>
+
+
+body {
+    background-color:#fdfdf9;
+}
+
+.dropdown-menu {
+    min-width: 100px;
+}
+
+a.disabled-link,
+a.disabled-link:visited ,
+a.disabled-link:active,
+a.disabled-link:hover {
+    background-color:#eeeeee !important;
+    color:#aaa !important;
+}
+
+.showbox {
+    font-family: 'Arimo', sans-serif;
+    text-align: center;
+    background-image: url(http://everyvote.org/static/images/UIUC%20campus%20-%20Chen%20Qian%20-%20750x420.jpg);
+    background-repeat: no-repeat;
+    padding: 35px 0 0px 0;
+    margin: 20px 0 0 0;
+}
+
+.showbox-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.3em;
+    color: #fff;
+    text-align: center;
+    background: rgba(80, 80, 80, 0.7);
+    margin: 0 0 15px 0;
+}
+
+.showbox-selector {
+    font-family: 'Arimo', sans-serif;
+    font-size: 1.4em;
+    color: #f8fc90;
+    background: rgba(80, 80, 80, 0.7);
+    text-shadow: 1px 1px #000;
+    text-align: center;
+    padding: 5px 20px 25px 20px;
+}
+
+.showbox-button {
+    margin: 25px 0;
+}
+
+.darker-background {
+    background-color:#f8f6f6;
+}
+
+.lighter-background {
+    background-color:#fff;
+}
+
+.featurebox {
+    font-family: 'Arimo', sans-serif;
+    clear:both;
+    margin: 15px 0 0 0;
+    border: 1px solid #ddd;
+}
+
+.featurebox-item {
+    clear:both;
+    border-bottom: 1px solid #ddd;
+}
+
+.featurebox-item-last {
+    clear:both;
+}
+
+.featurebox-picture {
+    width:150px;
+    height:150px;
+    float:left;
+    margin: 20px 45px 20px 15px;
+}
+
+.featurebox-text {
+    padding: 20px 15px 35px 0;
+    text-align: left;
+
+}
+
+.infobox {
+    font-family: 'Arimo', sans-serif;
+    border: 1px dotted #555;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.infobox-inside {
+    padding:15px 15px;
+}
+
+.infobox-point {
+    position:absolute;
+    left: 22px;
+}
+
+.infobox-name {
+    font-family: 'Oswald', sans-serif;
+    float:left;
+    font-size:2.1em; 
+    padding:0; 
+    margin:0 0 5px 0;
+    clear:left;
+}
+
+.infobox-below-name {
+    float:left;
+    font-size:1.4em;
+    padding:0 0 10px 0;
+    margin:0;
+    clear:left;
+}
+
+.infobox-share-button {
+    float:right;
+    margin: 2px 0 10px 0;
+}
+
+.infobox-university-button {
+    float:right;
+    margin: 2px 0 10px 10px;
+}
+
+.infobox-button {
+    float:right;
+    clear:right;
+    margin:0 0 10px 0;
+}
+
+.infobox-bottom-button {
+
+}
+
+.infobox-disclaimer {
+    clear:both;
+}
+
+.infobox-selector {
+    clear:both;
+}
+
+.infobox-picture img {
+    width:200px;
+    height:200px;
+    float:left;
+    margin: 0 0 5px 0;
+    padding: 0;
+    clear:both;
+}
+
+.infobox-candidate-picture img {
+    width:200px;
+    height:200px;
+    float:left;
+    margin: 0px 20px 15px 0px;
+    clear:both;
+}
+
+.infobox-about {
+    clear:both;
+    padding: 10px 0 0 0;
+}
+
+.infobox-about h3 {
+    padding:0;
+    margin:0 0 10px 0;
+}
+
+.infobox-about-no-padding {
+    clear:both;
+}
+
+.infobox-voting-days {
+    clear:both;
+}
+
+.infobox-moderators {
+    clear:both;
+    padding: 10px 0 0 0;
+}
+
+.infobox-list {
+    font-family: 'Arimo', sans-serif;
+    clear:both;
+    padding: 0 10px;
+    margin: 0 5px;
+    border-right:1px dotted #ccc;
+    border-left:1px dotted #ccc;
+    background-color:#fff;
+    
+}
+
+.infobox-list-showing {
+    margin: 5px 20px 10px 0;
+    float:left;
+}
+
+.infobox-list-sort-by {
+    margin: 5px 20px 10px 0;
+    float:left;
+}
+
+.infobox-list-inside {
+}
+
+.infobox-list-profile {
+    padding: 5px 0 0 0;
+}
+
+.infobox-list-picture img {
+    float:left;
+    margin:0px 20px 20px 0px;
+    width:150px;
+    height:150px;
+}
+
+.infobox-list-info p {
+    clear:right;
+    font-family: 'Arimo', sans-serif
+}
+
+.infobox-list-info h2 {
+    padding:5px 0 10px 0;
+    margin:0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.0em;
+}
+
+.ui-helper-hidden-accessible {
+    display:none;
+}
+
+#id_honeypot {
+    display: none;
+}
+
+textarea#id_comment {
+    width:275px;
+    height:80px;
+    border-radius:3px;
+}
+textarea#id_comment:focus {
+    border-color: #004422;
+    box-shadow: 0 0 10px #004422;
+}
+
+
+.caret-white {
+    border-top-color: white !important;
+    border-bottom-color: white !important; /*these carets aren't needed*/
+}
+
+.caret-black {
+    border-top-color: black !important; /*but they make me think of this */
+    border-bottom-color: black !important; /*http://www.youtube.com/watch?v=F2AitTPI5U0*/
+}
+
+.footer {
+    clear:both;
+    font-family: 'Arimo', sans-serif;
+}
+
+</style>
