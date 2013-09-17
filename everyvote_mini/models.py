@@ -110,6 +110,8 @@ class UserProfile(models.Model):
     email = models.EmailField(blank=True)
     profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
     about = models.TextField(blank=True)
+    year_in_school = models.CharField(max_length=25, blank=True, null=True)
+    major = models.CharField(max_length=40, blank=True, null=True)
     twitter_name = models.CharField(max_length=20, blank=True)
     facebook_page = models.URLField(blank=True)
     linkedin_page = models.URLField(blank=True)
@@ -126,6 +128,9 @@ class Candidate(models.Model):
     user = models.ForeignKey(UserProfile)
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
+    party = models.CharField(max_length=50, blank=True, null=True)
+    goals = models.TextField(blank=True, null=True)
+    experience = models.TextField(blank=True, null=True)
     about = models.TextField(blank=True)
     
     class Meta:
