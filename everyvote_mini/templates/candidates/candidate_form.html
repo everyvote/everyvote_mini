@@ -28,9 +28,24 @@
           <p><label for="office"{% if form.office.errors %} class="error"{% endif %}>Office:</label></p>
           <p>{{ form.office }}</p>
       </div>
+      <div class="infobox-selector">
+        {% if form.party.errors %}<p class="error">{{ form.party.errors }}</p>{% endif %}
+          <p><label for="party"{% if form.party.errors %} class="error"{% endif %}>Party:</label> <em>(optional)</em></p>
+          <p>{{ form.party }}</p>
+      </div>
+      <div class="infobox-selector">
+        {% if form.goals.errors %}<p class="error">{{ form.goals.errors }}</p>{% endif %}
+        <p><label for="goals"{% if form.goals.errors %} class="error"{% endif %}>Goals:</label> <em>(optional)</em><br />What do you plan to accomplish after you are elected?</p>
+        <p>{{ form.goals }}</p>
+      </div>
+      <div class="infobox-selector">
+        {% if form.experience.errors %}<p class="error">{{ form.experience.errors }}</p>{% endif %}
+        <p><label for="experience"{% if form.experience.errors %} class="error"{% endif %}>Experience:</label> <em>(optional)</em><br />What previous experience do you have that will help you in this office?</p>
+        <p>{{ form.experience }}</p>
+      </div>
     <div class="infobox-selector">
       {% if form.about.errors %}<p class="error">{{ form.about.errors }}</p>{% endif %}
-        <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About Me:</label></p>
+        <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About Me:</label> <em>(optional)</em><br />Is there anything else you want voters to know about you?</p>
         <p>{{ form.about }}</p>
     </div>
     <br />
