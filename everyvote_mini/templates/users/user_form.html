@@ -53,7 +53,7 @@
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
           {% endif %}
-          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
+          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label> (for best quality, your picture should be <strong>square</strong> and <strong>at least 200x200px</strong>)</p>
           <p>{{ form.profile_picture }}</p>
         </div>
         <div class="infobox-selector">
