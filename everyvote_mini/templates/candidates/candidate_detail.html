@@ -58,9 +58,15 @@
       {% if candidate.key_issues %}
         <p><strong>Key Issues: </strong>{{ candidate.key_issues }}</p>
       {% endif %}
+      {% if candidate.goals %}
       <p><strong>Goals:</strong>{{ candidate.goals|linebreaks|urlize }}</p>
+      {% endif %}
+      {% if candidate.experience %}
       <p><strong>Experience:</strong>{{ candidate.experience|linebreaks|urlize }}</p>
+      {% endif %}
+      {% if candidate.about %}
       <p><strong>About Me:</strong>{{ candidate.about|linebreaks|urlize }}</p>
+      {% endif %}
       {% if candidate.user.twitter_name or candidate.user.facebook_page or candidate.user.linkedin_page or candidate.user.personal_homepage %}
         <hr style="clear:both; padding:5px 0; margin:5px 0;">
         <p><strong>Contact Info</strong></p>
