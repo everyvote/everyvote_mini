@@ -45,12 +45,22 @@
     <div class="infobox-below-name">
       <strong>Running for: </strong>{{ candidate.office.name }}
     </div>
-    <hr style="clear:both; padding:0; margin:5px 0;">
     <div class="infobox-about">
+      {% if candidate.user.major %}
+        <p><strong>Major: </strong>{{ candidate.user.major }}
+      {% endif %}
+      {% if candidate.user.year_in_school %}
+        <p><strong>Year: </strong>{{ candidate.user.year_in_school }}
+      {% endif %}
+      {% if candidate.party %}
+        <p><strong>Party: </strong>{{ candidate.party }}
+      {% endif %}
       {% if candidate.key_issues %}
         <p><strong>Key Issues: </strong>{{ candidate.key_issues }}</p>
       {% endif %}
-      <p><strong>About Me</strong>{{ candidate.about|linebreaks|urlize }}</p>
+      <p><strong>Goals:</strong>{{ candidate.goals|linebreaks|urlize }}</p>
+      <p><strong>Experience:</strong>{{ candidate.experience|linebreaks|urlize }}</p>
+      <p><strong>About Me:</strong>{{ candidate.about|linebreaks|urlize }}</p>
       {% if candidate.user.twitter_name or candidate.user.facebook_page or candidate.user.linkedin_page or candidate.user.personal_homepage %}
         <hr style="clear:both; padding:5px 0; margin:5px 0;">
         <p><strong>Contact Info</strong></p>
