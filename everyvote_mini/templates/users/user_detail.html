@@ -24,6 +24,14 @@
       </div>
     {% endif %}
     <div class="infobox-about">
+      <p><strong>First name: </strong>{{ object.userprofile.first_name }}</p>
+      <p><strong>Last name: </strong>{{object.userprofile.last_name }}</p>
+      <p><strong>Username: </strong>{{ object.username }}</p>
+      <p><strong>Major: </strong>{{ object.userprofile.major }}</p>
+      <p><strong>Year in School: </strong>{{ object.userprofile.year_in_school }}</p>
+      {% if object.userprofile.about_me %}
+        <p><strong>About me: </strong>{{ object.userprofile.about_me|linebreaks|urlize }}</p>
+      {% endif %}
       {% if object.userprofile.candidate_set.all %}
         {% for candidate in object.userprofile.candidate_set.all %}
           <p><strong>Running for: </strong><a href="/candidates/{{candidate.id}}">{{ candidate.office.name }} in the {{candidate.election.constituency.parent_constituency.name}} {{ candidate.election.constituency.name }} {{ candidate.election.name }}</a></p>
@@ -35,13 +43,7 @@
           <p>{{ object.username }} is not currently running for office in an election.</p>
         {% endif %}
       {% endif %}  
-      <p><strong>First name: </strong>{{ object.userprofile.first_name }}</p>
-      <p><strong>Last name: </strong>{{object.userprofile.last_name }}</p>
-      <p><strong>Username: </strong>{{ object.username }}</p>
       <hr style="clear:both;">
-      {% if object.userprofile.about_me %}
-        <p><strong>About me: </strong>{{ object.userprofile.about_me|linebreaks|urlize }}</p>
-      {% endif %}
       {% if object.userprofile.email or object.userprofile.twitter_name or object.userprofile.facebook_page or object.userprofile.linkedin_page or object.userprofile.personal_homepage %}
         <p><strong>Contact Info:</strong></p>
       {% endif %}
