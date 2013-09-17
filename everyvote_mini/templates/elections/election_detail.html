@@ -118,7 +118,14 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
             {{ candidate.user.username }} 
             {% endif %}</a></h2>
           <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
-          <p><strong>About me: </strong>{{ candidate.about|truncatechars:200 }}</p>
+          {% if candidate.goals %}
+            <p><strong>Goals: </strong>{{ candidate.goals|truncatechars:200 }}</p>
+          {% elif candidate.experience %}
+            <p><strong>Experience: </strong>{{ candidate.experience|truncatechars:200 }}</p>
+          {% elif candidate.about %}
+            <p><strong>About me: </strong>{{ candidate.about|truncatechars:200 }}
+          {% else %}
+          {% endif %}
         </div>
       </div>
       {% if forloop.last %}
