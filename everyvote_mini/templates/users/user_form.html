@@ -32,8 +32,22 @@
           {% if form.email.errors %}
             <p class="error">{{ form.email.errors }}</p>
           {% endif %}
-          <p><label for="email"{% if form.email.errors %} class="error"{% endif %}>Email:</label></p>
+          <p><label for="email"{% if form.email.errors %} class="error"{% endif %}>Public Email:</label> (an email address you do not mind sharing with the public)</p>
           <p>{{ form.email }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.major.errors %}
+            <p class="error">{{ form.major.errors }}</p>
+          {% endif %}
+          <p><label for="major"{% if form.major.errors %} class="error"{% endif %}>Major:</label></p>
+          <p>{{ form.major }}</p>
+        </div>
+        <div class="infobox-selector">
+          {% if form.year_in_school.errors %}
+            <p class="error">{{ form.year_in_school.errors }}</p>
+          {% endif %}
+          <p><label for="year_in_school"{% if form.year_in_school.errors %} class="error"{% endif %}>Year in School:</label> (Freshman, Grad Student, etc.)</p>
+          <p>{{ form.year_in_school }}</p>
         </div>
         <div class="infobox-selector">
           {% if form.profile_picture.errors %}
