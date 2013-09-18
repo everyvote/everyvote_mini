@@ -66,15 +66,14 @@
     <div class="infobox-moderators">
       <p><big><strong>Moderator(s):</strong></big>
       {% for moderator in constituency.moderators.all %}
-        <br />
         <a href="/users/{{ moderator }}">
           {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
-            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
+            <br />{{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}
           {% else %}
-            {{ moderator }}<br />
+            <br />{{ moderator }}
           {% endif %}
-        </a></p>
-      {% endfor %}
+        </a>
+      {% endfor %}</p>
     </div>
   </div>
 </div>
