@@ -50,15 +50,14 @@
     <div class="infobox-moderators">
       <p><big><strong>Administrator(s):</strong></big>
       {% for administrator in parent_constituency.administrators.all %}
-        <br />
         <a href="/users/{{ administrator }}">
           {% if administrator.userprofile.first_name and administrator.userprofile.last_name %}
-            {{ administrator.userprofile.first_name }} {{ administrator.userprofile.last_name }}<br />
+            <br />{{ administrator.userprofile.first_name }} {{ administrator.userprofile.last_name }}
           {% else %}
-            {{ administrator }}<br />
+            <br />{{ administrator }}
           {% endif %}
-        </a></p>
-      {% endfor %}
+        </a>
+      {% endfor %}</p>
     </div>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
