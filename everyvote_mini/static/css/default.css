@@ -40,7 +40,6 @@ a.disabled-link:hover {
     font-size: 1.4em;
     color: #f8fc90;
     background: rgba(80, 80, 80, 0.7);
-    text-shadow: 1px 1px #000;
     text-align: center;
     padding: 5px 20px 25px 20px;
 }
@@ -55,6 +54,16 @@ a.disabled-link:hover {
 
 .lighter-background {
     background-color:#fff;
+}
+
+.btn-danger { 
+    border-color: #c9302c;
+    background-color: #d43f3a;
+}
+
+.btn-danger:hover { 
+    border-color: #d9534f; 
+    background-color: #d9534f; 
 }
 
 .featurebox {
