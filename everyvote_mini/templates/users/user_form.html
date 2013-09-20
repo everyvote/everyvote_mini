@@ -67,7 +67,7 @@
           {% if form.twitter_name.errors %}
             <p class="error">{{ form.twitter_name.errors }}</p>
           {% endif %}
-          <p><label for="twitter_name"{% if form.twitter_name.errors %} class="error"{% endif %}>Twitter name:</label></p>
+          <p><label for="twitter_name"{% if form.twitter_name.errors %} class="error"{% endif %}>Twitter name:</label> (for example, @EveryVoteU)</p>
           <p>{{ form.twitter_name }}</p>
         </div>
         <div class="infobox-selector">
@@ -99,3 +99,4 @@
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
 {% endblock %}
+
