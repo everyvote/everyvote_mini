@@ -49,7 +49,6 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     <div class="infobox-moderators">
       <p><big><strong>Moderator(s):</strong></big>
       {% for moderator in election.constituency.moderators.all %}
-        <br />
         <a href="/users/{{ moderator }}">
           {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
             <br />{{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}
