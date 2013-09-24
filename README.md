@@ -16,7 +16,7 @@ You will need to install two things:
 
 5) pip install mysql-python
 
-6) **easy_install** pillow (pip install does not fully install the libraries pillow depends on)
+6) **easy_install** pillow  *(pip install does not fully install the libraries pillow depends on)*
 
 7) pip install django-resized
 
