@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from time import time
 from django.core.urlresolvers import reverse
+from django_resized import ResizedImageField
 
 # This doesn't belong here
 def get_upload_file_name(instance, filename):
@@ -21,7 +22,7 @@ class ParentConstituency(models.Model):
     name = models.CharField(max_length=100)
     about = models.TextField(blank=True, null=True)
     administrators = models.ManyToManyField(User, blank=True, null=True)
-    profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
+    profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=200, max_height=200)
     
     class Meta:
         ordering = ['name']
@@ -38,7 +39,7 @@ class Constituency(models.Model):
     about = models.TextField(blank=True, null=True)
     moderators = models.ManyToManyField(User, related_name='moderator')
     blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True, null=True)
-    profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True, null=True)
+    profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=200, max_height=200)
     
     class Meta:
         ordering = ['parent_constituency']
@@ -108,7 +109,7 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(blank=True)
-    profile_picture = models.FileField(upload_to=get_upload_file_name, blank=True)
+    profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=200, max_height=200)
     about = models.TextField(blank=True)
     year_in_school = models.CharField(max_length=25, blank=True, null=True)
     major = models.CharField(max_length=40, blank=True, null=True)
