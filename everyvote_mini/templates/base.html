@@ -85,7 +85,8 @@
         {% endif %}
         <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="/users/{{ user }}">Edit Account</a>
+          <li><a href="/users/{{ user }}">View My Citizen Profile</a>
+          <li><a href="/users/update/{{ user }}">Edit Citizen Profile</a>
           <li><a href="/accounts/logout/">Logout</a></li>
         </ul>
       </li>
@@ -129,30 +130,27 @@
 
 <div class="container"> 
 
-  <big><div id="breadcrumb" class="col-xs-12 col-sm-12 col-md-10 col-lg-8  col-md-offset-1 col-lg-offset-2">
-    {% block breadcrumb %}
-    {% endblock %}
-  </div></big>
-
   <div id="box1" class="col-xs-12 col-sm-12 col-md-10 col-lg-8  col-md-offset-1 col-lg-offset-2">
       {% block box1 %}
       {% endblock %}
   </div>
-  
-  <!--goodbye #box2  (っ˘̩╭╮˘̩)っ-->
   
   <div id="footer" class="footer text-center col-xs-12 col-sm-12 col-md-10 col-lg-8  col-md-offset-1 col-lg-offset-2">
     <hr style="clear:both; padding:0; margin:0;">
     {% block footer %}
     <br />
     {% if user.is_authenticated %}
-      <p><a href="/accounts/logout">Logout</a></p>
+      <a class="footer-link" href="/accounts/logout">Logout</a>
     {% else %}
-      <p><a href="/accounts/login">Login</a></p>
-      <p><a href="/accounts/register">Register</a></p>
+      <a class="footer-link" href="/accounts/login">Login</a>
+      <a class="footer-link" href="/accounts/register">Register</a>
     {% endif %}
-      <p>EveryVote is free and open source under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">Affero GPL</a>.</p>
-      <p><a href="/contact/">Contact EveryVote</a></p>
+      <a class="footer-link" href="/about/">About</a>
+      <a class="footer-link" href="/contact/">Contact EV</a>
+      <br />
+      <br />
+      <span class="footer-link">EveryVote is free and open source under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">Affero GPL</a></span>
+      <br />
       <br />
     {% endblock %}
   </div><!-- /.footer -->

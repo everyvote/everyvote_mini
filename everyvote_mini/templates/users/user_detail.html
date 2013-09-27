@@ -12,10 +12,10 @@
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      {{ object.userprofile.first_name }} {{object.userprofile.last_name }}'s Global Profile
+      Citizen Profile
     </div>
     {% if object.username == user.username %}
-      <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit User Profile</button></a>
+      <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Your Citizen Profile</button></a>
     {% endif %}
     <hr style="clear:both">
     {% if object.userprofile.profile_picture %}
@@ -23,45 +23,37 @@
         <p><img src="/static/uploaded_files/{{object.userprofile.profile_picture}}" /></p>
       </div>
     {% endif %}
+    <div class="infobox-name">
+      {{ object.userprofile.first_name }} {{ object.userprofile.last_name }}
+    </div>
+      {% if object.userprofile.email %}
+        <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ object.userprofile.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
+      {% endif %}
+      {% if object.userprofile.facebook_page %}
+        <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ object.userprofile.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
+      {% endif %}
+      {% if object.userprofile.linkedin_page %}
+        <a target="_blank" style="color:#0E76A8;" class="infobox-contact-button-right" href="{{ object.userprofile.linkedin_page }}"><i class="icon-linkedin-sign icon-2x"></i></a>
+      {% endif %}
+      {% if object.userprofile.twitter_name %}
+        <a target="_blank" style="color:#4099FF;" class="infobox-contact-button-right" href="https://www.twitter.com/{{ object.userprofile.twitter_name|slice:"1:" }}"><i class="icon-twitter-sign icon-2x"></i></a>
+      {% endif %}
+      {% if object.userprofile.personal_homepage %}
+        <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ object.userprofile.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
+      {% endif %}
     <div class="infobox-about">
-      <p><strong>First name: </strong>{{ object.userprofile.first_name }}</p>
-      <p><strong>Last name: </strong>{{object.userprofile.last_name }}</p>
-      <p><strong>Username: </strong>{{ object.username }}</p>
       <p><strong>Major: </strong>{{ object.userprofile.major }}</p>
-      <p><strong>Year in School: </strong>{{ object.userprofile.year_in_school }}</p>
-      {% if object.userprofile.about_me %}
-        <p><strong>About me: </strong>{{ object.userprofile.about_me|linebreaks|urlize }}</p>
+      <p><strong>Year: </strong>{{ object.userprofile.year_in_school }}</p>
+      {% if object.userprofile.about %}
+        <p><strong>About: </strong>{{ object.userprofile.about|linebreaks|urlize }}</p>
       {% endif %}
       {% if object.userprofile.candidate_set.all %}
+        <hr style="clear:both;">
+        <h3>Candidate Status</h3>
         {% for candidate in object.userprofile.candidate_set.all %}
           <p><strong>Running for: </strong><a href="/candidates/{{candidate.id}}">{{ candidate.office.name }} in the {{candidate.election.constituency.parent_constituency.name}} {{ candidate.election.constituency.name }} {{ candidate.election.name }}</a></p>
         {% endfor %}
-      {% else %}
-        {% if object.userprofile.first_name and object.userprofile.last_name %}
-          <h4>{{ object.userprofile.first_name }} {{ object.userprofile.last_name}} is not currently running for office in an election.</h4>
-        {% else %}
-          <p>{{ object.username }} is not currently running for office in an election.</p>
-        {% endif %}
       {% endif %}  
-      <hr style="clear:both;">
-      {% if object.userprofile.email or object.userprofile.twitter_name or object.userprofile.facebook_page or object.userprofile.linkedin_page or object.userprofile.personal_homepage %}
-        <p><strong>Contact Info:</strong></p>
-      {% endif %}
-      {% if object.userprofile.email %}
-        <p><strong>Public Email: </strong>{{ object.userprofile.email }}</p>
-      {% endif %}
-      {% if object.userprofile.twitter_name %}
-        <p><a target="_blank" href="https://www.twitter.com/{{ object.userprofile.twitter_name|slice:"1:" }}"><strong>Twitter</a></p>
-      {% endif %}
-      {% if object.userprofile.facebook_page %}
-        <p><a target="_blank" href="{{ object.userprofile.facebook_page }}"><strong>Facebook</strong></a></p>
-      {% endif %}
-      {% if object.userprofile.linkedin_page %}
-        <p><a target="_blank" href="{{ object.userprofile.linkedin_page }}"><strong>Linkedin</strong></a></p>
-      {% endif %}
-      {% if object.userprofile.personal_homepage %}
-        <p><a target="_blank" href="{{ object.userprofile.personal_homepage }}"><strong>Homepage</strong></a></p>
-      {% endif %}
     </div>
   </div>
 </div>

@@ -6,6 +6,7 @@
 {% block extrahead %}
 <meta property="og:url" content="http://www.everyvote.org/candidates/{{ candidate.id }}" />
 <meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ candidate.profile_picture }}" />
+<meta property="og:description" content={% if candidate.goals %}"{{ candidate.goals }}"{% else %}"{{ candidate.about }}"{% endif %}
 {% endblock %}
 
 {% block box1 %}
@@ -13,25 +14,34 @@
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ candidate.election.constituency.parent_constituency.id }}">{{ candidate.election.constituency.parent_constituency.name }}</a><br />
+    </div>
+    {% if user in election.constituency.parent_constituency.administrators.all %}
+      <a href="/universities/update/{{candidate.election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right">Add Organization</button></a>
+    {% endif %}
+    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#sharecandidateModal">Share</button>
+    <div class="infobox-name">
       <a href="/organizations/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
+    </div>
+    {% if user in candidate.election.constituency.moderators.all %}
+      <a href="/organizations/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
+      <a href="/elections/add/"><button class="btn btn-success infobox-button-right">Add Election</button></a>
+      <a href="/offices/add/"><button class="btn btn-success infobox-button-right">Add Office</button></a>
+    {% endif %}
+    <div class="infobox-name">
       <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a><br />
+    </div>
+    {% if user in candidate.election.constituency.moderators.all %}
+      <a href="/elections/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
+      <a href="http://www.everyvote.org/candidates/mod-add-candidate/" class="btn btn-success infobox-button-right">Add Candidate</button></a>
+    {% endif %}
+    <div class="infobox-name">
       Candidate
     </div>
-    
-    <!--infobox buttons-->
-    {% if user in election.constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{candidate.election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+    {% if user.userprofile.id = candidate.user.id %}
+      <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
-      {% if user in candidate.election.constituency.moderators.all %}
-        <a href="/organizations/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
-        <a href="/elections/update/{{candidate.election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
-      {% endif %}
-      {% if candidate.user.id = user.userprofile.id %}
-        <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
-      {% endif %}
-    <!--/infobox buttons-->
-
+    
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
 
     {% if candidate.user.profile_picture %}  
@@ -42,6 +52,21 @@
     <div class="infobox-name">
       {{ candidate.user.first_name }} {{ candidate.user.last_name }}
     </div>
+      {% if candidate.user.email %}
+        <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ candidate.user.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
+      {% endif %}
+      {% if candidate.user.facebook_page %}
+        <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ candidate.user.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
+      {% endif %}
+      {% if candidate.user.linkedin_page %}
+        <a target="_blank" style="color:#0E76A8;" class="infobox-contact-button-right" href="{{ candidate.user.linkedin_page }}"><i class="icon-linkedin-sign icon-2x"></i></a>
+      {% endif %}
+      {% if candidate.user.twitter_name %}
+        <a target="_blank" style="color:#4099FF;" class="infobox-contact-button-right" href="https://www.twitter.com/{{ candidate.user.twitter_name|slice:"1:" }}"><i class="icon-twitter-sign icon-2x"></i></a>
+      {% endif %}
+      {% if candidate.user.personal_homepage %}
+        <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ candidate.user.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
+      {% endif %}
     <div class="infobox-below-name">
       <strong>Running for: </strong>{{ candidate.office.name }}
     </div>
@@ -67,22 +92,6 @@
       {% if candidate.about %}
       <p><strong>About Me:</strong>{{ candidate.about|linebreaks|urlize }}</p>
       {% endif %}
-      {% if candidate.user.twitter_name or candidate.user.facebook_page or candidate.user.linkedin_page or candidate.user.personal_homepage %}
-        <hr style="clear:both; padding:5px 0; margin:5px 0;">
-        <p><strong>Contact Info</strong></p>
-      {% endif %}
-      {% if candidate.user.twitter_name %}
-        <p><a target="_blank" href="https://www.twitter.com/{{ candidate.user.twitter_name|slice:"1:" }}">Twitter</a></p>
-      {% endif %}
-      {% if candidate.user.facebook_page %}
-        <p><a target="_blank" href="{{ candidate.user.facebook_page }}">Facebook page</a></p>
-      {% endif %}
-      {% if candidate.user.linkedin_page %}
-        <p><a target="_blank" href="{{ candidate.user.linkedin_page }}">Linkedin page</a></p>
-      {% endif %}
-      {% if candidate.user.personal_homepage %}
-        <p><a target="_blank" href="{{ candidate.user.personal_homepage }}">Homepage</a></p>
-      {% endif %}
     </div>
   </div>
 </div>
@@ -102,47 +111,4 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<div class="comments">
-  <h3>Comments</h3>
-  {% get_comment_count for candidate as comment_count %}
-  {{ comment_count }} comment{{ comment_count|pluralize }}
-  <div class="comment_form">
-  {% if user.is_authenticated %}
-    {% get_comment_form for candidate as form %}
-    <form action="{% comment_form_target %}" method="POST">
-      {% csrf_token %}
-      {{ form.comment }}
-      {{ form.honeypot }}
-      {{ form.content_type }}
-      {{ form.object_pk }}
-      {{ form.timestamp }}
-      {{ form.security_hash }}
-      <input type="hidden" name="name" value="{{ user }}" />
-      <input type="hidden" name="email" value="{{ user.email|default:'d@ummy.com' }}" />
-      <input type="hidden" name="url" value="" />
-      <input type="hidden" name="next" 
-          value="/candidates/{{ candidate.id }}" />
-      <input type="submit" class="btn btn-primary" value="Add comment" id="id_submit" />
-    </form>
-  {% else %}
-    <p>Please <a href="/accounts/login">log in</a> to leave a comment.</p>
-  {% endif %}
-</div>
-
-{% get_comment_list for candidate as cmt_list %}
-  {% for comment in cmt_list %}
-    <div class="comment">
-      <p><a href="/users/{{ comment.user }}">{{ comment.user_name }}</a> - {{ comment.submit_date }}
-      {% if user.is_authenticated and comment.user == user %}
-        <a href="/comments/delete/{{ comment.id }}">remove</a>
-      {% elif user.is_authenticated and user in election.moderators.all %}
-        <a href="/comments/delete/{{ comment.id }}">remove</a>
-      {% endif %}            
-      </p>
-      <p>{{ comment.comment }}</p>
-    </div>
-  {% endfor %}
-  <br />
-
 {% endblock %}

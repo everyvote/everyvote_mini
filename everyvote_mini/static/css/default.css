@@ -5,6 +5,10 @@ body {
     background-color:#fdfdf9;
 }
 
+p {
+    font-size:110%;
+}
+
 .dropdown-menu {
     min-width: 100px;
 }
@@ -98,12 +102,16 @@ a.disabled-link:hover {
 .infobox {
     font-family: 'Arimo', sans-serif;
     border: 1px dotted #555;
-    border-radius: 5px;
+    border-radius: 2px;
     background-color: #fff;
 }
 
 .infobox-inside {
-    padding:15px 15px;
+    padding:15px;
+}
+
+.infobox-inside-formpage {
+    padding:15px 20px;
 }
 
 .infobox-point {
@@ -116,7 +124,7 @@ a.disabled-link:hover {
     float:left;
     font-size:2.1em; 
     padding:0; 
-    margin:0 0 5px 0;
+    margin:0 5px 5px 0;
     clear:left;
 }
 
@@ -128,24 +136,19 @@ a.disabled-link:hover {
     clear:left;
 }
 
-.infobox-share-button {
+.infobox-button-right {
     float:right;
-    margin: 2px 0 10px 0;
+    margin: 4px 3px;
 }
 
-.infobox-university-button {
-    float:right;
-    margin: 2px 0 10px 10px;
+.infobox-button-left {
+    float:left;
+    margin:4px 3px;
 }
 
-.infobox-button {
+.infobox-contact-button-right {
     float:right;
-    clear:right;
-    margin:0 0 10px 0;
-}
-
-.infobox-bottom-button {
-
+    margin: 9px 4px;
 }
 
 .infobox-disclaimer {
@@ -156,11 +159,15 @@ a.disabled-link:hover {
     clear:both;
 }
 
+.infobox-form-input {
+    margin: 15px 0;
+}
+
 .infobox-picture img {
     width:200px;
     height:200px;
     float:left;
-    margin: 0 0 5px 0;
+    margin: 0 0 15px 0;
     padding: 0;
     clear:both;
 }
@@ -193,7 +200,7 @@ a.disabled-link:hover {
 
 .infobox-moderators {
     clear:both;
-    padding: 10px 0 0 0;
+    margin: 15px 0 0 0;
 }
 
 .infobox-list {
@@ -275,6 +282,11 @@ textarea#id_comment:focus {
 .footer {
     clear:both;
     font-family: 'Arimo', sans-serif;
+}
+
+.footer-link {
+    padding:0;
+    margin:0 15px;
 }
 
 </style>

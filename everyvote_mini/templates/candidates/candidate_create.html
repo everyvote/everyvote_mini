@@ -15,7 +15,8 @@
       <p>EveryVote is a way to raise awareness for your campaign by connecting you with your constituency (your organization of voters).</p>
     </div>
     <hr style="clear:both;">
-    <p><strong>Important:</strong> you can set your first name, last name, profile picture, & contact information by editing <a href="/users/update/{{ user.username }}">your Global Profile</a>.</p>
+    <p><strong>Important:</strong> set your <strong>first name</strong>, <strong>last name</strong>, <strong>profile picture</strong>, & <strong>contact info</strong> by editing your <a href="/users/update/{{ user.username }}"><strong>Citizen Profile</strong></a>.</p>
+    <hr style="clear:both;">
     <form method="post" action="">
       {% csrf_token %}
       {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}

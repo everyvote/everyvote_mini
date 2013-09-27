@@ -4,7 +4,7 @@
 {% block title %}{{ election.constituency.name }} - {{ election.name }}{% endblock %}
 
 {% block extrahead %}
-<meta property="og:description" content="Learn about and contact {{ election.constituency.parent_constituency }} candidates with EveryVote." />
+<meta property="og:description" content={% if election.about %}"{{ election.about }}"{% else %}"Learn about and contact {{ election.constituency.parent_constituency }} candidates with EveryVote."{% endif %} />
 <meta property="og:image" 
 {% if election.constituency.profile_picture %}
 content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.profile_picture}}" 
@@ -20,20 +20,28 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a><br />
+    </div>
+    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareelectionModal">Share</button>
+    {% if user in election.constituency.parent_constituency.administrators.all %}
+    <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Organization</button></a>
+    <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+    {% endif %}
+    <div class="infobox-name">
       <a href="/organizations/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
+    </div>
+    {% if user in election.constituency.moderators.all %}
+      <a href="/elections/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Election</button>
+      <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Office</button></a>
+      <a href="/organizations/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+    {% endif %}
+    <div class="infobox-name">
       {{ election.name }}
     </div>
-
-    <!--infobox buttons-->
-    {% if user in election.constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-university-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
+    {% if user in election.constituency.moderators.all %}
+    <a href="/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Candidate</button></a>
+    <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+    <a href="/offices/add/"><button style="background-color:#ffff66; color:#333" class="btn infobox-button-left"><span class="glyphicon glyphicon-user"></span> Candidate Awaiting Approval</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-share-button" data-toggle="modal" href="#shareelectionModal">Share</button>
-      {% if user in election.constituency.moderators.all %}
-        <a href="/organizations/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
-        <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Election</button></a>
-      {% endif %}
-    <!--/infobox buttons-->
     
     <hr style="clear:both; padding:5px 0 0 0;">
     

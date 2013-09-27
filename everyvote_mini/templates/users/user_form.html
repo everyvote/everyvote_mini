@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Edit Your Profile{% endblock %}
+{% block title %}Edit Your Citizen Profile{% endblock %}
 
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      Edit Your Global Profile
+      Edit Your Citizen Profile
     </div>
     <hr style="clear:both;">
     <form method="post" action="" enctype="multipart/form-data">
@@ -15,88 +15,95 @@
         <p>Please correct the following fields:</p>
       {% endif %}
         <div class="infobox-selector">
+          <p>Please tell us your <strong>name</strong>, upload a <strong>profile picture</strong>, and add your <strong>contact</strong> information.</p>
+        </div>
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
           {% if form.first_name.errors %}
             <p class="error">{{ form.first_name.errors }}</p>
           {% endif %}
-          <p><label for="first_name"{% if form.first_name.errors %} class="error"{% endif %}>First name:</label></p>
-          <p>{{ form.first_name }}</p>
+          <label style="margin:0 16px 0 0;" for="first_name"{% if form.first_name.errors %} class="error"{% endif %}>First name:</label>
+          {{ form.first_name }}&nbsp If want to include your middle name, type it here.
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.last_name.errors %}
             <p class="error">{{ form.last_name.errors }}</p>
           {% endif %}
-          <p><label for="last_name"{% if form.last_name.errors %} class="error"{% endif %}>Last name:</label></p>
-          <p>{{ form.last_name }}</p>
+          <label style="margin:0 19px 0 0;" for="last_name"{% if form.last_name.errors %} class="error"{% endif %}>Last name:</label> 
+          {{ form.last_name }}
         </div>
-        <div class="infobox-selector">
-          {% if form.email.errors %}
-            <p class="error">{{ form.email.errors }}</p>
-          {% endif %}
-          <p><label for="email"{% if form.email.errors %} class="error"{% endif %}>Public Email:</label> (an email address you do not mind sharing with the public)</p>
-          <p>{{ form.email }}</p>
-        </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.major.errors %}
             <p class="error">{{ form.major.errors }}</p>
           {% endif %}
-          <p><label for="major"{% if form.major.errors %} class="error"{% endif %}>Major:</label></p>
-          <p>{{ form.major }}</p>
+          <label style="margin:0 50px 0 0;" for="major"{% if form.major.errors %} class="error"{% endif %}>Major:</label>
+          {{ form.major }}
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.year_in_school.errors %}
             <p class="error">{{ form.year_in_school.errors }}</p>
           {% endif %}
-          <p><label for="year_in_school"{% if form.year_in_school.errors %} class="error"{% endif %}>Year in School:</label> (Freshman, Grad Student, etc.)</p>
-          <p>{{ form.year_in_school }}</p>
+          <label style="margin:0 57px 0 0;" for="year_in_school"{% if form.year_in_school.errors %} class="error"{% endif %}>Year:</label> 
+          {{ form.year_in_school }}&nbsp Freshman, Senior, Grad Student, etc.
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
           {% endif %}
-          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label> (for best quality, your picture should be <strong>square</strong> and <strong>at least 200x200px</strong>)</p>
-          <p>{{ form.profile_picture }}</p>
+        <hr style="clear:both;">
+          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label>&nbsp For the <strong>best quality</strong>, your picture should be <strong>square</strong> and <strong>at least 250x250px</strong>&nbsp &nbsp &nbsp &nbsp 
+          {{ form.profile_picture }}
         </div>
-        <div class="infobox-selector">
-          {% if form.about.errors %}
-            <p class="error">{{ form.about.errors }}</p>
-          {% endif %}
-          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
-          <p>{{ form.about }}</p>
-        </div>
-        <div class="infobox-selector">
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
           {% if form.twitter_name.errors %}
             <p class="error">{{ form.twitter_name.errors }}</p>
           {% endif %}
-          <p><label for="twitter_name"{% if form.twitter_name.errors %} class="error"{% endif %}>Twitter name:</label> (for example, @EveryVoteU)</p>
-          <p>{{ form.twitter_name }}</p>
+          <label style="margin:0 42px 0 0;" for="twitter_name"{% if form.twitter_name.errors %} class="error"{% endif %}>Twitter:</label> 
+          {{ form.twitter_name }}&nbsp Type the @ sign first. For example <strong><a href="https://www.twitter.com/everyvoteu/" target="_blank">@EveryVoteU</a></strong>
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.facebook_page.errors %}
             <p class="error">{{ form.facebook_page.errors }}</p>
           {% endif %}
-          <p><label for="facebook_page"{% if form.facebook_page.errors %} class="error"{% endif %}>Facebook page:</label></p>
-          <p>{{ form.facebook_page }}</p>
+          <label style="margin:0 21px 0 0;" for="facebook_page"{% if form.facebook_page.errors %} class="error"{% endif %}>Facebook:</label> 
+          {{ form.facebook_page }}&nbsp Link to your <strong><a href="http://www.facebook.com/everyvote" target="_blank">Facebook</a></strong> page.
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.linkedin_page.errors %}
-            <p class="error">{{ form.linkedin_page.errors }}</p>
+            <p class="error">{{ form.linkedin_page.errors }}</p> 
           {% endif %}
-          <p><label for="linkedin_page"{% if form.linkedin_page.errors %} class="error"{% endif %}>Linkedin page:</label></p>
-          <p>{{ form.linkedin_page }}</p>
+          <label style="margin:0 30px 0 0;" for="linkedin_page"{% if form.linkedin_page.errors %} class="error"{% endif %}>Linkedin:</label> 
+          {{ form.linkedin_page }}&nbsp Link to your Linkedin page.
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
+          {% if form.email.errors %}
+            <p class="error">{{ form.email.errors }}</p>
+          {% endif %}
+          <label style="margin:0 6px 0 0;" for="email"{% if form.email.errors %} class="error"{% endif %}>Public Email:</label>
+          {{ form.email }}&nbsp
+        </div>
+        <div class="infobox-form-input">
           {% if form.personal_homepage.errors %}
             <p class="error">{{ form.personal_homepage.errors }}</p>
           {% endif %}
-          <p><label for="personal_homepage"{% if form.personal_homepage.errors %} class="error"{% endif %}>Homepage:</label></p>
-          <p>{{ form.personal_homepage }}</p>
+          <label style="margin:0 15px 0 0;" for="personal_homepage"{% if form.personal_homepage.errors %} class="error"{% endif %}>Homepage:</label> 
+          {{ form.personal_homepage }}&nbsp Link to your Homepage.
         </div>
-        <br />
-      <input type="submit" class="btn btn-primary" value="Submit">
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
+          {% if form.about.errors %}
+            <p class="error">{{ form.about.errors }}</p>
+          {% endif %}
+          <label style="margin:0 13px 0 0;" for="about"{% if form.about.errors %} class="error"{% endif %}>About You:</label>&nbsp 
+          {{ form.about }}
+        </div>
       <hr style="clear:both;">
-      <a href="/users/delete/{{ user.username }}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete Your Account</a>
+      <input type="submit" class="btn btn-primary infobox-button-right" value="Submit">
+      <a href="http://www.everyvote.org/users/{{ object }}" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
+      <br />
+      <br />
     </form>    
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
 {% endblock %}
-

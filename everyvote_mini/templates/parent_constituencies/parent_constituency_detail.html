@@ -16,10 +16,10 @@
     </div>
     
     <!--infobox buttons-->
-    <a href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info infobox-button">Share</button></a>
+    <a href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info infobox-button-right">Share</button></a>
     {% if user in parent_constituency.administrators.all %}
-      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit University</button></a>
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button"><span class="glyphicon glyphicon-plus"></span> Add Organization</button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Organization</button></a>
+      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
     {% endif %}
     <!--/infobox buttons-->
 
@@ -44,17 +44,17 @@
       </div>
     {% endif %}
     <div class="infobox-about">
-      <h3>About {{ parent_constituency.name }}</h3>
+      <h3>About</h3>
       <p>{{ parent_constituency.about|urlize|linebreaks }}</p>
     </div>
     <div class="infobox-moderators">
-      <p><big><strong>Administrator(s):</strong></big>
+      <h4>Administrator(s)</h4>
       {% for administrator in parent_constituency.administrators.all %}
         <a href="/users/{{ administrator }}">
           {% if administrator.userprofile.first_name and administrator.userprofile.last_name %}
-            <br />{{ administrator.userprofile.first_name }} {{ administrator.userprofile.last_name }}
+            {{ administrator.userprofile.first_name }} {{ administrator.userprofile.last_name }}<br />
           {% else %}
-            <br />{{ administrator }}
+            {{ administrator }}<br />
           {% endif %}
         </a>
       {% endfor %}</p>

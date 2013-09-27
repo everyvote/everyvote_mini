@@ -7,6 +7,9 @@
       Login
     </div>
     <hr style="clear:both;">
+    <img src="http://www.everyvote.org/static/images/everyvote_square_logo.jpg" alt="EveryVote logo">
+    <br />
+    <br />
     {% if form.errors %}
       <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
@@ -18,16 +21,22 @@
           <td>{{ form.username }}</td>
         </tr>
         <tr>
+          <td>&nbsp</td>
+        </tr>
+        <tr>
           <td>{{ form.password.label_tag }}</td>
           <td>{{ form.password }}</td>
         </tr>
       </table>
       <br />
-      <input type="submit" class="btn btn-primary" value="Login" />
+      <input type="submit" class="btn btn-primary infobox-button-left" value="Login" />
       <input type="hidden" name="next" value="{{ next }}" />
     </form>
     <br />
+    <br />
+    <hr style="clear:both;">
     <p><a href="/accounts/resetpassword/">Forgot your password?</a>
+    <p><a href="/accounts/register/">Register</a>
   </div>
 </div>
 {% endblock %}

@@ -13,19 +13,21 @@
   <div class="infobox-inside">
     <div class="infobox-name">
       <a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a><br />
+    </div>
+    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareconstituencyModal">Share</button>
+    {% if user in constituency.parent_constituency.administrators.all %}
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Organization</button></a>
+      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+    {% endif %}
+
+    <div class="infobox-name">  
       {{ constituency.name }}
     </div>
-
-    <!--infobox buttons-->
-    <button class="btn btn-info infobox-button" data-toggle="modal" href="#shareconstituencyModal">Share</button>
-    {% if user in constituency.parent_constituency.administrators.all %}
-    {% endif %}
       {% if user in constituency.moderators.all %}
-        <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button"><span class="glyphicon glyphicon-pencil"></span> Edit Organization</button></a>
-        <a href="/offices/add/"><button class="btn btn-success infobox-button"><span class="glyphicon glyphicon-plus"></span> Add Office</button></a>
-        <a href="/elections/add/"><button class="btn btn-success infobox-button"><span class="glyphicon glyphicon-plus"></span> Add Election</button></a>
+        <a href="/elections/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Election</button></a>
+        <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Office</button></a>
+        <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
       {% endif %}
-    <!--/infobox buttons-->
     
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
     
@@ -48,12 +50,11 @@
       </div>
     {% endif %}
     <div class="infobox-about">
-      <h3>About {{ constituency.name }}</h3>
+      <h3>About</h3>
       <p>{{ constituency.about|urlize|linebreaks }}</p>
     </div>
-    <hr style="clear:both; padding:0; margin:5px 0;">
     <div class="infobox-about">
-      <h3>{{ constituency.name }}'s Offices</h3>
+      <h3>Offices</h3>
       {% if constituency.office_set.all %}
         {% for office in constituency.office_set.all %}
           <p><a href="/offices/{{ office.id }}">{{ office.name }}</a></p>
@@ -64,13 +65,13 @@
       {% endif %}
     </div>
     <div class="infobox-moderators">
-      <p><big><strong>Moderator(s):</strong></big>
+      <h4>Moderator(s)</h4>
       {% for moderator in constituency.moderators.all %}
         <a href="/users/{{ moderator }}">
           {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
-            <br />{{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}
+            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
           {% else %}
-            <br />{{ moderator }}
+            {{ moderator }}<br />
           {% endif %}
         </a>
       {% endfor %}</p>
