@@ -1,10 +1,13 @@
 from everyvote_mini.models import Election, Candidate, UserProfile
-from everyvote_mini.forms import CandidateForm
+from everyvote_mini.forms import CandidateForm, UserCreateForm
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render_to_response
-from django.http import Http404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.template import RequestContext
+from datetime import datetime
 
 """
 CANDIDATE
@@ -21,6 +24,56 @@ class CandidateCreateView(CreateView):
         candidate.save()
         return super(CandidateCreateView, self).form_valid(form)
 
+# MODERATOR APPROVE CANDIDATE
+def mod_approve_candidate(request, num="0"):
+    candidate = get_object_or_404(Candidate, id=num)
+    if request.user in candidate.election.constituency.moderators.filter(username=request.user):
+        candidate.is_approved = True
+        candidate.save()
+        election = candidate.election
+        return redirect(election)
+    else:
+        raise Http404
+
+# MODERATOR DENY CANDIDATE
+def mod_deny_candidate(request, num="0"):
+    candidate = get_object_or_404(Candidate, id=num)
+    if request.user in candidate.election.constituency.moderators.filter(username=request.user):
+        candidate.is_approved = False
+        candidate.save()
+        election = candidate.election
+        return redirect(election)
+    else:
+        raise Http404
+
+# MODERATOR CREATE CANDIDATE
+def mod_create_candidate(request):
+    if request.method == "POST":
+        uform = UserCreateForm(request.POST, instance=User())
+        cform = CandidateForm(request.POST, instance=Candidate())
+        if uform.is_valid() and cform.is_valid():
+            new_user = uform.save(commit=False)
+            new_candidate = cform.save(commit=False)
+            if request.user in new_candidate.election.constituency.moderators.filter(username=request.user):
+                new_user.last_login = datetime.now()
+                new_user.date_joined = datetime.now()
+                new_user.is_active = True
+                new_user.save()
+                new_user.userprofile.first_name = new_user.first_name
+                new_user.userprofile.last_name = new_user.last_name
+                new_user.userprofile.save()
+                new_candidate.user = new_user.userprofile
+                new_candidate.is_approved = True
+                new_candidate.save()
+                return HttpResponseRedirect('/candidates/mod-add/')
+            else:
+                raise Http404 # maybe you'll need to write a middleware to catch 403's same way
+    else:
+        uform = UserCreateForm(instance=User())
+        cform = CandidateForm(instance=Candidate())
+    return render_to_response('candidate_mod_create.html', {'user_form': uform, 'candidate_form': cform}, context_instance=RequestContext(request))
+            
+            
 # SHOW CANDIDATE
 class CandidateDetailView(DetailView):
     model = Candidate

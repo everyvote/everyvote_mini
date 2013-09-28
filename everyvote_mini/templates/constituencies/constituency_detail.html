@@ -14,19 +14,19 @@
     <div class="infobox-name">
       <a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a><br />
     </div>
-    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareconstituencyModal">Share</button>
     {% if user in constituency.parent_constituency.administrators.all %}
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Organization</button></a>
       <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right">Add Organization</button></a>
     {% endif %}
+    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareconstituencyModal">Share</button>
 
     <div class="infobox-name">  
       {{ constituency.name }}
     </div>
       {% if user in constituency.moderators.all %}
-        <a href="/elections/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Election</button></a>
-        <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Office</button></a>
         <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+        <a href="/elections/add/"><button class="btn btn-success infobox-button-right">Add Election</button></a>
+        <a href="/offices/add/"><button class="btn btn-success infobox-button-right">Add Office</button></a>
       {% endif %}
     
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
@@ -50,11 +50,12 @@
       </div>
     {% endif %}
     <div class="infobox-about">
-      <h3>About</h3>
-      <p>{{ constituency.about|urlize|linebreaks }}</p>
+      <h4>About</h4>
+      {{ constituency.about|urlize|linebreaks }}
     </div>
+    
     <div class="infobox-about">
-      <h3>Offices</h3>
+      <h4>Offices</h4>
       {% if constituency.office_set.all %}
         {% for office in constituency.office_set.all %}
           <p><a href="/offices/{{ office.id }}">{{ office.name }}</a></p>
@@ -64,7 +65,7 @@
         <p>If you are a moderator for this organization, you can login and use the Add button to <a href="/offices/add/">add an office</a>.</p>
       {% endif %}
     </div>
-    <div class="infobox-moderators">
+    <div class="infobox-about">
       <h4>Moderator(s)</h4>
       {% for moderator in constituency.moderators.all %}
         <a href="/users/{{ moderator }}">
@@ -74,7 +75,7 @@
             {{ moderator }}<br />
           {% endif %}
         </a>
-      {% endfor %}</p>
+      {% endfor %}
     </div>
   </div>
 </div>

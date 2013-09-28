@@ -13,18 +13,19 @@
     <div class="infobox-name">
       <a href="/universities/{{ office.constituency.parent_constituency.id }}">{{ office.constituency.parent_constituency.name }}</a><br />
     </div>
-    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareofficeModal">Share</button>
     {% if user in office.constituency.parent_constituency.administrators.all %}
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Organization</button></a>
       <a href="/universities/update/{{office.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right">Add Organization</button></a>
     {% endif %}
+    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareofficeModal">Share</button>
+    
     <div class="infobox-name">
       <a href="/organizations/{{ office.constituency.id }}">{{ office.constituency.name }}</a><br />
     </div>
     {% if user in office.constituency.moderators.all %}
-      <a href="/elections/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Election</button></a>
-      <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Office</button></a>
       <a href="/organizations/update/{{office.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
+      <a href="/elections/add/"><button class="btn btn-success infobox-button-right">Add Election</button></a>
+      <a href="/offices/add/"><button class="btn btn-success infobox-button-right">Add Office</button></a>
     {% endif %}
     <div class="infobox-name">
       {{ office.name }}
@@ -34,16 +35,36 @@
     {% endif %}    
     
     <hr style="clear:both; padding:5px 0 0 0;">
+
+    {% if office.constituency.profile_picture %}  
+      <div class="infobox-picture">
+        <img src="/static/uploaded_files/{{office.constituency.profile_picture}}" />
+      </div>
+    {% endif %}
+
+    <div class="infobox-about">
+      <h4>About the {{ office.name }}'s Office</h4>
+      {{ office.about|linebreaks|urlize }}
+    </div>
     
     <div class="infobox-about">
-      <p><strong>About {{ office.name }}: </strong><br />
-      <p>{{ office.about|linebreaks|urlize }}</p>
-      <p><strong>Elections: </strong><br />
-      <p>
+      <h4>Elections</h4>
         {% for election in office.election_set.all %}
         <a href="/elections/{{ election.id }}">{{ election.name }}</a><br />
         {% endfor %}
-      </p>
+    </div>
+    
+    <div class="infobox-about">
+      <h4>Moderator(s)</h4>
+      {% for moderator in office.constituency.moderators.all %}
+        <a href="/users/{{ moderator }}">
+          {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
+            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
+          {% else %}
+            {{ moderator }}<br />
+          {% endif %}
+        </a>
+      {% endfor %}
     </div>
   </div>
 </div>

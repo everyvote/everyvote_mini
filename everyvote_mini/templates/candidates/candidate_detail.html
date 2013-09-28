@@ -33,7 +33,7 @@
     </div>
     {% if user in candidate.election.constituency.moderators.all %}
       <a href="/elections/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
-      <a href="http://www.everyvote.org/candidates/mod-add-candidate/" class="btn btn-success infobox-button-right">Add Candidate</button></a>
+      <a href="/candidates/mod-add/" class="btn btn-success infobox-button-right">Add Candidate</button></a>
     {% endif %}
     <div class="infobox-name">
       Candidate
@@ -49,6 +49,7 @@
         <p><img src="/static/uploaded_files/{{candidate.user.profile_picture}}" /></p>
       </div>
     {% endif %}
+    
     <div class="infobox-name">
       {{ candidate.user.first_name }} {{ candidate.user.last_name }}
     </div>
@@ -67,30 +68,27 @@
       {% if candidate.user.personal_homepage %}
         <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ candidate.user.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
       {% endif %}
-    <div class="infobox-below-name">
-      <strong>Running for: </strong>{{ candidate.office.name }}
-    </div>
     <div class="infobox-about">
+      <p><big><strong>Running for: </strong><a style="color:#333" href="/offices/{{ candidate.office.id }}">{{ candidate.office.name }}</a></big></p>
       {% if candidate.user.major %}
-        <p><strong>Major: </strong>{{ candidate.user.major }}
+        <p><big><strong>Major: </strong>{{ candidate.user.major }}</big></p>
       {% endif %}
       {% if candidate.user.year_in_school %}
-        <p><strong>Year: </strong>{{ candidate.user.year_in_school }}
+        <p><big><strong>Year: </strong>{{ candidate.user.year_in_school }}</big></p>
       {% endif %}
       {% if candidate.party %}
-        <p><strong>Party: </strong>{{ candidate.party }}
-      {% endif %}
-      {% if candidate.key_issues %}
-        <p><strong>Key Issues: </strong>{{ candidate.key_issues }}</p>
+        <p><big><strong>Party: </strong>{{ candidate.party }}</big></p>
       {% endif %}
       {% if candidate.goals %}
-      <p><strong>Goals:</strong>{{ candidate.goals|linebreaks|urlize }}</p>
+        <h4 style="margin:20px 0 10px 0;">Goals</h4>
+        {{ candidate.goals|linebreaks|urlize }}
       {% endif %}
       {% if candidate.experience %}
-      <p><strong>Experience:</strong>{{ candidate.experience|linebreaks|urlize }}</p>
+        <h4 style="margin:20px 0 10px 0;">Experience</h4>{{ candidate.experience|linebreaks|urlize }}
       {% endif %}
       {% if candidate.about %}
-      <p><strong>About Me:</strong>{{ candidate.about|linebreaks|urlize }}</p>
+      <h4 style="margin:20px 0 10px 0;">About Me</h4>
+      {{ candidate.about|linebreaks|urlize }}
       {% endif %}
     </div>
   </div>

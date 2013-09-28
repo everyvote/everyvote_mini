@@ -85,7 +85,14 @@ class Election(models.Model):
         office_candidates = self.candidate_set.filter(office_id=office_id)
         
         return office_candidates
+
         
+    def moderator_candidate_queue(self):
+        moderator_candidate_queue = self.candidate_set.filter(is_approved__isnull=True)
+        print moderator_candidate_queue
+        
+        return moderator_candidate_queue
+
     def eligible_candidates(self):
         
         blocked_users = self.constituency.blocked_users.all()
@@ -136,7 +143,7 @@ class Candidate(models.Model):
     
     class Meta:
         ordering = ['?']
-    
+        
     def __unicode__(self):
         return u'%s %s for %s in the %s' % (self.user.first_name, self.user.last_name, self.office.name, self.election)
 

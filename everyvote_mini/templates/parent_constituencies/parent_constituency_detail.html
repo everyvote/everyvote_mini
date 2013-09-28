@@ -16,11 +16,11 @@
     </div>
     
     <!--infobox buttons-->
-    <a href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info infobox-button-right">Share</button></a>
     {% if user in parent_constituency.administrators.all %}
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><span class="glyphicon glyphicon-plus"></span> Organization</button></a>
       <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right">Add Organization</button></a>
     {% endif %}
+    <a href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info infobox-button-right">Share</button></a>
     <!--/infobox buttons-->
 
     <hr style="clear:both; padding:5px 0 0 0;">
@@ -44,10 +44,10 @@
       </div>
     {% endif %}
     <div class="infobox-about">
-      <h3>About</h3>
+      <h4>About</h4>
       <p>{{ parent_constituency.about|urlize|linebreaks }}</p>
     </div>
-    <div class="infobox-moderators">
+    <div class="infobox-about">
       <h4>Administrator(s)</h4>
       {% for administrator in parent_constituency.administrators.all %}
         <a href="/users/{{ administrator }}">

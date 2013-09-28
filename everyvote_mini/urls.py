@@ -142,6 +142,12 @@ urlpatterns = patterns('',
 # CREATE CANDIDATE
     url(r'^candidates/add/$', login_required(CandidateCreateView.as_view()),
         name='candidate_create',),
+# MODERATOR CREATE CANDIDATE
+    url(r'^candidates/mod-add/$', 'everyvote_mini.views.candidate.mod_create_candidate'),
+# MODERATOR APPROVE CANDIDATE
+    url(r'^candidates/mod-approve/(?P<num>\d+)/$', 'everyvote_mini.views.candidate.mod_approve_candidate'),
+# MODERATOR DENY CANDIDATE
+    url(r'^candidates/mod-deny/(?P<num>\d+)/$', 'everyvote_mini.views.candidate.mod_deny_candidate'),
 # SHOW CANDIDATE
     url(r'^candidates/(?P<pk>\d+)/$', CandidateDetailView.as_view(
         model=Candidate,

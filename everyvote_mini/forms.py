@@ -12,11 +12,6 @@ class LoginForm(forms.Form):
     username = forms.CharField(label=u"User Name")
     password = forms.CharField(label=u'Password', widget=forms.PasswordInput(render_value=False))
 
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ('user', )
-
 class ParentConstituencyForm(forms.ModelForm):
     administrators = forms.ModelMultipleChoiceField(queryset=User.objects.order_by('username'))
     class Meta:
@@ -48,6 +43,26 @@ class CandidateForm(forms.ModelForm):
         model = Candidate
         exclude = ['user']
 
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user', )        
+
+# the moderator uses this along with CandidateCreateForm to create a user/candidate profile
+# this uses the User model instead of UserProfile for the sake of simplicity for the moderator
+class UserCreateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        exclude = ('last_login', 'date_joined', )
+        
+    def save(self, commit=True):
+        user = super(UserCreateForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
+
+        
 class OfficeForm(forms.ModelForm):
     class Meta:
         model = Office
