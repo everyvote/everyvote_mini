@@ -22,40 +22,33 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
       <a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a><br />
     </div>
     {% if user in election.constituency.parent_constituency.administrators.all %}
-    <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
-    <a href="/organizations/add/"><button class="btn btn-success infobox-button-right">Add Organization</button></a>
+    <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+    <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><i class="icon-group"></i>&nbsp Add Organization</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareelectionModal">Share</button>
+    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareelectionModal"><i class="icon-share"></i>&nbsp Share</button>
     
     <div class="infobox-name">
       <a href="/organizations/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
     </div>
     {% if user in election.constituency.moderators.all %}
-      <a href="/organizations/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
-      <a href="/elections/add/"><button class="btn btn-success infobox-button-right">Add Election</button>
-      <a href="/offices/add/"><button class="btn btn-success infobox-button-right">Add Office</button></a>
+      <a href="/organizations/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+      <a href="/elections/add/"><button class="btn btn-success infobox-button-right"><i class="icon-list-ul"></i>&nbsp Add Election</button></a>
+      <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><i class="icon-shield"></i>&nbsp Add Office</button></a>
     {% endif %}
     
     <div class="infobox-name">
       {{ election.name }}
     </div>
     {% if user in election.constituency.moderators.all %}
-    <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
-    <a href="/candidates/mod-add/"><button class="btn btn-success infobox-button-right">Add Candidate</button></a>
-    <a href="/offices/add/"><button style="background-color:#ffff66; color:#333" class="btn infobox-button-left"><span class="glyphicon glyphicon-user"></span> Candidate Awaiting Approval</button></a>
+    <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+    <a href="/candidates/mod-add/"><button class="btn btn-success infobox-button-right"><i class="icon-user"></i>&nbsp Add Candidate</button></a>
     {% endif %}
     
     <hr style="clear:both; padding:5px 0 0 0;">    
     
-    {% if election.constituency.profile_picture %}  
-      <div class="infobox-picture">
-        <img src="/static/uploaded_files/{{election.constituency.profile_picture}}" />
-      </div>
-    {% endif %}
-    
     {% if user in election.constituency.moderators.all %}
       {% if election.moderator_candidate_queue %}
-        <button style="background-color:#ffff66; color:#333" class="btn infobox-button-approval-right"><span class="glyphicon glyphicon-user"></span> Candidates Waiting for Your Approval</button>
+        <button style="background-color:#ffff66; color:#333" class="btn infobox-button-approval-right"><i class="icon-user"></i> Candidates Waiting for Your Approval</button>
         {% for candidate in election.moderator_candidate_queue %}
           <p style="clear:right; float:right;">
           {% if candidate.user.last_name %}
@@ -71,8 +64,33 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
       {% endif %}
     {% endif %}
     
+    {% if election.constituency.profile_picture %}  
+      <div class="infobox-picture">
+        <img src="/static/uploaded_files/{{election.constituency.profile_picture}}" />
+      </div>
+    {% endif %}
+    
+        <div class="infobox-name">
+      {{ election.constituency.name }}
+    </div>
+    {% if election.constituency.email %}
+      <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ election.constituency.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
+    {% endif %}
+    {% if election.constituency.facebook_page %}
+      <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ election.constituency.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
+    {% endif %}
+    {% if election.constituency.linkedin_page %}
+      <a target="_blank" style="color:#0E76A8;" class="infobox-contact-button-right" href="{{ election.constituency.linkedin_page }}"><i class="icon-linkedin-sign icon-2x"></i></a>
+    {% endif %}
+    {% if election.constituency.twitter_name %}
+      <a target="_blank" style="color:#4099FF;" class="infobox-contact-button-right" href="https://www.twitter.com/{{ election.constituency.twitter_name|slice:"1:" }}"><i class="icon-twitter-sign icon-2x"></i></a>
+    {% endif %}
+    {% if election.constituency.personal_homepage %}
+      <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ election.constituency.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
+    {% endif %}
+    
     <div class="infobox-about">
-      <h4>About Election</h4>
+      <h4>About {{ election.name }}</h4>
       {{ election.about|urlize|linebreaks }}
     </div>
 

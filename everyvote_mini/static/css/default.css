@@ -156,6 +156,7 @@ a.disabled-link:hover {
 
 .infobox-button-approval-right {
     float:right;
+    clear:right;
     margin: 0 0 10px 0;
 }
 

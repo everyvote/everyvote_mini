@@ -20,7 +20,7 @@
     <hr style="clear:both">
     <div class="infobox-about">
       <p><strong>{{ constituency.name }} Offices:</strong></p>
-        {% if constituency.office_set.all %}
+        {% if election.constituency.office_set.all %}
           <ol>
             {% for office in constituency.office_set.all %}
               <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a> - <a href="/offices/delete/{{ office.id }}">delete</a></li>
@@ -29,7 +29,7 @@
         {% else %}
           <p><em>You have not added an office to {{ constituency.name }}</em></p>
         {% endif %}
-      <a href="/offices/add/"><button class="btn btn-success">Add Office</button></a>
+      <a href="/offices/add/"><button class="btn btn-success"><i class="icon-shield"></i>&nbsp Add Office</button></a>
       <br />
       <hr style="clear:both">
     <form method="post" action="" enctype="multipart/form-data">

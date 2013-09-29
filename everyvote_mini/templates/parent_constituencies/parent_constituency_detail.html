@@ -17,10 +17,10 @@
     
     <!--infobox buttons-->
     {% if user in parent_constituency.administrators.all %}
-      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right">Add Organization</button></a>
+      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><i class="icon-group"></i>&nbsp Add Organization</button></a>
     {% endif %}
-    <a href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info infobox-button-right">Share</button></a>
+    <a href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info infobox-button-right"><i class="icon-share"></i>&nbsp Share</button></a>
     <!--/infobox buttons-->
 
     <hr style="clear:both; padding:5px 0 0 0;">

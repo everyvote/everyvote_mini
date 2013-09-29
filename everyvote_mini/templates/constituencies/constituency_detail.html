@@ -15,18 +15,18 @@
       <a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a><br />
     </div>
     {% if user in constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right">Add Organization</button></a>
+      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><i class="icon-group"></i>&nbsp Add Organization</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareconstituencyModal">Share</button>
+    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareconstituencyModal"><i class="icon-share"></i>&nbsp Share</button>
 
     <div class="infobox-name">  
       {{ constituency.name }}
     </div>
       {% if user in constituency.moderators.all %}
-        <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
-        <a href="/elections/add/"><button class="btn btn-success infobox-button-right">Add Election</button></a>
-        <a href="/offices/add/"><button class="btn btn-success infobox-button-right">Add Office</button></a>
+        <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+        <a href="/elections/add/"><button class="btn btn-success infobox-button-right"> <i class="icon-list-ul"></i>&nbsp Add Election</button></a>
+        <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><i class="icon-shield"></i>&nbsp Add Office</button></a>
       {% endif %}
     
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
@@ -44,7 +44,7 @@
       <span class="help-block">Please select an election to view your candidates.</span>
     </div>
     
-    {% if constituency.profile_picture %}  
+    {% if election.constituency.profile_picture %}  
       <div class="infobox-picture">
         <img src="/static/uploaded_files/{{constituency.profile_picture}}" />
       </div>
@@ -53,19 +53,19 @@
     <div class="infobox-name">
       {{ constituency.name }}
     </div>
-    {% if constituency.email %}
+    {% if election.constituency.email %}
       <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ constituency.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
     {% endif %}
-    {% if constituency.facebook_page %}
+    {% if election.constituency.facebook_page %}
       <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ constituency.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
     {% endif %}
-    {% if constituency.linkedin_page %}
+    {% if election.constituency.linkedin_page %}
       <a target="_blank" style="color:#0E76A8;" class="infobox-contact-button-right" href="{{ constituency.linkedin_page }}"><i class="icon-linkedin-sign icon-2x"></i></a>
     {% endif %}
-    {% if constituency.twitter_name %}
+    {% if election.constituency.twitter_name %}
       <a target="_blank" style="color:#4099FF;" class="infobox-contact-button-right" href="https://www.twitter.com/{{ constituency.twitter_name|slice:"1:" }}"><i class="icon-twitter-sign icon-2x"></i></a>
     {% endif %}
-    {% if constituency.personal_homepage %}
+    {% if election.constituency.personal_homepage %}
       <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ constituency.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
     {% endif %}
 
@@ -76,7 +76,7 @@
     
     <div class="infobox-about">
       <h4>Offices</h4>
-      {% if constituency.office_set.all %}
+      {% if election.constituency.office_set.all %}
         {% for office in constituency.office_set.all %}
           <p><a href="/offices/{{ office.id }}">{{ office.name }}</a>
             {% if user in constituency.moderators.all %}&nbsp &nbsp &nbsp

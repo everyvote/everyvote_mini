@@ -16,37 +16,34 @@
       <a href="/universities/{{ candidate.election.constituency.parent_constituency.id }}">{{ candidate.election.constituency.parent_constituency.name }}</a><br />
     </div>
     {% if user in election.constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{candidate.election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right">Add Organization</button></a>
+      <a href="/universities/update/{{candidate.election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><i class="icon-group"></i>&nbsp Add Organization</button></a>
     {% endif %}
-    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#sharecandidateModal">Share</button>
+    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#sharecandidateModal"><i class="icon-share"></i>&nbsp Share</button>
     <div class="infobox-name">
       <a href="/organizations/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
     </div>
     {% if user in candidate.election.constituency.moderators.all %}
-      <a href="/organizations/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
-      <a href="/elections/add/"><button class="btn btn-success infobox-button-right">Add Election</button></a>
-      <a href="/offices/add/"><button class="btn btn-success infobox-button-right">Add Office</button></a>
+      <a href="/organizations/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+      <a href="/elections/add/"><button class="btn btn-success infobox-button-right"><i class="icon-list-ul"></i>&nbsp Add Election</button></a>
+      <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><i class="icon-shield"></i>&nbsp Add Office</button></a>
     {% endif %}
     <div class="infobox-name">
       <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a><br />
     </div>
     {% if user in candidate.election.constituency.moderators.all %}
-      <a href="/elections/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
-      <a href="/candidates/mod-add/" class="btn btn-success infobox-button-right">Add Candidate</button></a>
+      <a href="/elections/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
+      <a href="/candidates/mod-add/" class="btn btn-success infobox-button-right"><i class="icon-user"></i>&nbsp Add Candidate</button></a>
     {% endif %}
     <div class="infobox-name">
     </div>
-    {% if user.userprofile.id = candidate.user.id %}
-      <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
-    {% endif %}
     
     {% for candidate in next_candidates|slice:":1" %}
-      <a class="infobox-next-link" href="/candidates/{{ candidate.id}}">Next</a>
+      <a class="infobox-next-link" href="/candidates/{{ candidate.id}}">Next&nbsp <i class="icon-double-angle-right"></i></a>
     {% endfor %}
     
     {% for candidate in previous_candidates|dictsortreversed:"id"|slice:":1" %}
-      <a class="infobox-previous-link" href="/candidates/{{ candidate.id}}">Previous</a>
+      <a class="infobox-previous-link" href="/candidates/{{ candidate.id}}"><i class="icon-double-angle-left"></i>&nbsp Previous</a>
     {% endfor %}
     
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
@@ -60,6 +57,12 @@
     <div class="infobox-name">
       {{ candidate.user.first_name }} {{ candidate.user.last_name }}
     </div>
+    <div style="clear:right;" class="infobox-about">  
+      {% if user.userprofile.id = candidate.user.id %}
+        <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
+      {% endif %}
+    </div>    
+    <div style="clear:right;float:right;" class="infobox-about">
       {% if candidate.user.email %}
         <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ candidate.user.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
       {% endif %}
@@ -75,7 +78,8 @@
       {% if candidate.user.personal_homepage %}
         <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ candidate.user.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
       {% endif %}
-    <div class="infobox-about">
+    </div>
+    <div class="infobox-about">   
       <p><big><strong>Running for: </strong><a style="color:#333" href="/offices/{{ candidate.office.id }}">{{ candidate.office.name }}</a></big></p>
       {% if candidate.user.major %}
         <p><big><strong>Major: </strong>{{ candidate.user.major }}</big></p>
@@ -99,11 +103,11 @@
       {% endif %}
     <hr style="clear:both;">    
     {% for candidate in next_candidates|slice:":1" %}
-      <a class="infobox-next-link" href="/candidates/{{ candidate.id}}">Next</a>
+      <a class="infobox-next-link" href="/candidates/{{ candidate.id}}">Next&nbsp <i class="icon-double-angle-right"></i></a>
     {% endfor %}
     
     {% for candidate in previous_candidates|dictsortreversed:"id"|slice:":1" %}
-      <a class="infobox-previous-link" href="/candidates/{{ candidate.id}}">Previous</a>
+      <a class="infobox-previous-link" href="/candidates/{{ candidate.id}}"><i class="icon-double-angle-left"></i>&nbsp Previous</a>
     {% endfor %}
 
     <br />
