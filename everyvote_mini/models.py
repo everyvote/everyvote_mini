@@ -20,8 +20,8 @@ def get_upload_file_name(instance, filename):
 
 class ParentConstituency(models.Model):
     name = models.CharField(max_length=100)
-    about = models.TextField(blank=True)
-    administrators = models.ManyToManyField(User, blank=True)
+    about = models.TextField(null=True, blank=True)
+    administrators = models.ManyToManyField(User, null=True, blank=True)
     profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=250, max_height=250)
     email = models.EmailField(blank=True)
     twitter_name = models.CharField(max_length=20, blank=True)
@@ -41,7 +41,7 @@ class ParentConstituency(models.Model):
 class Constituency(models.Model):
     parent_constituency = models.ForeignKey(ParentConstituency)
     name = models.CharField(max_length=100)
-    about = models.TextField(blank=True)
+    about = models.TextField(null=True, blank=True)
     moderators = models.ManyToManyField(User, related_name='moderator')
     blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True, null=True)
     profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=250, max_height=250)
@@ -66,7 +66,7 @@ class Constituency(models.Model):
 class Office(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=30)
-    about = models.TextField(blank=True)
+    about = models.TextField(null=True, blank=True)
 
     class Meta:
         ordering = ['constituency']
@@ -80,7 +80,7 @@ class Office(models.Model):
 class Election(models.Model):
     constituency = models.ForeignKey(Constituency)
     name = models.CharField(max_length=50)
-    about = models.TextField(blank=True)
+    about = models.TextField(null=True, blank=True)
     first_voting_day = models.DateField()
     last_voting_day = models.DateField(blank=True, null=True)
     offices = models.ManyToManyField(Office, blank=True, null=True)
@@ -126,8 +126,8 @@ class UserProfile(models.Model):
     profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=250, max_height=250)
     about = models.TextField(blank=True)
     party = models.CharField(max_length=50, blank=True)
-    year_in_school = models.CharField(max_length=25, blank=True)
-    major = models.CharField(max_length=75, blank=True)
+    year_in_school = models.CharField(max_length=25, null=True, blank=True)
+    major = models.CharField(max_length=75, null=True, blank=True)
     twitter_name = models.CharField(max_length=20, blank=True)
     facebook_page = models.URLField(blank=True)
     linkedin_page = models.URLField(blank=True)
@@ -144,9 +144,9 @@ class Candidate(models.Model):
     user = models.ForeignKey(UserProfile)
     election = models.ForeignKey(Election)
     office = models.ForeignKey(Office)
-    party = models.CharField(max_length=50, blank=True)
-    goals = models.TextField(blank=True)
-    experience = models.TextField(blank=True)
+    party = models.CharField(max_length=50, null=True, blank=True)
+    goals = models.TextField(null=True, blank=True)
+    experience = models.TextField(null=True, blank=True)
     about = models.TextField(blank=True)
     is_approved = models.NullBooleanField()
     
