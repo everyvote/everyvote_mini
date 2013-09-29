@@ -44,7 +44,7 @@
       <span class="help-block">Please select an election to view your candidates.</span>
     </div>
     
-    {% if election.constituency.profile_picture %}  
+    {% if constituency.profile_picture %}  
       <div class="infobox-picture">
         <img src="/static/uploaded_files/{{constituency.profile_picture}}" />
       </div>
@@ -53,19 +53,19 @@
     <div class="infobox-name">
       {{ constituency.name }}
     </div>
-    {% if election.constituency.email %}
+    {% if constituency.email %}
       <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ constituency.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
     {% endif %}
-    {% if election.constituency.facebook_page %}
+    {% if constituency.facebook_page %}
       <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ constituency.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
     {% endif %}
-    {% if election.constituency.linkedin_page %}
+    {% if constituency.linkedin_page %}
       <a target="_blank" style="color:#0E76A8;" class="infobox-contact-button-right" href="{{ constituency.linkedin_page }}"><i class="icon-linkedin-sign icon-2x"></i></a>
     {% endif %}
-    {% if election.constituency.twitter_name %}
+    {% if constituency.twitter_name %}
       <a target="_blank" style="color:#4099FF;" class="infobox-contact-button-right" href="https://www.twitter.com/{{ constituency.twitter_name|slice:"1:" }}"><i class="icon-twitter-sign icon-2x"></i></a>
     {% endif %}
-    {% if election.constituency.personal_homepage %}
+    {% if constituency.personal_homepage %}
       <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ constituency.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
     {% endif %}
 
@@ -76,7 +76,7 @@
     
     <div class="infobox-about">
       <h4>Offices</h4>
-      {% if election.constituency.office_set.all %}
+      {% if constituency.office_set.all %}
         {% for office in constituency.office_set.all %}
           <p><a href="/offices/{{ office.id }}">{{ office.name }}</a>
             {% if user in constituency.moderators.all %}&nbsp &nbsp &nbsp
