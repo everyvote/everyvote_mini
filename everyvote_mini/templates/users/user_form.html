@@ -46,11 +46,11 @@
           <label style="margin:0 57px 0 0;" for="year_in_school"{% if form.year_in_school.errors %} class="error"{% endif %}>Year:</label> 
           {{ form.year_in_school }}&nbsp Freshman, Senior, Grad Student, etc.
         </div>
+        <hr style="clear:both;">
         <div class="infobox-form-input">
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
           {% endif %}
-        <hr style="clear:both;">
           <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label>&nbsp For the <strong>best quality</strong>, your picture should be <strong>square</strong> and <strong>at least 250x250px</strong>&nbsp &nbsp &nbsp &nbsp 
           {{ form.profile_picture }}
         </div>
@@ -81,7 +81,7 @@
             <p class="error">{{ form.email.errors }}</p>
           {% endif %}
           <label style="margin:0 6px 0 0;" for="email"{% if form.email.errors %} class="error"{% endif %}>Public Email:</label>
-          {{ form.email }}&nbsp
+          {{ form.email }}&nbsp Email you would like to share publicly.
         </div>
         <div class="infobox-form-input">
           {% if form.personal_homepage.errors %}

@@ -42,6 +42,14 @@
       <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
     {% endif %}
     
+    {% for candidate in next_candidates|slice:":1" %}
+      <a class="infobox-next-link" href="/candidates/{{ candidate.id}}">Next</a>
+    {% endfor %}
+    
+    {% for candidate in previous_candidates|dictsortreversed:"id"|slice:":1" %}
+      <a class="infobox-previous-link" href="/candidates/{{ candidate.id}}">Previous</a>
+    {% endfor %}
+    
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
 
     {% if candidate.user.profile_picture %}  
@@ -90,6 +98,16 @@
       <h4 style="margin:20px 0 10px 0;">About Me</h4>
       {{ candidate.about|linebreaks|urlize }}
       {% endif %}
+    <hr style="clear:both;">    
+    {% for candidate in next_candidates|slice:":1" %}
+      <a class="infobox-next-link" href="/candidates/{{ candidate.id}}">Next</a>
+    {% endfor %}
+    
+    {% for candidate in previous_candidates|dictsortreversed:"id"|slice:":1" %}
+      <a class="infobox-previous-link" href="/candidates/{{ candidate.id}}">Previous</a>
+    {% endfor %}
+
+    <br />
     </div>
   </div>
 </div>

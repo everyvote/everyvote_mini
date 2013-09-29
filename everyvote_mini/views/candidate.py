@@ -6,8 +6,10 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.template import RequestContext
+from django.template import RequestContext, Context
 from datetime import datetime
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
 
 """
 CANDIDATE
@@ -65,15 +67,27 @@ def mod_create_candidate(request):
                 new_candidate.user = new_user.userprofile
                 new_candidate.is_approved = True
                 new_candidate.save()
-                return HttpResponseRedirect('/candidates/mod-add/')
+                
+                plaintext = get_template('candidate_mod_registration_email.txt')
+                htmly     = get_template('candidate_mod_registration_email.html')
+                
+                d = Context({ 'candidate': new_candidate, 'moderator': request.user })
+                
+                subject, from_email, to = 'hello', 'registration@everyvote.org', new_user.email
+                text_content = plaintext.render(d)
+                html_content = htmly.render(d)
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+
+                return HttpResponseRedirect('/elections/%s/' % new_candidate.election.id)
             else:
                 raise Http404 # maybe you'll need to write a middleware to catch 403's same way
     else:
-        uform = UserCreateForm(instance=User())
+        uform = UserCreateForm(instance=User(), initial={'password': 'username'})
         cform = CandidateForm(instance=Candidate())
     return render_to_response('candidate_mod_create.html', {'user_form': uform, 'candidate_form': cform}, context_instance=RequestContext(request))
-            
-            
+
 # SHOW CANDIDATE
 class CandidateDetailView(DetailView):
     model = Candidate
@@ -82,7 +96,10 @@ class CandidateDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CandidateDetailView, self).get_context_data(**kwargs)
         context['election'] = self.get_object().election
+        context['previous_candidates'] = Candidate.objects.order_by('id').filter(election_id=self.get_object().election.id).filter(is_approved=True).filter(id__lt=self.get_object().id)
+        context['next_candidates'] = Candidate.objects.order_by('id').filter(election_id=self.get_object().election.id).filter(is_approved=True).filter(id__gt=self.get_object().id)
         return context
+
 
 # UPDATE CANDIDATE
 class CandidateUpdateView(UpdateView):

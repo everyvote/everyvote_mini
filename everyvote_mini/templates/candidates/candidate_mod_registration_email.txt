@@ -1,0 +1,27 @@
+Hi {{ candidate.user.first_name }} {{ candidate.user.last_name }},
+
+{{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}, the moderator of {{ candidate.election.constituency.parent_constituency.name }} {{ candidate.election.constituency.name }}, has created an EveryVote profile for you.
+
+Please use the username and password below to sign in to your EveryVote profile and upload a profile picture, add contact information, and change your password.
+
+Username: {{ candidate.user.user.username }}
+Password: {{ candidate.user.user.username }}
+
+  - To upload your profile picture: http://everyvote.org/users/update/{{ candidate.user.user.username }}/
+ 
+  - To update your candidate profile: http://everyvote.org/candidates/update/{{ candidate.id }}/
+ 
+  - To change your password, login then visit: http://everyvote.org/accounts/changepassword/
+ 
+To raise awareness and increase voter turnout, after you upload a profile picture, please <strong>share a link to your candidate profile on Facebook and Twitter.
+ 
+  - Link to your candidate profile: http://everyvote.org/candidates/{{ candidate.id }}/
+ 
+  - Link to {{ candidate.election.name }} election page: http://everyvote.org/elections/{{ candidate.election.id }}/
+  
+If you have any questions, please contact {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }} or email contactus@everyvote.org.
+
+
+Have a great campaign,
+
+@EveryVoteU

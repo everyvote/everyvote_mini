@@ -14,23 +14,67 @@
       {% if form.errors %}
         <p>Please correct the following fields:</p>
       {% endif %}
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.name.errors %}
             <p class="error">{{ form.name.errors }}</p>
           {% endif %}
-          <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
-          <p>{{ form.name }}</p>
+          <label style="margin:0 17px 0 0;" for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label>
+          {{ form.name }}
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.about.errors %}
             <p class="error">{{ form.about.errors }}</p>
           {% endif %}
-          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
-          <p>{{ form.about }}</p>
+          <label style="margin:0 15px 0 0;" for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label>
+          {{ form.about }}&nbsp <em>(optional)</em>
         </div>
         <hr style="clear:both;">
-        <div class="infobox-selector">
-          <p><strong>Important:</strong> select yourself as an Administrator for your university page, or you will not be able to edit your university page. To add more than 1 person as a moderator, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make an administrator for this university.</p>
+        <div class="infobox-form-input">
+          {% if form.profile_picture.errors %}
+            <p class="error">{{ form.profile_picture.errors }}</p>
+          {% endif %}
+          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label>
+          {{ form.profile_picture }}
+        </div>
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
+          {% if form.twitter_name.errors %}
+            <p class="error">{{ form.twitter_name.errors }}</p>
+          {% endif %}
+          <label style="margin:0 42px 0 0;" for="twitter_name"{% if form.twitter_name.errors %} class="error"{% endif %}>Twitter:</label> 
+          {{ form.twitter_name }}&nbsp Type the @ sign first. For example <strong><a href="https://www.twitter.com/everyvoteu/" target="_blank">@EveryVoteU</a></strong>
+        </div>
+        <div class="infobox-form-input">
+          {% if form.facebook_page.errors %}
+            <p class="error">{{ form.facebook_page.errors }}</p>
+          {% endif %}
+          <label style="margin:0 21px 0 0;" for="facebook_page"{% if form.facebook_page.errors %} class="error"{% endif %}>Facebook:</label> 
+          {{ form.facebook_page }}&nbsp Link to your <strong><a href="http://www.facebook.com/everyvote" target="_blank">Facebook</a></strong> page.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.linkedin_page.errors %}
+            <p class="error">{{ form.linkedin_page.errors }}</p> 
+          {% endif %}
+          <label style="margin:0 30px 0 0;" for="linkedin_page"{% if form.linkedin_page.errors %} class="error"{% endif %}>Linkedin:</label> 
+          {{ form.linkedin_page }}&nbsp Link to your Linkedin page.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.email.errors %}
+            <p class="error">{{ form.email.errors }}</p>
+          {% endif %}
+          <label style="margin:0 6px 0 0;" for="email"{% if form.email.errors %} class="error"{% endif %}>Public Email:</label>
+          {{ form.email }}&nbsp Email you would like to share publicly.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.personal_homepage.errors %}
+            <p class="error">{{ form.personal_homepage.errors }}</p>
+          {% endif %}
+          <label style="margin:0 15px 0 0;" for="personal_homepage"{% if form.personal_homepage.errors %} class="error"{% endif %}>Homepage:</label> 
+          {{ form.personal_homepage }}&nbsp Link to your Homepage.
+        </div>
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
+          <p><strong>Important:</strong> keep yourself selected as an Administrator for your university page, or you will not be able to edit your university page. To add more than 1 person as a moderator, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make an administrator for this university.</p>
           {% if form.administrators.errors %}
             <p class="error">{{ form.administrators.errors }}</p>
           {% endif %}
@@ -38,20 +82,13 @@
           <p>{{ form.administrators }}</p>
         </div>
         <hr style="clear:both;">
-        <div class="infobox-selector">
-          {% if form.profile_picture.errors %}
-            <p class="error">{{ form.profile_picture.errors }}</p>
-          {% endif %}
-          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
-          <p>{{ form.profile_picture }}</p>
-        </div>
+        <input type="submit" class="btn btn-primary infobox-button-right" value="Submit">      
+        <a href="{% url 'parent_constituency_detail' pk=object.pk %}" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
         <br />
-        <a href="{% url 'parent_constituency_detail' pk=object.pk %}" class="btn btn-small btn-danger">Cancel</a>
-        <input type="submit" class="btn btn-primary" value="Submit">      
+        <br />
+        <hr style="clear:both;">
+        <a href="{% url 'parent_constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this University</a>
       </form>
-      <hr style="clear:both;">
-      <br />
-      <a href="{% url 'parent_constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this University</a>
   </div><!-- /.infobox-inside -->
 </div><!-- .infobox -->
 {% endblock %}

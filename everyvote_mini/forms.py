@@ -51,13 +51,14 @@ class UserProfileForm(forms.ModelForm):
 # the moderator uses this along with CandidateCreateForm to create a user/candidate profile
 # this uses the User model instead of UserProfile for the sake of simplicity for the moderator
 class UserCreateForm(forms.ModelForm):
+    
     class Meta:
         model = User
         exclude = ('last_login', 'date_joined', )
         
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password"])
+        user.set_password(self.cleaned_data["username"])
         if commit:
             user.save()
         return user

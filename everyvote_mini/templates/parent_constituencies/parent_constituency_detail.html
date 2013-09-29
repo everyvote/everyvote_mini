@@ -43,6 +43,27 @@
         <img src="/static/uploaded_files/{{ parent_constituency.profile_picture }}" />
       </div>
     {% endif %}
+    
+    <div class="infobox-name">
+      {{ parent_constituency.name }}
+    </div>
+    
+    {% if parent_constituency.email %}
+      <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ parent_constituency.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
+    {% endif %}
+    {% if parent_constituency.facebook_page %}
+      <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ parent_constituency.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
+    {% endif %}
+    {% if parent_constituency.linkedin_page %}
+      <a target="_blank" style="color:#0E76A8;" class="infobox-contact-button-right" href="{{ parent_constituency.linkedin_page }}"><i class="icon-linkedin-sign icon-2x"></i></a>
+    {% endif %}
+    {% if parent_constituency.twitter_name %}
+      <a target="_blank" style="color:#4099FF;" class="infobox-contact-button-right" href="https://www.twitter.com/{{ parent_constituency.twitter_name|slice:"1:" }}"><i class="icon-twitter-sign icon-2x"></i></a>
+    {% endif %}
+    {% if parent_constituency.personal_homepage %}
+      <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ parent_constituency.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
+    {% endif %}
+    
     <div class="infobox-about">
       <h4>About</h4>
       <p>{{ parent_constituency.about|urlize|linebreaks }}</p>

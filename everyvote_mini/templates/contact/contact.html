@@ -9,7 +9,7 @@
       Contact EveryVote
     </div>
     <hr style="clear:both;">
-    <div class="infobox-disclaimer">
+    <div class="infobox-about">
       <p>Thank you for your feedback. The goal of EveryVote is to provide free and equal access to online election information resources.</p>            
       <p>EveryVote helps USA universities share election and candidate information in one convenient online location.</p>
       <p>If you would like <strong>help setting up an election page</strong> for your student organization, please provide your:</p>
@@ -30,26 +30,26 @@
       {% if form.errors %}
         <p>Please correct the following fields:</p>
       {% endif %}
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.sender.errors %}
             <p class="error">{{ form.sender.errors }}</p>
           {% endif %}
-          <p><label for="sender"{% if form.sender.errors %} class="error"{% endif %}>Name:</label></p>
-          <p>{{ form.sender }}</p>
+          <label style="margin:0 38px 0 0" for="sender"{% if form.sender.errors %} class="error"{% endif %}>Name:</label>
+          {{ form.sender }}
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.email.errors %}
             <p class="error">{{ form.email.errors }}</p>
           {% endif %}
-          <p><label for="email"{% if form.email.errors %} class="error"{% endif %}>Email:</label></p>
-          <p>{{ form.email }}</p>
+          <label style="margin:0 40px 0 0" for="email"{% if form.email.errors %} class="error"{% endif %}>Email:</label>
+          {{ form.email }}
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.university.errors %}
             <p class="error">{{ form.university.errors }}</p>
           {% endif %}
-          <p><label for="university"{% if form.university.errors %} class="error"{% endif %}>University (optional):</label></p>
-          <p>{{ form.university }}</p>
+          <label style="margin:0 6px 0 0" for="university"{% if form.university.errors %} class="error"{% endif %}>University:</label>
+          {{ form.university }}&nbsp &nbsp <em>(optional)</em>
         </div>
         <div class="infobox-selector">
           {% if form.message.errors %}
@@ -65,9 +65,12 @@
           <p><label for="captcha"{% if form.captcha.errors %} class="error"{% endif %}></label></p>
           <p>{{ form.captcha }}</p>
         </div>
+        <hr style="clear:both">
+        <input type="submit" class="btn btn-primary infobox-button-right" value="Send" />
+        <a href="/" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
         <br />
-    <p><input type="submit" class="btn btn-primary" value="Send message" /></p>
-</form>
+        <br />
+    </form>
   </div><!--/.infobox-inside --->
 </div><!--/.infobox -->
 {% endblock %}

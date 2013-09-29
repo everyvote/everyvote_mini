@@ -85,8 +85,10 @@
         {% endif %}
         <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="/users/{{ user }}">View My Citizen Profile</a>
-          <li><a href="/users/update/{{ user }}">Edit Citizen Profile</a>
+          <li><a href="/users/{{ user }}">View Citizen Profile</a></li>
+          <li><a href="/users/update/{{ user }}">Edit Citizen Profile</a></li>
+          <li><a href="/accounts/changepassword/">Change Password</a></li>
+          <hr style="padding:0; margin:5px;">
           <li><a href="/accounts/logout/">Logout</a></li>
         </ul>
       </li>

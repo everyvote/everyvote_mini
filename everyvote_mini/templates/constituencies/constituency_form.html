@@ -7,87 +7,129 @@
       Edit Organization
     </div>
     <hr style="clear:both;">
-    <div class="infobox-disclaimer">
-      <p>In order for candidates to add themselves to your election page, you must first create offices for your organization.</p>
-    </div>
-      <p><strong>{{ constituency.name }}'s offices:</strong></p>
+    <div class="infobox-about">
+      <p><strong>Anyone can add an organization to EveryVote</strong>, but if an official representative from the organization requests moderator privileges for the organization's page, and no official representative is already a moderator for the page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
       <ol>
-        {% for office in constituency.office_set.all %}
-          <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a> - <a href="/offices/delete/{{ office.id }}">delete</a></li>
-        {% endfor %}
-      </ol>
-      <a href="/offices/add/"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add Office</button></a>
-    <br />
-    <br />
+        <li>Elections Commissioners
+        <li>President
+        <li>Any other officer
+        <li>The highest ranking student newspaper member
+        <li>Any other student at the school
+      </ol></p>
+    </div>
+    <hr style="clear:both">
+    <div class="infobox-about">
+      <p><strong>{{ constituency.name }} Offices:</strong></p>
+        {% if constituency.office_set.all %}
+          <ol>
+            {% for office in constituency.office_set.all %}
+              <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a> - <a href="/offices/delete/{{ office.id }}">delete</a></li>
+            {% endfor %}
+          </ol>
+        {% else %}
+          <p><em>You have not added an office to {{ constituency.name }}</em></p>
+        {% endif %}
+      <a href="/offices/add/"><button class="btn btn-success">Add Office</button></a>
+      <br />
+      <hr style="clear:both">
     <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
       {% if form.errors %}
         <p>Please correct the following fields:</p>
       {% endif %}
-        <div class="infobox-selector">
+<div class="infobox-form-input">
           {% if form.parent_constituency.errors %}
             <p class="error">{{ form.parent_constituency.errors }}</p>
           {% endif %}
-          <p><label for="parent_constituency"{% if form.parent_constituency.errors %} class="error"{% endif %}>University:</label></p>
-          <p>{{ form.parent_constituency }}</p>
+          <label style="margin:0 8px 0 0;" for="parent_constituency"{% if form.parent_constituency.errors %} class="error"{% endif %}>University:</label>
+          {{ form.parent_constituency }}
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.name.errors %}
             <p class="error">{{ form.name.errors }}</p>
           {% endif %}
-          <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
-          <p>{{ form.name }}</p>
+          <label style="margin:0 40px 0 0;" for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label>
+          {{ form.name }}
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.about.errors %}
             <p class="error">{{ form.about.errors }}</p>
           {% endif %}
-          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
-          <p>{{ form.about }}</p>
+          <label style="margin:0 38px 0 0;" for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label>
+          {{ form.about }}&nbsp &nbsp <em>(optional)</em>
         </div>
         <hr style="clear:both;">
-        <div class="infobox-selector">
-          <p><strong>You must select yourself as a moderator</strong> or you will not be able to edit your organization page. To add more than 1 person as a moderator, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make a moderator for this organization.</p>
-          {% if form.moderators.errors %}
-            <p class="error">{{ form.moderators.errors }}</p>
-          {% endif %}
-          <p><label for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label></p>
-          <p>{{ form.moderators }}</p>
-        </div>
-        <hr style="clear:both;">
-        <div class="infobox-selector">
-          <p><strong>Important:</strong> To block more than 1 person, hold down the Ctrl key (on Windows) or Cmd key (on Mac) and select each person you want to block from this organization.</p>
-          {% if form.blocked_users.errors %}
-            <p class="error">{{ form.blocked_users.errors }}</p>
-          {% endif %}
-          <p><label for="blocked_users"{% if form.blocked_users.errors %} class="error"{% endif %}>Blocked users:</label></p>
-          <p>{{ form.blocked_users }}</p>
-        </div>
-        <hr style="clear:both;">
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
           {% endif %}
-          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
-          <p>{{ form.profile_picture }}</p>
+          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile Picture:</label>
+          {{ form.profile_picture }}
         </div>
-      <a href="{% url 'constituency_detail' pk=object.pk %}" class="btn btn-small btn-danger">Cancel</a>
-      <input type="submit" class="btn btn-primary" value="Submit">
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
+          {% if form.twitter_name.errors %}
+            <p class="error">{{ form.twitter_name.errors }}</p>
+          {% endif %}
+          <label style="margin:0 42px 0 0;" for="twitter_name"{% if form.twitter_name.errors %} class="error"{% endif %}>Twitter:</label> 
+          {{ form.twitter_name }}&nbsp Type the @ sign first. For example <strong><a href="https://www.twitter.com/everyvoteu/" target="_blank">@EveryVoteU</a></strong>
+        </div>
+        <div class="infobox-form-input">
+          {% if form.facebook_page.errors %}
+            <p class="error">{{ form.facebook_page.errors }}</p>
+          {% endif %}
+          <label style="margin:0 21px 0 0;" for="facebook_page"{% if form.facebook_page.errors %} class="error"{% endif %}>Facebook:</label> 
+          {{ form.facebook_page }}&nbsp Link to your <strong><a href="http://www.facebook.com/everyvote" target="_blank">Facebook</a></strong> page.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.linkedin_page.errors %}
+            <p class="error">{{ form.linkedin_page.errors }}</p> 
+          {% endif %}
+          <label style="margin:0 30px 0 0;" for="linkedin_page"{% if form.linkedin_page.errors %} class="error"{% endif %}>Linkedin:</label> 
+          {{ form.linkedin_page }}&nbsp Link to your Linkedin page.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.email.errors %}
+            <p class="error">{{ form.email.errors }}</p>
+          {% endif %}
+          <label style="margin:0 6px 0 0;" for="email"{% if form.email.errors %} class="error"{% endif %}>Public Email:</label>
+          {{ form.email }}&nbsp Email you would like to share publicly.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.personal_homepage.errors %}
+            <p class="error">{{ form.personal_homepage.errors }}</p>
+          {% endif %}
+          <label style="margin:0 15px 0 0;" for="personal_homepage"{% if form.personal_homepage.errors %} class="error"{% endif %}>Homepage:</label> 
+          {{ form.personal_homepage }}&nbsp Link to your Homepage.
+        </div>
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
+          <p><strong>You must keep yourself selected as a moderator</strong> or you will not be able to edit your organization page.</p>
+          <p><strong>To add more than 1 person as a moderator</strong>, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make a moderator for this organization.</p>
+          {% if form.moderators.errors %}
+            <p class="error">{{ form.moderators.errors }}</p>
+          {% endif %}
+          <label style="margin:0 27px 0 0" for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label>
+          {{ form.moderators }}
+        </div>
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
+          <strong>To block more than 1 person</strong> hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each person you want to block from this organization.</p>
+          {% if form.blocked_users.errors %}
+            <p class="error">{{ form.blocked_users.errors }}</p>
+          {% endif %}
+          <label style="margin:0 10px 0 0" for="blocked_users"{% if form.blocked_users.errors %} class="error"{% endif %}>Blocked users:</label>
+          {{ form.blocked_users }}
+        </div>
+        <hr style="clear:both;">
+        <input type="submit" class="btn btn-primary infobox-button-right" value="Submit">
+        <a href="{% url 'constituency_detail' pk=object.pk %}" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
+        <br />
+        <br />
+        <hr style="clear:both;">
+        <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Organization</a>
     </form>
-    <hr style="clear:both;">
-    <a href="{% url 'constituency_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Organization</a>
-    
-    <div class="infobox-disclaimer">
-      <h3>*Disclaimer*</h3>
-      <p>Anyone can add a organization to EveryVote, but if an official representative from the organization requests moderator privileges for the organization's page, and no official representative is already a moderator for the organization's page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
-      <ol>
-        <li>Elections Commissioners</li>
-        <li>President</li>
-        <li>Any other officer</li>
-        <li>The highest ranking student newspaper member</li>
-        <li>Any other student at the school</li>
-      </ol>
-    </div>
+
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
 {% endblock %}

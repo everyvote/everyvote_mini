@@ -14,30 +14,33 @@
       {% if form.errors %}
         <p>Please correct the following fields:</p>
       {% endif %}
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.constituency.errors %}
             <p class="error">{{ form.constituency.errors }}</p>
           {% endif %}
-          <p><label for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label></p>
-          <p>{{ form.constituency }}</p>
+          <label style="margin:0 23px 0 0;" for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label>
+          {{ form.constituency }}
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.name.errors %}
             <p class="error">{{ form.name.errors }}</p>
           {% endif %}
-          <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name of office:</label></p>
-          <p>{{ form.name }}</p>
+          <label style="margin:0 10px 0 0;" for="name"{% if form.name.errors %} class="error"{% endif %}>Name of office:</label>
+          {{ form.name }}&nbsp &nbsp for example, President, Senator - District 2, etc.
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.about.errors %}
             <p class="error">{{ form.about.errors }}</p>
           {% endif %}
-          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
-          <p>{{ form.about }}</p>
+          <label style="margin:0 10px 0 0;" for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label>
+          {{ form.about }}&nbsp &nbsp <em>(optional)</em>
         </div>
-      <a href="{% url 'office_detail' pk=object.pk %}" class="btn btn-small btn-danger">Cancel</a>
-      <input type="submit" class="btn btn-primary" value="Submit">
-    </form>
+        <hr style="clear:both;">
+        <input type="submit" class="btn btn-primary infobox-button-right" value="Submit">
+        <a href="/" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
+        <br />
+        <br />
+      </form>
     <hr style="clear:both;">
     <a href="{% url 'office_delete' pk=object.pk %}" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> Delete this Office</a>
   </div><!-- .infobox-inside -->

@@ -6,76 +6,78 @@
 <div class="infobox">
   <div class="infobox-inside">
     <div class="infobox-name">
-      Moderator - Create a Candidate Profile
+      Moderator Access - Create a Candidate Profile
     </div>
     <hr style="clear:both;">
-    <div class="infobox-disclaimer">
-      <h3>*Disclaimer*</h3>
-      <p>Running for office on EveryVote does not officially register you as a candidate for office. You need to contact the Elections Commissioner of your organization to make sure you are officially registered as a candidate.</p>
-      <p>EveryVote is a way to raise awareness for your campaign by connecting you with your constituency (your organization of voters).</p>
+    <div class="infobox-about">
+      <p><strong>Create a candidate's profile here</strong> if you are a moderator.</p>
+      <p><strong>The candidate will automatically receive an email with their username and password</strong> so they can upload a profile picture and edit their information.</p>
     </div>
     <hr style="clear:both;">
     <form method="post" action="">
       {% csrf_token %}
       {% if user_form.errors or candidate_form.errors %}<p>Please correct the following fields:</p>{% endif %}
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if user_form.username.errors %}<p class="error">{{ user_form.username.errors }}</p>{% endif %}
-          <p><label for="username"{% if user_form.username.errors %} class="error"{% endif %}>Username:</label></p>
-          <p>{{ user_form.username }}</p>
+          <label style="margin:0 9px 0 0" for="username"{% if user_form.username.errors %} class="error"{% endif %}>Username:</label>
+          {{ user_form.username }}
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if user_form.password.errors %}<p class="error">{{ user_form.password.errors }}</p>{% endif %}
-          <p><label for="password"{% if user_form.password.errors %} class="error"{% endif %}>Password:</label></p>
-          <p>{{ user_form.password }}</p>
+          <label style="margin:0 12px 0 0" for="password"{% if user_form.password.errors %} class="error"{% endif %}>Password:</label>
+          {{ user_form.password.as_hidden }}&nbsp &nbsp <em>Automatically assigned and emailed to the candidate.</em>
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if user_form.first_name.errors %}<p class="error">{{ user_form.first_name.errors }}</p>{% endif %}
-          <p><label for="first_name"{% if user_form.first_name.errors %} class="error"{% endif %}>First Name:</label></p>
-          <p>{{ user_form.first_name }}</p>
+          <label style="margin:0 5px 0 0" for="first_name"{% if user_form.first_name.errors %} class="error"{% endif %}>First Name:</label>
+          {{ user_form.first_name }}
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if user_form.last_name.errors %}<p class="error">{{ user_form.last_name.errors }}</p>{% endif %}
-          <p><label for="last_name"{% if user_form.last_name.errors %} class="error"{% endif %}>Last Name:</label></p>
-          <p>{{ user_form.last_name }}</p>
+          <label style="margin:0 8px 0 0" for="last_name"{% if user_form.last_name.errors %} class="error"{% endif %}>Last Name:</label>
+          {{ user_form.last_name }}
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if user_form.email.errors %}<p class="error">{{ user_form.email.errors }}</p>{% endif %}
-          <p><label for="email"{% if user_form.email.errors %} class="error"{% endif %}>Email:</label></p>
-          <p>{{ user_form.email }}</p>
+          <label style="margin:0 43px 0 0" for="email"{% if user_form.email.errors %} class="error"{% endif %}>Email:</label>
+          {{ user_form.email }}&nbsp &nbsp <em>A login email will automatically be sent to this email address.</em>
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if candidate_form.election.errors %}<p class="error">{{ candidate_form.election.errors }}</p>{% endif %}
-        <p><label for="election"{% if candidate_form.election.errors %} class="error"{% endif %}>Election:</label></p>
-        <p>{{ candidate_form.election }}</p>
+        <label style="margin:0 23px 0 0" for="election"{% if candidate_form.election.errors %} class="error"{% endif %}>Election:</label>
+        {{ candidate_form.election }}
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if candidate_form.office.errors %}<p class="error">{{ candidate_form.office.errors }}</p>{% endif %}
-          <p><label for="office"{% if candidate_form.office.errors %} class="error"{% endif %}>Office:</label></p>
-          <p>{{ candidate_form.office }}</p>
+          <label style="margin:0 38px 0 0" for="office"{% if candidate_form.office.errors %} class="error"{% endif %}>Office:</label>
+          {{ candidate_form.office }}
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if candidate_form.party.errors %}<p class="error">{{ candidate_form.party.errors }}</p>{% endif %}
-          <p><label for="party"{% if candidate_form.party.errors %} class="error"{% endif %}>Party:</label> <em>(optional)</em></p>
-          <p>{{ candidate_form.party }}</p>
+          <label style="margin:0 45px 0 0;" for="party"{% if candidate_form.party.errors %} class="error"{% endif %}>Party:</label>
+          {{ candidate_form.party }}&nbsp &nbsp <em>(optional)</em>
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if candidate_form.goals.errors %}<p class="error">{{ candidate_form.goals.errors }}</p>{% endif %}
-        <p><label for="goals"{% if candidate_form.goals.errors %} class="error"{% endif %}>Goals:</label> <em>(optional)</em><br />What do you plan to accomplish after you are elected to this office?</p>
-        <p>{{ candidate_form.goals }}</p>
+        <label for="goals"{% if candidate_form.goals.errors %} class="error"{% endif %}>Goals:</label> <em>(optional)</em><br />What do you plan to accomplish after you are elected to this office?<br />
+        {{ candidate_form.goals }}
       </div>
-      <div class="infobox-selector">
+      <div class="infobox-form-input">
         {% if candidate_form.experience.errors %}<p class="error">{{ candidate_form.experience.errors }}</p>{% endif %}
-        <p><label for="experience"{% if candidate_form.experience.errors %} class="error"{% endif %}>Experience:</label> <em>(optional)</em><br />What previous experience do you have that will help you in this office?</p>
-        <p>{{ candidate_form.experience }}</p>
+        <label for="experience"{% if candidate_form.experience.errors %} class="error"{% endif %}>Experience:</label> <em>(optional)</em><br />What previous experience do you have that will help you in this office?<br />
+        {{ candidate_form.experience }}
       </div>
-    <div class="infobox-selector">
+    <div class="infobox-form-input">
       {% if candidate_form.about.errors %}<p class="error">{{ candidate_form.about.errors }}</p>{% endif %}
-        <p><label for="about"{% if candidate_form.about.errors %} class="error"{% endif %}>About Me:</label> <em>(optional)</em><br />Is there anything else you want voters to know about you?</p>
-        <p>{{ candidate_form.about }}</p>
+        <label for="about"{% if candidate_form.about.errors %} class="error"{% endif %}>About Me:</label> <em>(optional)</em><br />Is there anything else you want voters to know about you?<br />
+        {{ candidate_form.about }}
     </div>
+    <hr style="clear:both;">
+    <input type="submit" class="btn btn-primary infobox-button-right" value="Submit">
+    <a href="/" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
     <br />
-    <a href="/" class="btn btn-small btn-danger">Cancel</a>
-    <input type="submit" class="btn btn-success" value="Run for Office">
+    <br />
+
     </form>
   </div>
 </div>

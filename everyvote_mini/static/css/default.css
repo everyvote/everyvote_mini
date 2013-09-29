@@ -119,7 +119,7 @@ a.disabled-link:hover {
 .infobox-name {
     font-family: 'Oswald', sans-serif;
     float:left;
-    font-size:2em; 
+    font-size:1.9em; 
     padding:0; 
     margin:0 5px 5px 0;
     clear:left;
@@ -133,9 +133,20 @@ a.disabled-link:hover {
     clear:left;
 }
 
+.infobox-previous-link {
+    float:left;
+    clear:left;
+}
+
+.infobox-next-link {
+    float:right;
+    clear:left;
+}
+
 .infobox-button-right {
     float:right;
     margin: 1px 3px;
+    padding: 5px 10px;
 }
 
 .infobox-button-left {

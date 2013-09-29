@@ -1,0 +1,15 @@
+<p>Hi {{ candidate.user.first_name }} {{ candidate.user.last_name }},</p>
+<p><strong>{{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}</strong>, the moderator of <strong>{{ candidate.election.constituency.parent_constituency.name }} {{ candidate.election.constituency.name }}</strong>, has created an <strong>EveryVote</strong> profile for you.</p>
+<p>Please use the username and password below to sign in to your EveryVote profile and upload a profile picture, add contact information, and change your password.</p>
+<p><strong>Username:</strong> {{ candidate.user.user.username }}<br />
+<strong>Password:</strong> {{ candidate.user.user.username }}</p>
+<p>- To upload your profile picture: http://everyvote.org/users/update/{{ candidate.user.user.username }}/</p>
+<p>- To update your candidate profile: http://everyvote.org/candidates/update/{{ candidate.id }}/</p>
+<p>- To change your password: http://everyvote.org/accounts/changepassword/</p>
+<p><strong>Please share a link to your candidate profile on Facebook and Twitter</strong> to increase voter turnout in your upcoming election.</p>
+<p>- Link to your candidate profile: http://everyvote.org/candidates/{{ candidate.id }}/</p>
+<p>- Link to {{ candidate.election.name }} page: http://everyvote.org/elections/{{ candidate.election.id }}/</p>
+<p>If you have any questions, please contact {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }} or email contactus@everyvote.org.</p>
+<br />
+<p>Have a great campaign!</p>
+<p><a href="https://www.twitter.com/everyvoteu/">@EveryVoteU</a></p>

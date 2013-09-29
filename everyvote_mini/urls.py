@@ -155,6 +155,10 @@ urlpatterns = patterns('',
         context_object_name='candidate'),
         name='candidate_detail',
         ),
+# SHOW PREVIOUS CANDIDATE
+#    url(r'^candidates/(?P<id>\d+)/$', 'everyvote_mini.views.candidate.show_previous_candidate'),
+# SHOW NEXT CANDIDATE
+#    url(r'^candidates/(?P<id>\d+)/$', 'everyvote_mini.views.candidate.show_next_candidate'),
 # UPDATE CANDIDATE
     url(r'^candidates/update/(?P<pk>\d+)/$', login_required(CandidateUpdateView.as_view()),
         name='candidate_update',),
@@ -181,6 +185,8 @@ urlpatterns = patterns('',
     (r'^accounts/register/$', 'registration.views.register',    {'form_class':RegistrationFormUniqueEmail,'backend': 'registration.backends.default.DefaultBackend'}),
     (r'^accounts/', include('registration.urls')),
 # PASSWORD RESET
+    (r'^accounts/changepassword/$', 'django.contrib.auth.views.password_change'),
+    (r'^accounts/changepassword/done/&', 'django.contrib.auth.views.password_change_done'),
     (r'^accounts/resetpassword/passwordsent/$', 'django.contrib.auth.views.password_reset_done'),
     (r'^accounts/resetpassword/$', 'django.contrib.auth.views.password_reset'),
     (r'^accounts/reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>,+)/$', 'django.contrib.auth.views.password_reset_confirm'),

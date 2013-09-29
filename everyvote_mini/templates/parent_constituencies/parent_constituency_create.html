@@ -9,9 +9,10 @@
       Add University
     </div>
     <hr style="clear:both;">
-    <div class="infobox-disclaimer">
-      <h3>*Disclaimer*</h3>
-      <p>Anyone can add a university to EveryVote, but if an official representative from the university requests adminstration privileges for the university's page, and no official representative is already an administrator for the university page, then EveryVote will give administration privileges to the person requesting.</p>
+    <div class="infobox-about">
+      <p><strong>Anyone can add a university to EveryVote</strong>, but if an official representative from the university requests adminstration privileges for the university's page, and no official representative is already an administrator for the university page, then EveryVote will give administration privileges to the person requesting.</p>
+      <hr style="clear:both;">
+      <p><strong>You are automatically set as the administrator for this university.</strong> To add another person as the administrator of this university, click the "Edit University" button after you create this university.</p>
     </div>
     <hr style="clear:both;">
     <form method="post" action="" enctype="multipart/form-data">
@@ -19,35 +20,69 @@
       {% if form.errors %}
         <p>Please correct the following fields:</p>
       {% endif %}
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.name.errors %}
             <p class="error">{{ form.name.errors }}</p>
           {% endif %}
-          <p><label for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label></p>
-          <p>{{ form.name }}</p>
+          <label style="margin:0 17px 0 0;" for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label>
+          {{ form.name }}
         </div>
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.about.errors %}
             <p class="error">{{ form.about.errors }}</p>
           {% endif %}
-          <p><label for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label></p>
-          <p>{{ form.about }}</p>
+          <label style="margin:0 15px 0 0;" for="about"{% if form.about.errors %} class="error"{% endif %}>About:</label>
+          {{ form.about }}&nbsp <em>(optional)</em>
         </div>
         <hr style="clear:both;">
-        <div class="infobox-selector">
-          <p>You are automatically set as the administrator for this university. To add another person as the administrator of this university, click the "Edit University" button after you create this university.</p>
-        </div>
-        <hr style="clear:both;">
-        <div class="infobox-selector">
+        <div class="infobox-form-input">
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
           {% endif %}
-          <p><label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label></p>
-          <p>{{ form.profile_picture }}</p>
+          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label>
+          {{ form.profile_picture }}
         </div>
+        <hr style="clear:both;">
+        <div class="infobox-form-input">
+          {% if form.twitter_name.errors %}
+            <p class="error">{{ form.twitter_name.errors }}</p>
+          {% endif %}
+          <label style="margin:0 42px 0 0;" for="twitter_name"{% if form.twitter_name.errors %} class="error"{% endif %}>Twitter:</label> 
+          {{ form.twitter_name }}&nbsp Type the @ sign first. For example <strong><a href="https://www.twitter.com/everyvoteu/" target="_blank">@EveryVoteU</a></strong>
+        </div>
+        <div class="infobox-form-input">
+          {% if form.facebook_page.errors %}
+            <p class="error">{{ form.facebook_page.errors }}</p>
+          {% endif %}
+          <label style="margin:0 21px 0 0;" for="facebook_page"{% if form.facebook_page.errors %} class="error"{% endif %}>Facebook:</label> 
+          {{ form.facebook_page }}&nbsp Link to your <strong><a href="http://www.facebook.com/everyvote" target="_blank">Facebook</a></strong> page.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.linkedin_page.errors %}
+            <p class="error">{{ form.linkedin_page.errors }}</p> 
+          {% endif %}
+          <label style="margin:0 30px 0 0;" for="linkedin_page"{% if form.linkedin_page.errors %} class="error"{% endif %}>Linkedin:</label> 
+          {{ form.linkedin_page }}&nbsp Link to your Linkedin page.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.email.errors %}
+            <p class="error">{{ form.email.errors }}</p>
+          {% endif %}
+          <label style="margin:0 6px 0 0;" for="email"{% if form.email.errors %} class="error"{% endif %}>Public Email:</label>
+          {{ form.email }}&nbsp Email you would like to share publicly.
+        </div>
+        <div class="infobox-form-input">
+          {% if form.personal_homepage.errors %}
+            <p class="error">{{ form.personal_homepage.errors }}</p>
+          {% endif %}
+          <label style="margin:0 15px 0 0;" for="personal_homepage"{% if form.personal_homepage.errors %} class="error"{% endif %}>Homepage:</label> 
+          {{ form.personal_homepage }}&nbsp Link to your Homepage.
+        </div>
+        <hr style="clear:both;">
+        <input type="submit" class="btn btn-primary infobox-button-right" value="Submit">
+        <a href="/" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
         <br />
-        <a href="/" class="btn btn-small btn-danger">Cancel</a>
-        <input type="submit" class="btn btn-success" value="Add University">
+        <br />
       </form>
   </div><!-- /.infobox-inside -->
 </div><!-- .infobox -->
