@@ -36,7 +36,6 @@
       <a href="/candidates/mod-add/" class="btn btn-success infobox-button-right">Add Candidate</button></a>
     {% endif %}
     <div class="infobox-name">
-      Candidate
     </div>
     {% if user.userprofile.id = candidate.user.id %}
       <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
