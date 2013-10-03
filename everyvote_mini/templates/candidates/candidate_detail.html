@@ -15,27 +15,33 @@
     <div class="infobox-name">
       <a href="/universities/{{ candidate.election.constituency.parent_constituency.id }}">{{ candidate.election.constituency.parent_constituency.name }}</a><br />
     </div>
-    {% if user in election.constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{candidate.election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><i class="icon-group"></i>&nbsp Add Organization</button></a>
-    {% endif %}
-    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#sharecandidateModal"><i class="icon-share"></i>&nbsp Share</button>
+    <div class="btn-group infobox-button-right">
+      {% if user in election.constituency.parent_constituency.administrators.all %}
+        <button class="btn btn-primary" data-toggle="modal" href="#sharecandidateModal"><i class="icon-share"></i>&nbsp Share</button>
+        <button onclick="location.href='/organizations/add/'" class="btn btn-primary"><i class="icon-group"></i>&nbsp Add Organization</button></a>
+        <button onclick="location.href='/universities/update/{{ candidate.election.constituency.parent_constituency.id }}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
+      {% else %}
+        <button class="btn btn-primary" data-toggle="modal" href="#sharecandidateModal"><i class="icon-share"></i>&nbsp Share</button>
+      {% endif %}
+    </div>
     <div class="infobox-name">
       <a href="/organizations/{{ candidate.election.constituency.id }}">{{ candidate.election.constituency.name }}</a><br />
     </div>
-    {% if user in candidate.election.constituency.moderators.all %}
-      <a href="/organizations/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-      <a href="/elections/add/"><button class="btn btn-success infobox-button-right"><i class="icon-list-ul"></i>&nbsp Add Election</button></a>
-      <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><i class="icon-shield"></i>&nbsp Add Office</button></a>
-    {% endif %}
+    <div class="btn-group infobox-button-right">
+      {% if user in candidate.election.constituency.moderators.all %}
+        <button onclick="location.href='/offices/add/'" class="btn btn-primary"><i class="icon-shield"></i>&nbsp Add Office</button>
+        <button onclick="location.href='/elections/add/'" class="btn btn-primary"><i class="icon-list-ul"></i>&nbsp Add Election</button>
+        <button onclick="location.href='/organizations/update/{{ candidate.election.constituency.id}}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
+      {% endif %}
+    </div>
     <div class="infobox-name">
       <a href="/elections/{{ candidate.election.id }}">{{ candidate.election.name }}</a><br />
     </div>
+    <div class="btn-group infobox-button-right">
     {% if user in candidate.election.constituency.moderators.all %}
-      <a href="/elections/update/{{candidate.election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-      <a href="/candidates/mod-add/" class="btn btn-success infobox-button-right"><i class="icon-user"></i>&nbsp Add Candidate</button></a>
+      <button onclick="location.href='/candidates/mod-add/'" class="btn btn-primary"><i class="icon-user"></i>&nbsp Add Candidate</button>
+      <button onclick="location.href='/elections/update/{{candidate.election.constituency.id}}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
     {% endif %}
-    <div class="infobox-name">
     </div>
     
     {% for candidate in next_candidates|slice:":1" %}
@@ -47,24 +53,38 @@
     {% endfor %}
     
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
-
+    
     {% if candidate.user.profile_picture %}  
-      <div class="infobox-candidate-picture">
-        <p><img src="/static/uploaded_files/{{candidate.user.profile_picture}}" /></p>
+      <div class="infobox-picture">
+        <img class="img-responsive" src="/static/uploaded_files/{{candidate.user.profile_picture}}" />
       </div>
     {% endif %}
-    
-    <div class="infobox-name">
-      {{ candidate.user.first_name }} {{ candidate.user.last_name }}
-    </div>
-    <div style="clear:right;" class="infobox-about">  
+    <div>  
       {% if user.userprofile.id = candidate.user.id %}
         <a href="/candidates/update/{{candidate.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Candidate Profile</button></a>
       {% endif %}
-    </div>    
-    <div style="clear:right;float:right;" class="infobox-about">
+    </div>  
+    <div class="infobox-name">
+      {% if candidate.user.last_name %}
+        {{ candidate.user.first_name }} {{ candidate.user.last_name }}
+      {% else %}
+        {{ candidate.user.user.username }}
+      {% endif %}
+    </div>
+    {% if candidate in candidate.election.moderator_candidate_queue %}
+      <button style="background-color:#ffff66; color:#333" class="btn infobox-button-approval-right"><i class="icon-user"></i> Candidate Waiting for Your Approval</button>
+        <p style="clear:right; float:right;">
+          {% if candidate.user.last_name %}
+            {{ candidate.user.first_name }} {{ candidate.user.last_name }}
+          {% else %}
+            {{ candidate.user.user.username }}
+          {% endif %} 
+          &nbsp &nbsp <a href="/candidates/mod-approve/{{ candidate.id }}">approve</a>
+          &nbsp &nbsp <a href="/candidates/mod-deny/{{ candidate.id }}">deny</a>
+        </p>
+      {% endif %}
       {% if candidate.user.email %}
-        <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ candidate.user.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
+        <a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ candidate.user.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
       {% endif %}
       {% if candidate.user.facebook_page %}
         <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ candidate.user.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
@@ -78,28 +98,37 @@
       {% if candidate.user.personal_homepage %}
         <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ candidate.user.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
       {% endif %}
-    </div>
     <div class="infobox-about">   
-      <p><big><strong>Running for: </strong><a style="color:#333" href="/offices/{{ candidate.office.id }}">{{ candidate.office.name }}</a></big></p>
+      <h3 style="margin:7px 3px 7px 0;">Running for <a style="color:#333" href="/offices/{{ candidate.office.id }}">{{ candidate.office.name }}</a></h3><br />
       {% if candidate.user.major %}
-        <p><big><strong>Major: </strong>{{ candidate.user.major }}</big></p>
-      {% endif %}
-      {% if candidate.user.year_in_school %}
-        <p><big><strong>Year: </strong>{{ candidate.user.year_in_school }}</big></p>
+        <h4 style="margin:7px 3px 7px 0;"><strong>Major:</strong></h4><p>{{ candidate.user.major }}</p><br />
       {% endif %}
       {% if candidate.party %}
-        <p><big><strong>Party: </strong>{{ candidate.party }}</big></p>
+        <h4 style="margin:7px 6px 7px 0;"><strong>Party:</strong></h4><p>{{ candidate.party }}</p><br />
+      {% endif %}
+      {% if candidate.user.year_in_school %}
+        <h4 style="margin:7px 11px 7px 0;"><strong>Year:</strong></h4><p>{{ candidate.user.year_in_school }}</p><br />
       {% endif %}
       {% if candidate.goals %}
-        <h4 style="margin:20px 0 10px 0;">Goals</h4>
-        {{ candidate.goals|linebreaks|urlize }}
+        <hr style="clear:both;padding:0;margin:10px 0;">
+        <h4><strong>Goals</strong></h4>
+        <div class="infobox-indent">
+          <p>{{ candidate.goals|urlize|linebreaksbr }}</p><br />
+        </div>
       {% endif %}
       {% if candidate.experience %}
-        <h4 style="margin:20px 0 10px 0;">Experience</h4>{{ candidate.experience|linebreaks|urlize }}
+        <hr style="clear:both;padding:0;margin:10px 0;">
+        <h4><strong>Experience</strong></h4>
+        <div class="infobox-indent">
+          <p>{{ candidate.experience|urlize|linebreaksbr }}</p><br />
+        </div>
       {% endif %}
       {% if candidate.about %}
-      <h4 style="margin:20px 0 10px 0;">About Me</h4>
-      {{ candidate.about|linebreaks|urlize }}
+        <hr style="clear:both;padding:0;margin:10px 0;">
+        <h4><strong>About Me</strong></h4>
+        <div class="infobox-indent">
+          <p>{{ candidate.about|urlize|linebreaksbr }}</p><br />
+        </div>
       {% endif %}
     <hr style="clear:both;">    
     {% for candidate in next_candidates|slice:":1" %}
@@ -130,4 +159,5 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<br />
 {% endblock %}

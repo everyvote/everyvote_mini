@@ -53,6 +53,13 @@
           {{ candidate_form.office }}
       </div>
       <div class="infobox-form-input">
+          {% if form.profile_picture.errors %}
+            <p class="error">{{ form.profile_picture.errors }}</p>
+          {% endif %}
+          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label>&nbsp For the <strong>best quality</strong>, your picture should be <strong>square</strong> and <strong>at least 250x250px</strong>&nbsp &nbsp &nbsp &nbsp 
+          {{ form.profile_picture }}
+      </div>
+      <div class="infobox-form-input">
         {% if candidate_form.party.errors %}<p class="error">{{ candidate_form.party.errors }}</p>{% endif %}
           <label style="margin:0 45px 0 0;" for="party"{% if candidate_form.party.errors %} class="error"{% endif %}>Party:</label>
           {{ candidate_form.party }}&nbsp &nbsp <em>(optional)</em>

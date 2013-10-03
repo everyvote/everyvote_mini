@@ -16,30 +16,44 @@
     </div>
     
     <!--infobox buttons-->
-    {% if user in parent_constituency.administrators.all %}
-      <a href="/universities/update/{{parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><i class="icon-group"></i>&nbsp Add Organization</button></a>
-    {% endif %}
-    <a href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info infobox-button-right"><i class="icon-share"></i>&nbsp Share</button></a>
+    <div class="btn-group infobox-button-right">
+      {% if user in parent_constituency.administrators.all %}
+        <button href="#shareparent_constituencyModal" data-toggle="modal" class="btn btn-primary"><i class="icon-share"></i>&nbsp Share</button>
+        <button onclick="location.href='/organizations/add/'" class="btn btn-primary"><i class="icon-group"></i>&nbsp Add Organization</button>
+        <button onclick="location.href='/universities/update/{{ parent_constituency.id }}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
+      {% else %}
+        <button href="#shareparent_constituencyModal" data-toggle="modal"><button class="btn btn-info"><i class="icon-share"></i>&nbsp Share</button>
+      {% endif %}
+    </div>
     <!--/infobox buttons-->
 
-    <hr style="clear:both; padding:5px 0 0 0;">
+    <hr style="clear:both; padding:0; margin:5px 0 15px 0">
 
-    <div class="well infobox-selector">
-      <p><strong>Select your organization:</strong></p>
-      <form method="POST">
-        <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
-          <option></option>
-          {% for constituency in parent_constituency.constituency_set.all %}
-            <option value="/organizations/{{ constituency.id }}">{{ constituency.name }}</option>
-          {% endfor %}
-        </select>
-      </form>
-      <span class="help-block">Please select an organization to view its available elections.</span>
+    <div class="infobox-selector-yellow">
+      <div class="infobox-selector-title">
+        <h4>Select your organization:</h4>
+      </div>
+      <div class="infobox-selector-dropdown">
+        <form method="POST">
+          <select name="constituency_form" class="form-control" onChange="top.location.href = this.form.constituency_form.options[this.form.constituency_form.selectedIndex].value; return false;">
+            <option></option>
+            {% for constituency in parent_constituency.constituency_set.all %}
+              <option value="/organizations/{{ constituency.id }}">{{ constituency.name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      </div>
+      <div class="infobox-selector-helper-text">
+        <span class="help-block">Please select an organization to view its available elections.</span>
+      </div>
     </div>
     
-    {% if parent_constituency.profile_picture %}  
-      <div class="infobox-picture">
+    {% if parent_constituency.rectangle_profile_picture %}
+      <div class="infobox-picture-rectangle">
+        <img class="img-responsive" src="/static/uploaded_files/{{ parent_constituency.rectangle_profile_picture }}" />
+      </div>
+    {% elif parent_constituency.profile_picture %}
+      <div class="image-responsive infobox-picture">
         <img src="/static/uploaded_files/{{ parent_constituency.profile_picture }}" />
       </div>
     {% endif %}
@@ -49,7 +63,7 @@
     </div>
     
     {% if parent_constituency.email %}
-      <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ parent_constituency.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
+      <a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ parent_constituency.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
     {% endif %}
     {% if parent_constituency.facebook_page %}
       <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ parent_constituency.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
@@ -65,20 +79,23 @@
     {% endif %}
     
     <div class="infobox-about">
-      <h4>About</h4>
-      <p>{{ parent_constituency.about|urlize|linebreaks }}</p>
-    </div>
+      <h4><strong>About</strong></h4>
+      <div class="infobox-indent">
+        <p>{{ parent_constituency.about|urlize|linebreaksbr }}</p>
+      </div>
     <div class="infobox-about">
-      <h4>Administrator(s)</h4>
+      <h4><strong>Administrator(s)</strong></h4><br />
       {% for administrator in parent_constituency.administrators.all %}
-        <a href="/users/{{ administrator }}">
-          {% if administrator.userprofile.first_name and administrator.userprofile.last_name %}
-            {{ administrator.userprofile.first_name }} {{ administrator.userprofile.last_name }}<br />
-          {% else %}
-            {{ administrator }}<br />
-          {% endif %}
-        </a>
-      {% endfor %}</p>
+        <div class="infobox-indent-sans-serif">
+          <p><a href="/users/{{ administrator }}">
+            {% if administrator.userprofile.first_name and administrator.userprofile.last_name %}
+              {{ administrator.userprofile.first_name }} {{ administrator.userprofile.last_name }}<br />
+            {% else %}
+              {{ administrator }}<br />
+            {% endif %}
+          </a></p>
+        </div>
+      {% endfor %}
     </div>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
@@ -99,4 +116,5 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+<br />
 {% endblock %}

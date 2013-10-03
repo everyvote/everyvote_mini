@@ -33,8 +33,15 @@
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
           {% endif %}
-          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile picture:</label>
+          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Square profile picture:</label>
           {{ form.profile_picture }}
+        </div>
+        <div class="infobox-form-input">
+          {% if form.rectangle_profile_picture.errors %}
+            <p class="error">{{ form.rectangle_profile_picture.errors }}</p>
+          {% endif %}
+          <label for="rectangle_profile_picture"{% if form.rectangle_profile_picture.errors %} class="error"{% endif %}>Rectangle profile picture:</label>
+          {{ form.rectangle_profile_picture }}
         </div>
         <hr style="clear:both;">
         <div class="infobox-form-input">

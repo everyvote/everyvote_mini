@@ -14,14 +14,14 @@
     <div class="infobox-name">
       Citizen Profile
     </div>
-    {% if object.username == user.username %}
-      <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Your Citizen Profile</button></a>
-    {% endif %}
     <hr style="clear:both">
     {% if object.userprofile.profile_picture %}
-      <div class="infobox-picture">
+      <div class="infobox-candidate-picture">
         <p><img src="/static/uploaded_files/{{object.userprofile.profile_picture}}" /></p>
       </div>
+    {% endif %}
+    {% if object.username == user.username %}
+      <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Your Citizen Profile</button></a>
     {% endif %}
     <div class="infobox-name">
       {{ object.userprofile.first_name }} {{ object.userprofile.last_name }}
@@ -42,10 +42,10 @@
         <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ object.userprofile.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
       {% endif %}
     <div class="infobox-about">
-      <p><strong>Major: </strong>{{ object.userprofile.major }}</p>
-      <p><strong>Year: </strong>{{ object.userprofile.year_in_school }}</p>
+      <h4>Major:</h4>&nbsp<p>{{ object.userprofile.major }}</p><br />
+      <h4>Year: </h4>&nbsp<p>{{ object.userprofile.year_in_school }}</p><br />
       {% if object.userprofile.about %}
-        <p><strong>About: </strong>{{ object.userprofile.about|linebreaks|urlize }}</p>
+        <h4>About: </h4>&nbsp<p>{{ object.userprofile.about|urlize|linebreaksbr }}</p>
       {% endif %}
       {% if object.userprofile.candidate_set.all %}
         <hr style="clear:both;">

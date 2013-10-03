@@ -7,74 +7,64 @@
 {% endblock %}
 
 {% block box1 %}
-<div class="container">
-  <h1 style="font-size:4em; text-align:center; font-family:'Oswald', sans-serif; padding:0; margin:0;">Every<span style="color:red">Vote</span></h1>
-  <div class="showbox">
-    <div class="showbox-title">
-      ALL YOUR UNIVERSITY CANDIDATES IN ONE PLACE
+<div class="infobox">
+  <div class="infobox-inside">
+  <a href="/"><img style="margin:0 0 20px 0; padding:0;" class="img-responsive" src="/static/images/everyvote_rectangle_logo.png" alt="EveryVote logo" /></a>
+    <div class="infobox-selector-yellow">
+      <div class="infobox-selector-title">
+        <h4>Select a university:</h4>
+      </div>
+      <div class="infobox-selector-dropdown">
+        <form method="POST">
+          <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
+            <option></option>
+            {% for parent_constituency in parent_constituencies %}
+              <option value="/universities/{{ parent_constituency.id }}">{{ parent_constituency.name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      </div>
+      <div class="infobox-selector-helper-text">
+        <span class="help-block">Select a university to view its organizations.</span>
+      </div>
     </div>
-    <br />
-    <div class="showbox-selector col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-      SELECT YOUR UNIVERSITY 
-      <form method="POST">
-        <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
-           <option>Select university</option>
-        {% for parent_constituency in parent_constituencies %}
-          <option value="/universities/{{ parent_constituency.id }}">{{ parent_constituency.name }}</option>
+
+    {% if featured_elections %}
+    <div class="infobox-panel">
+      <h2>Featured Elections</h2>
+      <div class="featured-elections">
+        <hr style="clear:both; margin:0 20px; padding:0;">
+        {% for election in featured_elections %}
+          <div class="{{ forloop.counter|divisibleby:2|yesno:'featured-election-light, featured-election-dark' }}">
+            <div class="featured-elections-picture-small">
+              <a href="/elections/{{ election.id }}/"><img src="/static/uploaded_files/{{election.constituency.profile_picture}}" /></a>
+            </div>
+            <div class="featured-elections-text-small">
+              <a href="/elections/{{ election.id }}/"><h4>{{ election.constituency.parent_constituency.name }} - {{ election.constituency.name }}</h4></a>
+              <p style="display:inline;">{{ election.about|truncatechars:200 }}</p>
+              <div style="clear:both;">
+              </div>
+            </div>
+          </div>
         {% endfor %}
-        </select>
-      </form>
+        <div style="clear:both;">
+        </div>
+      </div>
+    {% endif %}
     </div>
-  <br />
-  <a href="/organizations/add" class="showbox-button centered btn btn-danger">BECOME A MODERATOR</a>
-  <br />
-  </div>
-  <br />
-  <div class="featurebox">
-  <div class="featurebox-item darker-background">
-    <div class="featurebox-picture">
-      <img src="/static/images/people-icon.png" />
-    </div>
-    <div class="featurebox-text">
-      <br />
-      <p><big><strong>FIND YOUR CANDIDATE PROFILES</strong></big></p>
-      <p>Elections are held at universities every Fall and Spring semester. Do you know who your candidates are? EveryVote makes it easy for you to learn about and contact all of your candidates in one convenient place.</p>
-      <a href="/">Find Your University's Elections</a>
-    </div>
-  </div>
-  <div class="featurebox-item lighter-background">
-    <div class="featurebox-picture">
-      <img src="/static/images/plus-icon.png" />
-    </div>
-    <div class="featurebox-text">
-      <br />
-      <p><big><strong>CREATE AN ELECTION PAGE</strong></big></p>
-      <p>Anyone can create an election page on EveryVote for free. Elections Commissioners: share your university election and candidate information online in one organized location by creating an organization page.</p>
-      <a href="/accounts/register">Register to Create an Election Page</a>
+    <div class="infobox-panel">
+      <h2>Control Panel</h2>
+      <div class="home-button-bar">
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="location.href='/universities/add'"><i class="icon-flag"></i>&nbsp Add University</button>
+        <button class="btn btn-primary" onclick="location.href='/organizations/add'"><i class="icon-group"></i>&nbsp Add Organization</button>
+        <button class="btn btn-primary" onclick="location.href='/offices/add'"><i class="icon-shield"></i>&nbsp Add Office</button>
+        <button class="btn btn-primary" onclick="location.href='/elections/add'"><i class="icon-list-ul"></i>&nbsp Add Election</button>
+        <button class="btn btn-primary" onclick="location.href='/candidates/add'"><i class="icon-check"></i>&nbsp Run for Office</button>
+      </div>
+      <div style="clear:both;">
+      </div>
     </div>
   </div>
-  <div class="featurebox-item darker-background">
-    <div class="featurebox-picture">
-      <img src="/static/images/boost-icon.png" />
-    </div>
-    <div class="featurebox-text">
-      <br />
-      <p><big><strong>INCREASE VOTER TURNOUT</strong></big></p>
-      <p>Voter turnout in university elections is down all across the United States. EveryVote can help you increase voter turnout by giving your student body a free 24/7 online town square for an upcoming election.</p>
-      <a href="/accounts/register">Register to Add Your University</a>
-    </div>
-  </div>
-  <div class="featurebox-item-last lighter-background">
-    <div class="featurebox-picture">
-      <img src="/static/images/people-icon.png" />
-    </div>
-    <div class="featurebox-text">
-      <br />
-      <p><big><strong>FIND YOUR VOTERS</strong></big></p>
-      <p>Are you a candidate looking to reach as many voters on campus as possible? With Facebook, you can only reach your friends. With EveryVote, every student at your school can read your candidate profile.</p>
-      <a href="/accounts/register">Register to Share Your Candidate Profile</a>
-    </div>
-  </div>
-</div>
 </div>
 {% endblock %}

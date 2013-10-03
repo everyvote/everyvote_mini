@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from time import time
+from datetime import date
 from django.core.urlresolvers import reverse
 from django_resized import ResizedImageField
 
@@ -23,6 +24,7 @@ class ParentConstituency(models.Model):
     about = models.TextField(null=True, blank=True)
     administrators = models.ManyToManyField(User, null=True, blank=True)
     profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=250, max_height=250)
+    rectangle_profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=690, max_height=253)
     email = models.EmailField(blank=True)
     twitter_name = models.CharField(max_length=20, blank=True)
     facebook_page = models.URLField(blank=True)
@@ -45,6 +47,7 @@ class Constituency(models.Model):
     moderators = models.ManyToManyField(User, related_name='moderator')
     blocked_users = models.ManyToManyField(User, related_name='blocked_users', blank=True, null=True)
     profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=250, max_height=250)
+    rectangle_profile_picture = ResizedImageField(upload_to=get_upload_file_name, blank=True, max_width=690, max_height=253)
     email = models.EmailField(blank=True)
     twitter_name = models.CharField(max_length=20, blank=True)
     facebook_page = models.URLField(blank=True)
@@ -65,7 +68,7 @@ class Constituency(models.Model):
 
 class Office(models.Model):
     constituency = models.ForeignKey(Constituency)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=75)
     about = models.TextField(null=True, blank=True)
 
     class Meta:
@@ -84,6 +87,8 @@ class Election(models.Model):
     first_voting_day = models.DateField()
     last_voting_day = models.DateField(blank=True, null=True)
     offices = models.ManyToManyField(Office, blank=True, null=True)
+    voting_link = models.URLField(blank=True)
+    is_featured = models.BooleanField()
     """ Research: Django's Auth provides some sort of 
         access control. How/Can we use that? """
 
@@ -94,7 +99,20 @@ class Election(models.Model):
         office_candidates = self.candidate_set.filter(office_id=office_id)
         
         return office_candidates
+    
+    def is_election_day(self):
+        is_election_day = False
+        today = date.today()
+        print today
+        
+        if today >= self.first_voting_day and today <= self.last_voting_day:
+            is_election_day = True
+            print "is_election_day = True"
+        else:
+            print "is_election_day = False"
 
+        return is_election_day
+    
     def moderator_candidate_queue(self):
         moderator_candidate_queue = self.candidate_set.filter(is_approved__isnull=True)
         print moderator_candidate_queue
@@ -159,8 +177,6 @@ class Candidate(models.Model):
     def get_absolute_url(self):
         return reverse('candidate_detail', kwargs={'pk': str(self.id)})
 
-# i don't really understand what this is, what it does, why it's not indented, and if we need it for other stuff too --mitch
-# It looks like this code configures django so that it creates a profile whenever a user is created-- it seems pretty out of place though. -vince
 def create_profile(sender, instance, created, **kwargs):
     if created:
         profile, created = UserProfile.objects.get_or_create(user=instance)
@@ -170,7 +186,7 @@ def create_profile(sender, instance, created, **kwargs):
         here's a gross way to make delete commments work for demo purposes: you can run syncdb with the 
         following 4 lines commented out, then add the Delete_Comment group through Django's admin panel, and set 
         the user permissions to "can moderate comment." All new registered users will then automatically have 
-        the permission needed to delete their own comment"""
+        the permission needed to delete their own comment. This is the worst comment ever, please help (^_^ '')"""
         # g = Group.objects.get(name='Delete_Comment')
         # u = User.objects.get(username=instance)
         # u.groups.add(g)

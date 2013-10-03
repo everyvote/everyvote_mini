@@ -2,6 +2,12 @@
 
 {% block title %}Add an Election{% endblock %}
 
+{% block extrahead %}
+<link type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+{% endblock %}
+
 {% block box1 %}
 <div class="infobox">
   <div class="infobox-inside">
@@ -21,29 +27,36 @@
           {% if form.constituency.errors %}
             <p class="error">{{ form.constituency.errors }}</p>
           {% endif %}
-          <label style="margin:0 36px 0 0;" for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label>
+          <label style="margin:0 41px 0 0;" for="constituency"{% if form.constituency.errors %} class="error"{% endif %}>Organization:</label>
           {{ form.constituency }}
         </div>
         <div class="infobox-form-input">
           {% if form.name.errors %}
             <p class="error">{{ form.name.errors }}</p>
           {% endif %}
-          <label style="margin:0 87px 0 0;" for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label>
-          {{ form.name }}&nbsp &nbsp <em>for example</em>, Fall 2013 Election, Spring 2014 Election
+          <label style="margin:0 91px 0 0;" for="name"{% if form.name.errors %} class="error"{% endif %}>Name:</label>
+          {{ form.name }}&nbsp &nbsp <em>for example</em>, Fall 2013 Election
         </div>
         <div class="infobox-form-input">
           {% if form.first_voting_day.errors %}
             <p class="error">{{ form.first_voting_day.errors }}</p>
           {% endif %}
-          <label style="margin:0 17px 0 0;" for="first_voting_day"{% if form.first_voting_day.errors %} class="error"{% endif %}>First voting day:</label>
+          <label style="margin:0 21px 0 0;" for="first_voting_day"{% if form.first_voting_day.errors %} class="error"{% endif %}>First voting day:</label>
           {{ form.first_voting_day }}&nbsp &nbsp <em>mm/dd/yyyy</em>
         </div>
         <div class="infobox-form-input">
           {% if form.last_voting_day.errors %}
             <p class="error">{{ form.last_voting_day.errors }}</p>
           {% endif %}
-          <label style="margin:0 20px 0 0;" for="last_voting_day"{% if form.last_voting_day.errors %} class="error"{% endif %}>Last voting day:</label>
+          <label style="margin:0 24px 0 0;" for="last_voting_day"{% if form.last_voting_day.errors %} class="error"{% endif %}>Last voting day:</label>
           {{ form.last_voting_day }}&nbsp &nbsp <em>(optional)</em>
+        </div>
+        <div class="infobox-form-input">
+          {% if form.voting_link.errors %}
+            <p class="error">{{ form.voting_link.errors }}</p>
+          {% endif %}
+          <label style="margin:0 7px 0 0;" for="voting_link"{% if form.voting_link.errors %} class="error"{% endif %}>Online voting link:</label>
+          {{ form.voting_link }}&nbsp &nbsp Link to your online voting page (if available)
         </div>
         <hr style="clear:both;">
         <p><strong>Select your offices.</strong> To add more than 1 office, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each office in this election. If your office is not in the list below, you need to <strong><a href="/offices/add/">add an office</a></strong>.</p>
@@ -80,4 +93,12 @@
       </form>
   </div><!-- .infobox-inside -->
 </div><!-- .infobox -->
+<script>
+  $(function() {
+    $( "#datepicker_first_voting_day" ).datepicker();
+  });
+  $(function() {
+    $( "#datepicker_last_voting_day" ).datepicker();
+  });
+</script>
 {% endblock %}

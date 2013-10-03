@@ -21,30 +21,35 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     <div class="infobox-name">
       <a href="/universities/{{ election.constituency.parent_constituency.id }}">{{ election.constituency.parent_constituency.name }}</a><br />
     </div>
-    {% if user in election.constituency.parent_constituency.administrators.all %}
-    <a href="/universities/update/{{election.constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-    <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><i class="icon-group"></i>&nbsp Add Organization</button></a>
-    {% endif %}
-    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareelectionModal"><i class="icon-share"></i>&nbsp Share</button>
-    
+    <div class="btn-group infobox-button-right">
+      {% if user in election.constituency.parent_constituency.administrators.all %}
+        <button class="btn btn-primary" data-toggle="modal" href="#shareelectionModal"><i class="icon-share"></i>&nbsp Share</button>
+        <button onclick="location.href='/organizations/add/'" class="btn btn-primary"><i class="icon-group"></i>&nbsp Add Organization</button>
+        <button onclick="location.href='/universities/update/{{ election.constituency.parent_constituency.id }}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
+      {% else %}
+        <button class="btn btn-primary" data-toggle="modal" href="#shareelectionModal"><i class="icon-share"></i>&nbsp Share</button>
+      {% endif %}
+    </div>
     <div class="infobox-name">
       <a href="/organizations/{{ election.constituency.id }}">{{ election.constituency.name }}</a><br />
     </div>
-    {% if user in election.constituency.moderators.all %}
-      <a href="/organizations/update/{{election.constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-      <a href="/elections/add/"><button class="btn btn-success infobox-button-right"><i class="icon-list-ul"></i>&nbsp Add Election</button></a>
-      <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><i class="icon-shield"></i>&nbsp Add Office</button></a>
-    {% endif %}
-    
+    <div class="btn-group infobox-button-right">
+      {% if user in election.constituency.moderators.all %}
+        <button onclick="location.href='/offices/add'" class="btn btn-primary"><i class="icon-shield"></i>&nbsp Add Office</button>
+        <button onclick="location.href='/elections/add'" class="btn btn-primary"><i class="icon-list-ul"></i>&nbsp Add Election</button>
+        <button onclick="location.href='/organizations/update/{{ election.constituency.id }}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
+      {% endif %}
+    </div>
     <div class="infobox-name">
       {{ election.name }}
     </div>
-    {% if user in election.constituency.moderators.all %}
-    <a href="/elections/update/{{election.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-    <a href="/candidates/mod-add/"><button class="btn btn-success infobox-button-right"><i class="icon-user"></i>&nbsp Add Candidate</button></a>
-    {% endif %}
-    
-    <hr style="clear:both; padding:5px 0 0 0;">    
+    <div class="btn-group infobox-button-right">
+      {% if user in election.constituency.moderators.all %}
+        <button onclick="location.href='/candidates/mod-add/'" class="btn btn-primary"><i class="icon-user"></i>&nbsp Add Candidate</button>
+        <button onclick="location.href='/elections/update/{{ election.id }}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
+      {% endif %}
+    </div>
+    <hr style="clear:both; padding:5px 0 0 0;">
     
     {% if user in election.constituency.moderators.all %}
       {% if election.moderator_candidate_queue %}
@@ -54,7 +59,7 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
           {% if candidate.user.last_name %}
             {{ candidate.user.first_name }} {{ candidate.user.last_name }}
           {% else %}
-            {{ candidate.user.username }}
+            {{ candidate.user.user.username }}
           {% endif %} 
           &nbsp &nbsp <a href="/candidates/{{ candidate.id }}">view</a>
           &nbsp &nbsp <a href="/candidates/mod-approve/{{ candidate.id }}">approve</a>
@@ -64,9 +69,17 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
       {% endif %}
     {% endif %}
     
-    {% if election.constituency.profile_picture %}  
+    {% if is_election_day %}
+      <button style="background-color:#ffff66; color:#333" class="btn infobox-button-approval-right" onclick="window.open('{{ election.voting_link }}')" ><i class="icon-check"></i> Voting is today!</button>
+    {% endif %}
+
+    {% if election.constituency.rectangle_profile_picture %}
+      <div class="infobox-picture-rectangle">
+        <img class="img-responsive" src="/static/uploaded_files/{{election.constituency.rectangle_profile_picture}}" />
+      </div>
+    {% elif election.constituency.profile_picture %}
       <div class="infobox-picture">
-        <img src="/static/uploaded_files/{{election.constituency.profile_picture}}" />
+        <img class="img-responsive" src="/static/uploaded_files/{{election.constituency.profile_picture}}" />
       </div>
     {% endif %}
     
@@ -74,7 +87,7 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
       {{ election.constituency.name }}
     </div>
     {% if election.constituency.email %}
-      <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ election.constituency.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
+      <a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ election.constituency.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
     {% endif %}
     {% if election.constituency.facebook_page %}
       <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ election.constituency.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
@@ -88,27 +101,37 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     {% if election.constituency.personal_homepage %}
       <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ election.constituency.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
     {% endif %}
+    {% if election.about %}
+      <div style="margin:20px 0" class="infobox-about">
+        <h4>About {{ election.name }}</h4><br />
+        <div class="infobox-indent-sans-serif">
+          <p>{{ election.about|urlize|linebreaksbr }}</p>
+        </div>
+      </div>
+    {% endif %}
     
-    <div class="infobox-about">
-      <h4>About {{ election.name }}</h4>
-      {{ election.about|urlize|linebreaks }}
-    </div>
-
     <div class="infobox-about">
       <h4>Voting day(s)</h4>
-      {{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}
-    </div>
+      {% if election.voting_link %}
+        <button style="background-color:#ffff66; color:#333" class="btn infobox-button-approval-right" onclick="window.open('{{ election.voting_link }}')" ><i class="icon-check"></i> Vote Online</button><br />
+      {% endif %}
+      <div class="infobox-indent-sans-serif">
+      <p>{{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}</p><br /><br />
+      </div>
+    
     
     <div class="infobox-about">
-      <h4>Moderator(s)</h4>
+      <h4>Moderator(s)</h4><br />
       {% for moderator in election.constituency.moderators.all %}
-        <a href="/users/{{ moderator }}">
-          {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
-            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
-          {% else %}
-            {{ moderator }}<br />
-          {% endif %}
-        </a>
+        <div class="infobox-indent-sans-serif">
+          <p><a href="/users/{{ moderator }}">
+            {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
+              {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
+            {% else %}
+              {{ moderator }}<br />
+            {% endif %}
+          </a></p>
+        </div>
       {% endfor %}
     </div>
     
@@ -154,38 +177,40 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
       </select>
     </form>
   </div>
-  <br />
   <hr style="clear:both;">
   <div class="infobox-list-inside">
-    {% for candidate in eligible_candidates|dictsort:"user.last_name" %}
-      <div class="infobox-list-profile">
+    {% for candidate in eligible_candidates %}
+      <div class="{{ forloop.counter|divisibleby:2|yesno:'infobox-list-profile-even, infobox-list-profile-odd' }}">
         <div class="infobox-list-picture">
             <a href="/candidates/{{ candidate.pk }}"><img src="/static/uploaded_files/{{ candidate.user.profile_picture }}" /></a>
         </div>
         <div class="infobox-list-info">
           <h2><a href="/candidates/{{ candidate.pk }}">
-            {% if candidate.user.first_name %} 
-            {{ candidate.user.first_name }} {{ candidate.user.last_name }} 
+            {% if candidate.user.last_name %} 
+              {{ candidate.user.first_name }} {{ candidate.user.last_name }} 
             {% else %}
-            {{ candidate.user.username }} 
+              {{ candidate.user.user.username }} 
             {% endif %}</a></h2>
-          <br />
-          <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
-          {% if candidate.goals %}
+            <p><strong>Running for: </strong>{{ candidate.office.name }}</p>
+            {% if candidate.goals %}
             <p><strong>Goals: </strong>{{ candidate.goals|truncatechars:200 }}</p>
-          {% elif candidate.experience %}
+            {% elif candidate.experience %}
             <p><strong>Experience: </strong>{{ candidate.experience|truncatechars:200 }}</p>
-          {% elif candidate.about %}
-            <p><strong>About me: </strong>{{ candidate.about|truncatechars:200 }}
-          {% else %}
-          {% endif %}
+            {% elif candidate.about %}
+            <p><strong>About me: </strong>{{ candidate.about|truncatechars:200 }}</p>
+            {% else %}
+            {% endif %}
+        </div>
+        <div style="clear:both;">
         </div>
       </div>
       {% if forloop.last %}
+      <br />
       {% else %}
       <hr style="clear:both;">
       {% endif %}
     {% endfor %}
   </div>
 </div>
+<br />
 {% endblock %}

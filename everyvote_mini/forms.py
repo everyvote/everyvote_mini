@@ -35,8 +35,12 @@ class ConstituencyCreateForm(forms.ModelForm):
         exclude = ('moderators', )
         
 class ElectionForm(forms.ModelForm):
+    first_voting_day = forms.DateField(widget=forms.TextInput(attrs={ 'id':'datepicker_first_voting_day' }))
+    last_voting_day = forms.DateField(widget=forms.TextInput(attrs={ 'id':'datepicker_last_voting_day' }))
+    
     class Meta:
         model = Election
+        exclude = ('is_featured', )
 
 class CandidateForm(forms.ModelForm):
     class Meta:

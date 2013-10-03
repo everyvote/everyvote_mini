@@ -20,7 +20,7 @@
     <hr style="clear:both">
     <div class="infobox-about">
       <p><strong>{{ constituency.name }} Offices:</strong></p>
-        {% if election.constituency.office_set.all %}
+        {% if constituency.office_set.all %}
           <ol>
             {% for office in constituency.office_set.all %}
               <li><a href="/offices/{{ office.id }}">{{ office.name}}</a> - <a href="/offices/update/{{office.id}}">edit</a> - <a href="/offices/delete/{{ office.id }}">delete</a></li>
@@ -63,8 +63,15 @@
           {% if form.profile_picture.errors %}
             <p class="error">{{ form.profile_picture.errors }}</p>
           {% endif %}
-          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Profile Picture:</label>
+          <label for="profile_picture"{% if form.profile_picture.errors %} class="error"{% endif %}>Square profile Picture:</label>
           {{ form.profile_picture }}
+        </div>
+        <div class="infobox-form-input">
+          {% if form.rectangle_profile_picture.errors %}
+            <p class="error">{{ form.rectangle_profile_picture.errors }}</p>
+          {% endif %}
+          <label for="rectangle_profile_picture"{% if form.rectangle_profile_picture.errors %} class="error"{% endif %}>Rectangle profile picture:</label>
+          {{ form.rectangle_profile_picture }}
         </div>
         <hr style="clear:both;">
         <div class="infobox-form-input">

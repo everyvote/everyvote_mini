@@ -37,7 +37,7 @@
 <body>
 {% block navbar %}
 {% if user.is_authenticated %}
-<nav class="navbar navbar-default" style="font-family: 'Oswald', sans-serif;" role="navigation">
+<nav class="navbar navbar-default" style="font-family:'Oswald', sans-serif;margin:0;padding:0;" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -137,7 +137,7 @@
       {% endblock %}
   </div>
   
-  <div id="footer" class="footer text-center col-xs-12 col-sm-12 col-md-10 col-lg-8  col-md-offset-1 col-lg-offset-2">
+  <div id="footer" class="footer text-center col-xs-12 col-sm-8 col-md-6 col-lg-6 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">
     <hr style="clear:both; padding:0; margin:0;">
     {% block footer %}
     <br />

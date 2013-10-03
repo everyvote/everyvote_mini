@@ -1,8 +1,8 @@
-<style>
+
 
 
 body {
-    background-color:#fdfdf9;
+    background-image:url('/every_vote/static/uploaded_files/cream_pixels.png');
 }
 
 .dropdown-menu {
@@ -17,38 +17,6 @@ a.disabled-link:hover {
     color:#aaa !important;
 }
 
-.showbox {
-    font-family: 'Arimo', sans-serif;
-    text-align: center;
-    background-image: url(http://everyvote.org/static/images/UIUC%20campus%20-%20Chen%20Qian%20-%20750x420.jpg);
-    background-repeat: no-repeat;
-    padding: 35px 0 0px 0;
-    margin: 20px 0 0 0;
-}
-
-.showbox-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 2.3em;
-    color: #fff;
-    text-align: center;
-    background: rgba(80, 80, 80, 0.7);
-    margin: 0 0 15px 0;
-}
-
-.showbox-selector {
-    font-family: 'Arimo', sans-serif;
-    font-size: 1.4em;
-    color: #f8fc90;
-    background: rgba(80, 80, 80, 0.7);
-    text-shadow: 1px 1px #000;
-    text-align: center;
-    padding: 5px 20px 25px 20px;
-}
-
-.showbox-button {
-    margin: 25px 0;
-}
-
 .darker-background {
     background-color:#f8f6f6;
 }
@@ -57,49 +25,62 @@ a.disabled-link:hover {
     background-color:#fff;
 }
 
-.featurebox {
-    font-family: 'Arimo', sans-serif;
-    clear:both;
-    margin: 15px 0 0 0;
-    border: 1px solid #ddd;
+.btn-danger { 
+    border-color: #c9302c;
+    background-color: #d43f3a;
 }
 
-.featurebox-item {
-    clear:both;
-    border-bottom: 1px solid #ddd;
+.btn-danger:hover { 
+    border-color: #d9534f; 
+    background-color: #d9534f; 
 }
 
-.featurebox-item-last {
-    clear:both;
+.featured-elections {
+    margin: 0px;
 }
 
-.featurebox-picture {
-    width:150px;
-    height:150px;
+.featured-elections-picture-small img {
+    width:50px;
+    height:50px;
     float:left;
-    margin: 20px 45px 20px 15px;
+    margin: 0 0 0 20px;
+    padding: 0;
+    clear:left;
+    border-radius:4px;
+    display:inline-block;
 }
 
-.featurebox-text {
-    padding: 20px 15px 35px 0;
-    text-align: left;
+.featured-elections-text-small {
+    display:inline-block;
+    margin:3px 0 0 20px;
+    float:left;
+}
 
+.home-button-bar {
+    text-align:center;
 }
 
 .infobox {
     font-family: 'Arimo', sans-serif;
-    border: 1px dotted #555;
-    border-radius: 5px;
+    border-left: 1px dotted #555;
+    border-right: 1px dotted #555;
     background-color: #fff;
 }
 
-.infobox-inside {
-    padding:10px 15px;
+.infobox-panel {
+    font-family: 'Arimo', sans-serif;
+    border-left: 1px dotted #555;
+    border-right: 1px dotted #555;
+    background-color: #fff;
+    padding: 0 0 10px 0;
 }
 
-.infobox-point {
-    position:absolute;
-    left: 22px;
+.infobox-inside {
+    padding:15px;
+}
+
+.infobox-inside-formpage {
+    padding:15px 20px;
 }
 
 .infobox-point {
@@ -110,48 +91,59 @@ a.disabled-link:hover {
 .infobox-name {
     font-family: 'Oswald', sans-serif;
     float:left;
-    font-size:2.1em; 
+    font-size:1.9em; 
     padding:0; 
-    margin:0 0 5px 0;
+    margin:0 5px 5px 0;
     clear:left;
 }
 
 .infobox-below-name {
     float:left;
     font-size:1.4em;
-    padding:0 0 10px 0;
+    padding:0;
     margin:0;
     clear:left;
 }
 
-.infobox-share-button {
-    float:right;
-    margin: 2px 0 10px 0;
+.infobox-previous-link {
+    float:left;
+    clear:left;
 }
 
-.infobox-university-button {
+.infobox-next-link {
     float:right;
-    margin: 2px 0 10px 10px;
+    clear:left;
 }
 
-.infobox-share-button {
+.infobox-button-right {
     float:right;
-    margin: 2px 10px 10px 0;
 }
 
-.infobox-university-button {
+.infobox-button-right-last {
     float:right;
-    margin: 2px 0 10px 0;
+    margin: 1px 3px 15px 3px;
+    padding: 5px 10px;
 }
 
-.infobox-button {
+.infobox-button-left {
+    float:left;
+    margin:1px 3px;
+}
+
+.infobox-button-left-last {
+    float:left;
+    margin:1px 3px;
+}
+
+.infobox-button-approval-right {
     float:right;
     clear:right;
-    margin:0 0 10px 0;
+    margin: 10px 0;
 }
 
-.infobox-bottom-button {
-
+.infobox-contact-button-right {
+    float:right;
+    margin: 6px 4px;
 }
 
 .infobox-disclaimer {
@@ -160,46 +152,107 @@ a.disabled-link:hover {
 
 .infobox-selector {
     clear:both;
+    border-radius:4px;
+}
+.infobox-selector-yellow {
+    clear:both;
+    background-color:#ffffd0;
+    padding:2px;
+    border-radius:4px;
+}
+
+.infobox-selector-title {
+    margin:0 15px;
+}
+
+.infobox-selector-dropdown {
+    margin:0 15px;
+}
+
+.infobox-selector-helper-text {
+    margin: 0 15px;
+}
+
+.infobox-login {
+    border:1px solid #AAA;
+    border-radius:4px;
+    clear:both;
+}
+
+.infobox-form-input {
+    margin: 15px 0;
+}
+
+.infobox-picture {
+    margin: 0;
 }
 
 .infobox-picture img {
-    width:200px;
-    height:200px;
     float:left;
-    margin: 0 0 5px 0;
-    padding: 0;
-    clear:both;
+    margin: 0 0 20px 0;
+    clear:left;
+    border-radius:4px;
 }
 
-.infobox-candidate-picture img {
-    width:200px;
-    height:200px;
+.infobox-picture-rectangle {
+    margin: 15px 0;
+}
+
+.infobox-picture-rectangle img {
     float:left;
-    margin: 0px 20px 15px 0px;
-    clear:both;
+    margin: 0 0 20px 0;
+    clear:left;
+    border-radius:4px;
+}
+
+.infobox-indent {
+    margin: 0 20px;
+}
+
+.infobox-indent p {
+    font-family: "Book Antiqua", Palatino, serif;
+    font-size:120%;
+    margin:0;
+    padding:0;
+}
+
+.infobox-indent-sans-serif {
+    margin: 0 20px;
+}
+
+.infobox-indent-sans-serif p {
+    font-family: 'Arimo', sans-serif
+    font-size:120%;
+    margin:0;
+    padding:0;
 }
 
 .infobox-about {
     clear:both;
-    padding: 10px 0 0 0;
+    padding: 0;
 }
 
 .infobox-about h3 {
+    display:inline-block;
+    margin:10px 0;
     padding:0;
-    margin:0 0 10px 0;
+}
+
+.infobox-about h4 {
+    display:inline-block;
+    margin:10px 0;
+    padding:0;
+}
+
+.infobox-about p {
+    display:inline-block;
+    font-size:120%;
+    margin:0;
+    padding:0;
 }
 
 .infobox-about-no-padding {
     clear:both;
-}
-
-.infobox-voting-days {
-    clear:both;
-}
-
-.infobox-moderators {
-    clear:both;
-    padding: 10px 0 0 0;
 }
 
 .infobox-list {
@@ -226,15 +279,25 @@ a.disabled-link:hover {
 .infobox-list-inside {
 }
 
-.infobox-list-profile {
+.infobox-list-profile-even {
     padding: 5px 0 0 0;
+}
+
+.infobox-list-profile-odd {
+    padding: 5px 0 0 0;
+    background-color:#EEE;
 }
 
 .infobox-list-picture img {
     float:left;
-    margin:0px 20px 20px 0px;
+    margin:0px 20px 0px 0px;
     width:150px;
     height:150px;
+    border-radius:4px;
+}
+
+.infobox-list-info {
+    display:block;
 }
 
 .infobox-list-info p {
@@ -249,38 +312,14 @@ a.disabled-link:hover {
     font-size: 2.0em;
 }
 
-.ui-helper-hidden-accessible {
-    display:none;
-}
-
-#id_honeypot {
-    display: none;
-}
-
-textarea#id_comment {
-    width:275px;
-    height:80px;
-    border-radius:3px;
-}
-textarea#id_comment:focus {
-    border-color: #004422;
-    box-shadow: 0 0 10px #004422;
-}
-
-
-.caret-white {
-    border-top-color: white !important;
-    border-bottom-color: white !important; /*these carets aren't needed*/
-}
-
-.caret-black {
-    border-top-color: black !important; /*but they make me think of this */
-    border-bottom-color: black !important; /*http://www.youtube.com/watch?v=F2AitTPI5U0*/
-}
-
 .footer {
     clear:both;
     font-family: 'Arimo', sans-serif;
 }
 
-</style>
+.footer-link {
+    padding:0;
+    margin:0 15px;
+}
+
+

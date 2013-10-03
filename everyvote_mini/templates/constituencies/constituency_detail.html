@@ -14,26 +14,31 @@
     <div class="infobox-name">
       <a href="/universities/{{ constituency.parent_constituency.id }}">{{ constituency.parent_constituency.name }}</a><br />
     </div>
-    {% if user in constituency.parent_constituency.administrators.all %}
-      <a href="/universities/update/{{constituency.parent_constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-      <a href="/organizations/add/"><button class="btn btn-success infobox-button-right"><i class="icon-group"></i>&nbsp Add Organization</button></a>
-    {% endif %}
-    <button class="btn btn-info infobox-button-right" data-toggle="modal" href="#shareconstituencyModal"><i class="icon-share"></i>&nbsp Share</button>
-
+    <div class="btn-group infobox-button-right">
+      {% if user in constituency.parent_constituency.administrators.all %}
+        <button class="btn btn-primary" data-toggle="modal" href="#shareconstituencyModal"><i class="icon-share"></i>&nbsp Share</button>    
+        <button onclick="location.href='/organizations/add/'" class="btn btn-primary"><i class="icon-group"></i>&nbsp Add Organization</button>
+        <button onclick="location.href='/universities/update/{{ parent_constituency.id }}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
+      {% else %}
+        <button class="btn btn-primary" data-toggle="modal" href="#shareconstituencyModal"><i class="icon-share"></i>&nbsp Share</button>    
+      {% endif %}
+    </div>
     <div class="infobox-name">  
       {{ constituency.name }}
     </div>
       {% if user in constituency.moderators.all %}
-        <a href="/organizations/update/{{constituency.id}}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button></a>
-        <a href="/elections/add/"><button class="btn btn-success infobox-button-right"> <i class="icon-list-ul"></i>&nbsp Add Election</button></a>
-        <a href="/offices/add/"><button class="btn btn-success infobox-button-right"><i class="icon-shield"></i>&nbsp Add Office</button></a>
+        <div class="btn-group infobox-button-right">
+          <button onclick="location.href='/offices/add'" class="btn btn-primary"><i class="icon-shield"></i>&nbsp Add Office</button>
+          <button onclick="location.href='/elections/add/'" class="btn btn-primary"> <i class="icon-list-ul"></i>&nbsp Add Election</button>
+          <button onclick="location.href='/organizations/update/{{ constituency.id }}'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit </button>
+        </div>
       {% endif %}
     
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
     
-    <div class="well infobox-selector">
-      <p><strong>Select your election:</strong></p>
-      <form method="POST">
+    <div class="infobox-selector-yellow">
+      <h4>Select election:</h4>
+      <form style="margin:0 25px;" method="POST">
         <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
           <option></option>
           {% for election in constituency.election_set.all %}
@@ -41,12 +46,16 @@
           {% endfor %}
         </select>
       </form>
-      <span class="help-block">Please select an election to view your candidates.</span>
+      <span class="help-block">Select an election to view your candidates.</span>
     </div>
     
-    {% if constituency.profile_picture %}  
-      <div class="infobox-picture">
-        <img src="/static/uploaded_files/{{constituency.profile_picture}}" />
+    {% if constituency.rectangle_profile_picture %}
+      <div class="infobox-picture-rectangle">
+          <img class="img-responsive" src="/static/uploaded_files/{{constituency.rectangle_profile_picture}}" />
+      </div>
+    {% elif constituency.profile_picture %}
+      <div style="margin:20px 0 0 0" class="infobox-picture">
+          <img class="img-responsive" src="/static/uploaded_files/{{constituency.profile_picture}}" />
       </div>
     {% endif %}
     
@@ -70,38 +79,45 @@
     {% endif %}
 
     <div class="infobox-about">
-      <h4>About</h4>
-      {{ constituency.about|urlize|linebreaks }}
+      <h4><strong>About</strong></h4>
+      <div class="infobox-indent">
+        <p>{{ constituency.about|urlize|linebreaksbr }}</p>
+      </div>
     </div>
     
     <div class="infobox-about">
-      <h4>Offices</h4>
-      {% if constituency.office_set.all %}
-        {% for office in constituency.office_set.all %}
-          <p><a href="/offices/{{ office.id }}">{{ office.name }}</a>
-            {% if user in constituency.moderators.all %}&nbsp &nbsp &nbsp
-            <a href="/offices/update/{{ office.id }}">edit</a>&nbsp &nbsp &nbsp
-            <a href="/offices/delete/{{ office.id }}">delete</a>
-            {% endif %}
-          </p>
-        {% endfor %}
-      {% else %}
-        <p>No offices have been added yet for this organization.</p>
-        <p>If you are a moderator for this organization, you can login and use the Add button to <a href="/offices/add/">add an office</a>.</p>
-      {% endif %}
+      <h4><strong>Offices</strong></h4>
+      <div class="infobox-indent-sans-serif">
+        {% if constituency.office_set.all %}
+          {% for office in constituency.office_set.all %}
+            <p><a href="/offices/{{ office.id }}">{{ office.name }}</a>
+              {% if user in constituency.moderators.all %}&nbsp &nbsp &nbsp
+              <a href="/offices/update/{{ office.id }}">edit</a>&nbsp &nbsp &nbsp
+              <a href="/offices/delete/{{ office.id }}">delete</a>
+              {% endif %}
+            </p>
+          {% endfor %}
+        {% else %}
+          <p>No offices have been added yet for this organization.</p>
+          <p>If you are a moderator for this organization, you can login and use the Add button to <a href="/offices/add/">add an office</a>.</p>
+        {% endif %}
+      </div>
     </div>
+    
     <div class="infobox-about">
-      <h4>Moderator(s)</h4>
+      <h4><strong>Moderator(s)</strong></h4><br />
       {% for moderator in constituency.moderators.all %}
-        <a href="/users/{{ moderator }}">
-          {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
-            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
-          {% else %}
-            {{ moderator }}<br />
-          {% endif %}
-        </a>
-      {% endfor %}
-    </div>
+        <div class="infobox-indent-sans-serif">
+          <p><a href="/users/{{ moderator }}">
+            {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
+              {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
+            {% else %}
+              {{ moderator }}<br />
+            {% endif %}
+          </a></p>
+        {% endfor %}
+        </div>
+      </div>
   </div>
 </div>
 
@@ -121,4 +137,5 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<br />
 {% endblock %}
