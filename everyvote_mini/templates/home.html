@@ -8,8 +8,9 @@
 
 {% block box1 %}
 <div class="infobox">
-  <div class="infobox-inside">
+  <div class="infobox-inside-home">
   <a href="/"><img style="margin:0 0 20px 0; padding:0;" class="img-responsive" src="/static/images/everyvote_rectangle_logo.png" alt="EveryVote logo" /></a>
+  <h2 style="font-family:'Oswald', sans-serif; margin:0 0 25px 0; padding:0; text-align:center;">ALL YOUR UNIVERSITY CANDIDATES IN ONE PLACE</h2>
     <div class="infobox-selector-yellow">
       <div class="infobox-selector-title">
         <h4>Select a university:</h4>
@@ -31,17 +32,21 @@
 
     {% if featured_elections %}
     <div class="infobox-panel">
-      <h2>Featured Elections</h2>
+      <h2 style="margin:25px 0 10px 0; font-family: 'Oswald', sans-serif;">Featured Elections</h2>
+      <hr style="clear:both; margin:0 0 20px 0; padding:0;">
       <div class="featured-elections">
-        <hr style="clear:both; margin:0 20px; padding:0;">
-        {% for election in featured_elections %}
+        {% for election in featured_elections|slice:":5" %}
           <div class="{{ forloop.counter|divisibleby:2|yesno:'featured-election-light, featured-election-dark' }}">
             <div class="featured-elections-picture-small">
-              <a href="/elections/{{ election.id }}/"><img src="/static/uploaded_files/{{election.constituency.profile_picture}}" /></a>
+              {% if election.constituency.profile_picture %}
+                <a href="/elections/{{ election.id }}/"><img src="/static/uploaded_files/{{election.constituency.profile_picture}}" /></a>
+              {% else %}
+                <a href="/elections/{{ election.id }}/"><img src="/static/uploaded_files/{{election.constituency.parent_constituency.profile_picture}}" /></a>
+              {% endif %}
             </div>
             <div class="featured-elections-text-small">
-              <a href="/elections/{{ election.id }}/"><h4>{{ election.constituency.parent_constituency.name }} - {{ election.constituency.name }}</h4></a>
-              <p style="display:inline;">{{ election.about|truncatechars:200 }}</p>
+              <a href="/elections/{{ election.id }}/"><h4>{{ election.constituency.parent_constituency.name }} - {{ election.constituency.name }} - {{ election.name }}</h4>
+              <p style="display:inline;">{{ election.about|truncatechars:200 }}</p></a>
               <div style="clear:both;">
               </div>
             </div>
@@ -53,7 +58,8 @@
     {% endif %}
     </div>
     <div class="infobox-panel">
-      <h2>Control Panel</h2>
+      <h2 style="font-family: 'Oswald', sans-serif;">Control Panel</h2>
+      <hr style="clear:both; margin:0; padding:0;">
       <div class="home-button-bar">
       <div class="btn-group">
         <button class="btn btn-primary" onclick="location.href='/universities/add'"><i class="icon-flag"></i>&nbsp Add University</button>
@@ -66,5 +72,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}

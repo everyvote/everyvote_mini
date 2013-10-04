@@ -2,7 +2,7 @@
 
 
 body {
-    background-image:url('/static/images/cream_pixels.png');
+    background-color:#fcfcfc;
 }
 
 .dropdown-menu {
@@ -43,16 +43,16 @@ a.disabled-link:hover {
     width:100px;
     height:100px;
     float:left;
-    margin: 0 0 0 20px;
-    padding: 4px;
+    margin: 0 10px 0 20px;
+    padding: 5px;
     clear:left;
     border-radius:4px;
     display:inline-block;
 }
 
 .featured-elections-text-small {
-    margin:3px 0 0 20px;
-    padding: 5px;
+    margin:5px 0 0 20px;
+    padding: 0px;
 }
 
 .featured-elections-text-small a {
@@ -60,13 +60,12 @@ a.disabled-link:hover {
 }
 
 .featured-elections-text-small h4 {
-    padding:0;
-    margin:0;
+    padding:5px 0 0 0;
+    margin:5px 0 0 0;
 }
 
 .featured-election-dark div {
-    background-color:#f9f7f7;
-    z-index:2;
+    background-color:#f1f1f1;
 }
 
 .featured-election-light {
@@ -75,13 +74,16 @@ a.disabled-link:hover {
 
 .home-button-bar {
     text-align:center;
+    margin:20px 0 0 0;
 }
 
 .infobox {
     font-family: 'Arimo', sans-serif;
     border-left: 1px dotted #bbb;
     border-right: 1px dotted #bbb;
+    border-bottom: 1px dotted #bbb;
     background-color:#fff;
+    border-radius:3px;
 }
 
 .infobox-panel {
@@ -91,8 +93,13 @@ a.disabled-link:hover {
 }
 
 .infobox-inside {
-    padding:20px;
+    padding:20px 20px 20px 20px;
 }
+
+.infobox-inside-home {
+    padding:5px 20px 20px 20px;
+}
+
 
 .infobox-inside-formpage {
     padding:15px 20px;
@@ -132,6 +139,7 @@ a.disabled-link:hover {
 
 .infobox-button-right {
     float:right;
+    margin:0 0 0 10px;
 }
 
 .infobox-button-right-last {
@@ -156,6 +164,12 @@ a.disabled-link:hover {
     margin: 10px 0;
 }
 
+.infobox-button-voting-is-today {
+    float:left;
+    margin: 10px 0;
+    font-family: 'Arimo', sans-serif;
+}
+
 .infobox-contact-button-right {
     float:right;
     margin: 6px 4px;
@@ -169,6 +183,7 @@ a.disabled-link:hover {
     clear:both;
     border-radius:4px;
 }
+
 .infobox-selector-yellow {
     clear:both;
     background-color:#ffffd0;
@@ -203,6 +218,21 @@ a.disabled-link:hover {
 }
 
 .infobox-picture img {
+    height:200px;
+    width:200px;
+    float:left;
+    margin: 20px 0;
+    clear:left;
+    border-radius:4px;
+}
+
+.infobox-candidate-picture {
+    margin: 0;
+}
+
+.infobox-candidate-picture img {
+    height:200px;
+    width:200px;
     float:left;
     margin: 0 0 20px 0;
     clear:left;
@@ -210,7 +240,7 @@ a.disabled-link:hover {
 }
 
 .infobox-picture-rectangle {
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .infobox-picture-rectangle img {
@@ -294,22 +324,25 @@ a.disabled-link:hover {
     padding:0;
 }
 
-.infobox-list-profile-even {
+.infobox-list-profile-light {
     padding:0;
     margin:0;
 }
 
-.infobox-list-profile-odd {
+.infobox-list-profile-dark {
     padding:0;
     margin:0;
-    background-color:#f9f9f9;
+    background-color:#f1f1f1;
+}
+
+.infobox-list-picture {
+    padding:10px 0 0 0;
 }
 
 .infobox-list-picture img {
     float:left;
     clear:left;
-    margin:0px 20px 0px 0px;
-    padding:10px;
+    margin:0px 20px 0px 10px;
     width:150px;
     height:150px;
     border-radius:4px;
@@ -317,6 +350,7 @@ a.disabled-link:hover {
 
 .infobox-list-info {
     display:block;
+    padding:0 0 10px 0;
 }
 
 .infobox-list-info p {
@@ -329,6 +363,12 @@ a.disabled-link:hover {
     margin:0;
     font-family: 'Oswald', sans-serif;
     font-size: 2.0em;
+}
+
+.infobox-list-info h4 {
+    display:inline-block;
+    margin:10px 0;
+    padding:0;
 }
 
 .footer {

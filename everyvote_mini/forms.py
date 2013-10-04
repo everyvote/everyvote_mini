@@ -45,7 +45,7 @@ class ElectionForm(forms.ModelForm):
 class CandidateForm(forms.ModelForm):
     class Meta:
         model = Candidate
-        exclude = ['user']
+        exclude = ['user', 'is_approved']
 
 class UserProfileForm(forms.ModelForm):
     class Meta:

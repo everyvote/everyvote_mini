@@ -14,14 +14,14 @@
     <div class="infobox-name">
       Citizen Profile
     </div>
-    <hr style="clear:both">
+    {% if object.username == user.username %}
+      <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Your Citizen Profile</button></a>
+    {% endif %}
+    <hr style="clear:both;padding:0;margin:10px 0;">
     {% if object.userprofile.profile_picture %}
       <div class="infobox-candidate-picture">
         <p><img src="/static/uploaded_files/{{object.userprofile.profile_picture}}" /></p>
       </div>
-    {% endif %}
-    {% if object.username == user.username %}
-      <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Your Citizen Profile</button></a>
     {% endif %}
     <div class="infobox-name">
       {{ object.userprofile.first_name }} {{ object.userprofile.last_name }}
@@ -42,17 +42,23 @@
         <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ object.userprofile.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
       {% endif %}
     <div class="infobox-about">
-      <h4>Major:</h4>&nbsp<p>{{ object.userprofile.major }}</p><br />
-      <h4>Year: </h4>&nbsp<p>{{ object.userprofile.year_in_school }}</p><br />
+      <h4 style="margin:7px 4px 7px 0;"><strong>Major: </strong></h4><p>{{ object.userprofile.major }}</p><br />
+      <h4 style="margin:7px 10px 7px 0;"><strong>Year: </strong></h4><p>{{ object.userprofile.year_in_school }}</p><br />
       {% if object.userprofile.about %}
-        <h4>About: </h4>&nbsp<p>{{ object.userprofile.about|urlize|linebreaksbr }}</p>
+        <hr style="clear:both;padding:0;margin:10px 0;">
+        <h4><strong>About</strong></h4>
+        <div class="infobox-indent">
+          <p>{{ object.userprofile.about|urlize|linebreaksbr }}</p>
+        </div>
       {% endif %}
       {% if object.userprofile.candidate_set.all %}
-        <hr style="clear:both;">
-        <h3>Candidate Status</h3>
-        {% for candidate in object.userprofile.candidate_set.all %}
-          <p><strong>Running for: </strong><a href="/candidates/{{candidate.id}}">{{ candidate.office.name }} in the {{candidate.election.constituency.parent_constituency.name}} {{ candidate.election.constituency.name }} {{ candidate.election.name }}</a></p>
-        {% endfor %}
+        <hr style="clear:both;padding:0;margin:10px 0;">
+          <h4><strong>Candidate Status</strong></h4>
+          <div class="infobox-indent-sans-serif">
+            {% for candidate in object.userprofile.candidate_set.all %}
+              <p>Running for <a href="/candidates/{{candidate.id}}">{{ candidate.office.name }} in the {{candidate.election.constituency.parent_constituency.name}} {{ candidate.election.constituency.name }} {{ candidate.election.name }}</a></p>
+            {% endfor %}
+          </div>
       {% endif %}  
     </div>
   </div>

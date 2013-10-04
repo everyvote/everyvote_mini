@@ -55,8 +55,8 @@
     <hr style="clear:both; padding:5px 0; margin:5px 0;">
     
     {% if candidate.user.profile_picture %}  
-      <div class="infobox-picture">
-        <img class="img-responsive" src="/static/uploaded_files/{{candidate.user.profile_picture}}" />
+      <div class="infobox-candidate-picture">
+        <img src="/static/uploaded_files/{{candidate.user.profile_picture}}" />
       </div>
     {% endif %}
     <div>  
@@ -101,13 +101,13 @@
     <div class="infobox-about">   
       <h3 style="margin:7px 3px 7px 0;">Running for <a style="color:#333" href="/offices/{{ candidate.office.id }}">{{ candidate.office.name }}</a></h3><br />
       {% if candidate.user.major %}
-        <h4 style="margin:7px 3px 7px 0;"><strong>Major:</strong></h4><p>{{ candidate.user.major }}</p><br />
+        <h4 style="margin:7px 4px 7px 0;"><strong>Major:</strong></h4><p>{{ candidate.user.major }}</p><br />
       {% endif %}
       {% if candidate.party %}
         <h4 style="margin:7px 6px 7px 0;"><strong>Party:</strong></h4><p>{{ candidate.party }}</p><br />
       {% endif %}
       {% if candidate.user.year_in_school %}
-        <h4 style="margin:7px 11px 7px 0;"><strong>Year:</strong></h4><p>{{ candidate.user.year_in_school }}</p><br />
+        <h4 style="margin:7px 10px 7px 0;"><strong>Year:</strong></h4><p>{{ candidate.user.year_in_school }}</p><br />
       {% endif %}
       {% if candidate.goals %}
         <hr style="clear:both;padding:0;margin:10px 0;">
@@ -159,5 +159,4 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<br />
 {% endblock %}

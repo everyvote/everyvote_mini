@@ -42,6 +42,9 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     </div>
     <div class="infobox-name">
       {{ election.name }}
+    {% if is_election_day %}
+      <button style="background-color:#ffff66; color:#333" class="btn infobox-button-voting-is-today" onclick="window.open('{{ election.voting_link }}')" ><i class="icon-check"></i> Voting is today!</button>
+    {% endif %}
     </div>
     <div class="btn-group infobox-button-right">
       {% if user in election.constituency.moderators.all %}
@@ -67,10 +70,6 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
           </p>
         {% endfor %}
       {% endif %}
-    {% endif %}
-    
-    {% if is_election_day %}
-      <button style="background-color:#ffff66; color:#333" class="btn infobox-button-approval-right" onclick="window.open('{{ election.voting_link }}')" ><i class="icon-check"></i> Voting is today!</button>
     {% endif %}
 
     {% if election.constituency.rectangle_profile_picture %}  
@@ -182,7 +181,7 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
   <hr style="clear:both;">
   <div class="infobox-list-inside">
     {% for candidate in office_candidates %}
-      <div class="{{ forloop.counter|divisibleby:2|yesno:'infobox-list-profile-even, infobox-list-profile-odd' }}">
+      <div class="{{ forloop.counter|divisibleby:2|yesno:'infobox-list-profile-light, infobox-list-profile-dark' }}">
         <div class="infobox-list-picture">
             <a href="/candidates/{{ candidate.pk }}"><img src="/static/uploaded_files/{{ candidate.user.profile_picture }}" /></a>
         </div>
@@ -212,5 +211,4 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     {% endfor %}
   </div>
 </div>
-<br />
 {% endblock %}

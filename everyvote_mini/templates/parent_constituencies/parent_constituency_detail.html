@@ -27,7 +27,7 @@
     </div>
     <!--/infobox buttons-->
 
-    <hr style="clear:both; padding:0; margin:5px 0 15px 0">
+    <hr style="clear:both; padding:5px 0 0 0;">
 
     <div class="infobox-selector-yellow">
       <div class="infobox-selector-title">
@@ -83,6 +83,7 @@
       <div class="infobox-indent">
         <p>{{ parent_constituency.about|urlize|linebreaksbr }}</p>
       </div>
+    <br />
     <div class="infobox-about">
       <h4><strong>Administrator(s)</strong></h4><br />
       {% for administrator in parent_constituency.administrators.all %}
@@ -116,5 +117,4 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-<br />
 {% endblock %}

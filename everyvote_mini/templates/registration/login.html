@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block box1 %}
+<div class="infobox">
+  <div class="infobox-inside">
     <a href="/"><img style="margin:0 0 20px 0; padding:0;" class="img-responsive" src="/static/images/everyvote_rectangle_logo.png" alt="EveryVote logo" /></a>
-    <div class="infobox-login col-xs-12 col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+    
       <h3>Login</h3>
       <hr style="clear:both; padding:0; margin:12px 0">
       {% if form.errors %}
@@ -29,16 +31,15 @@
       </div> 
       <hr style="clear:both; padding:0; margin:12px 0;">
         <button type="submit" class="btn btn-primary infobox-button-right">Submit</button>
-        <input type="button" onclick="location.href='/'" class="btn btn-danger infobox-button-right" value="Cancel" />
-        <input type="hidden" name="next" value="{{ next }}" />
+        <a href="/" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
+      <div>
+        <a href="/accounts/resetpassword/">Forgot password?</a><br />
+      </div>
     </form>
     <br />
     <br />
   </div>
-  <div class="infobox-about col-xs-12 col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-    <div style="margin:0 0 0 18px; padding:5px 0 20px 0;">
-      <a href="/accounts/resetpassword/">Forgot password?</a><br />
-    </div>
   </div>
+</div>
 
 {% endblock %}

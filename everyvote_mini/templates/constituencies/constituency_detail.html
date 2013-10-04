@@ -34,19 +34,25 @@
         </div>
       {% endif %}
     
-    <hr style="clear:both; padding:5px 0; margin:5px 0;">
+    <hr style="clear:both; padding:5px 0 0 0;">
     
     <div class="infobox-selector-yellow">
-      <h4>Select election:</h4>
-      <form style="margin:0 25px;" method="POST">
-        <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
-          <option></option>
-          {% for election in constituency.election_set.all %}
-            <option value="/elections/{{ election.id }}">{{ election.name }}</option>
-          {% endfor %}
-        </select>
-      </form>
-      <span class="help-block">Select an election to view your candidates.</span>
+      <div class="infobox-selector-title">
+        <h4>Select election:</h4>
+      </div>
+      <div class="infobox-selector-dropdown">
+        <form style="margin:0 25px;" method="POST">
+          <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
+            <option></option>
+            {% for election in constituency.election_set.all %}
+              <option value="/elections/{{ election.id }}">{{ election.name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      </div>
+      <div class="infobox-selector-helper-text">
+        <span class="help-block">Select an election to view your candidates.</span>
+      </div>
     </div>
     
     {% if constituency.rectangle_profile_picture %}
@@ -84,7 +90,7 @@
         <p>{{ constituency.about|urlize|linebreaksbr }}</p>
       </div>
     </div>
-    
+    <br />
     <div class="infobox-about">
       <h4><strong>Offices</strong></h4>
       <div class="infobox-indent-sans-serif">
@@ -103,7 +109,7 @@
         {% endif %}
       </div>
     </div>
-    
+    <br />
     <div class="infobox-about">
       <h4><strong>Moderator(s)</strong></h4><br />
       {% for moderator in constituency.moderators.all %}
@@ -137,5 +143,4 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<br />
 {% endblock %}

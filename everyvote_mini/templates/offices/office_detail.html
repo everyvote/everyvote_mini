@@ -41,7 +41,7 @@
       {% endif %}
     </div>
     
-    <hr style="clear:both; padding:5px 0 0 0;">
+    <hr style="clear:both;padding:0;margin:10px 0;">
 
     {% if office.constituency.rectangle_profile_picture %}  
       <div class="infobox-picture-rectangle">
@@ -54,31 +54,36 @@
     {% endif %}
 
     <div class="infobox-about">
-      <h4>About the {{ office.name }}'s Office</h4>
-      {{ office.about|urlize|linebreaksbr }}
+      <h4><strong>About the {{ office.name }}'s Office</strong></h4>
+      <div class="infobox-indent">
+        <p>{{ office.about|urlize|linebreaksbr }}</p>
+      </div>
     </div>
-    
+    <br />
     {% if office.election_set.all %}
     <div class="infobox-about">
-      <h4>Elections</h4><br />
-        {% for election in office.constituency.election_set.all %}
-          <a href="/elections/{{ election.id }}">{{ election.name }}</a><br />
-        {% endfor %}
+      <h4><strong>Elections</strong></h4>
+        <div class="infobox-indent-sans-serif">
+          {% for election in office.constituency.election_set.all reversed %}
+            <p><a href="/elections/{{ election.id }}">{{ election.name }}</a></p><br />
+          {% endfor %}
+        </div>
     </div>
     {% endif %}
     <br />
-    
     <div class="infobox-about">
-      <h4>Moderator(s)</h4><br />
-      {% for moderator in office.constituency.moderators.all %}
-        <a href="/users/{{ moderator }}">
-          {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
-            {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
-          {% else %}
-            {{ moderator }}<br />
-          {% endif %}
-        </a>
-      {% endfor %}
+      <h4><strong>Moderator(s)</strong></h4>
+      <div class="infobox-indent-sans-serif">
+        {% for moderator in office.constituency.moderators.all %}
+          <p><a href="/users/{{ moderator }}">
+            {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
+              {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
+            {% else %}
+              {{ moderator }}<br />
+            {% endif %}
+          </a></p>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>

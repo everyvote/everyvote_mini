@@ -13,7 +13,9 @@
       <p><strong>Running for office on EveryVote does not officially register you as a candidate for office.</strong> You need to contact the Elections Commissioner of your organization to make sure you are officially registered as a candidate.</p>
     </div>
     <hr style="clear:both;">
-    <p><strong>Important:</strong> set your <strong>first name</strong>, <strong>last name</strong>, <strong>profile picture</strong>, & <strong>contact info</strong> by editing your <a href="/users/update/{{ user.username }}"><strong>Citizen Profile</strong></a>.</p>
+    <div class="infobox-about">
+      <p>Set your <strong>first and last name</strong>, <strong>profile picture</strong>, & <strong>contact info</strong> by editing your <a href="/users/update/{{ user.username }}"><strong>Citizen Profile</strong></a>.</p>
+    </div>
     <hr style="clear:both;">
     <form method="post" action="">
       {% csrf_token %}
@@ -49,7 +51,7 @@
         {{ form.about }}
     </div>
     <hr style="clear:both;">
-    <input type="submit" class="btn btn-primary infobox-button-right" value="Submit">
+    <button type="submit" class="btn btn-primary infobox-button-right">Submit</button>
     <a href="/" class="btn btn-small btn-danger infobox-button-right">Cancel</a>
     <br />
     <br />
