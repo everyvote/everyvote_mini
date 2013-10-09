@@ -3,44 +3,45 @@
 {% block title %}EveryVote - University Elections{% endblock %}
 
 {% block extrahead %}
-<meta property="og:image" content="" />
+<meta property="og:url" content="http://www.everyvote.org/" />
+<meta property="og:description" content="Learn about and contact your university candidates in one convenient place for free with EveryVote." />
+<meta property="og:image" content="/static/images/everyvote_rectangle_logo_facebook.png" />
 {% endblock %}
 
 {% block box1 %}
+
 <div class="infobox">
+
   <div class="infobox-inside-home">
-  <a href="/"><img style="margin:0 0 20px 0; padding:0;" class="img-responsive" src="/static/images/everyvote_rectangle_logo.png" alt="EveryVote logo" /></a>
-  <h2 style="font-family:'Oswald', sans-serif; margin:0 0 25px 0; padding:0; text-align:center;">ALL YOUR UNIVERSITY CANDIDATES IN ONE PLACE</h2>
+  <a href="/"><img style="margin:0 0 15px 0; padding:0;" class="img-responsive" src="/static/images/everyvote_rectangle_logo_2.png" alt="EveryVote logo" /></a>
+  <a style="color:#333" href="http://www.everyvote.org/elections/1/"><h2 style="font-size:200%; font-family:'Oswald', sans-serif; margin:0 0 25px 0; padding:0; text-align:center;">open source election information platform</h2></a>
     <div class="infobox-selector-yellow">
       <div class="infobox-selector-title">
-        <h4>Select a university:</h4>
+        <h4>Find your university:</h4>
       </div>
       <div class="infobox-selector-dropdown">
-        <form method="POST">
-          <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
-            <option></option>
-            {% for parent_constituency in parent_constituencies %}
-              <option value="/universities/{{ parent_constituency.id }}">{{ parent_constituency.name }}</option>
-            {% endfor %}
-          </select>
+        <form class="form-inline" method="POST">{% csrf_token %}
+          <div class="input-group">
+            <input size="75" type="text" data-provide="typeahead" placeholder="Type university name here" class="searchAhead form-control" name="i1" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-default">Go!</button>
+            </span>
         </form>
       </div>
       <div class="infobox-selector-helper-text">
-        <span class="help-block">Select a university to view its organizations.</span>
+        <span class="help-block">If your university is missing you can <a href="/universities/add/">add it yourself</a> or <a href="/contact/">contact us</a> and we'll set it up for you.</span>
       </div>
     </div>
-
+    </div>
     {% if featured_elections %}
     <div class="infobox-panel">
-      <h2 style="margin:25px 0 10px 0; font-family: 'Oswald', sans-serif;">Featured Elections</h2>
-      <hr style="clear:both; margin:0 0 20px 0; padding:0;">
+      <h2 style="margin:30px 0 10px 0; font-family: 'Oswald', sans-serif;">Featured Elections</h2>
+      <hr style="clear:both; margin:0 0 15px 0; padding:0;">
       <div class="featured-elections">
-        {% for election in featured_elections|slice:":5" %}
+        {% for election in featured_elections|slice:":10" %}
           <div class="{{ forloop.counter|divisibleby:2|yesno:'featured-election-light, featured-election-dark' }}">
             <div class="featured-elections-picture-small">
-              {% if election.constituency.profile_picture %}
-                <a href="/elections/{{ election.id }}/"><img src="/static/uploaded_files/{{election.constituency.profile_picture}}" /></a>
-              {% else %}
+              {% if election.constituency.parent_constituency.profile_picture %}
                 <a href="/elections/{{ election.id }}/"><img src="/static/uploaded_files/{{election.constituency.parent_constituency.profile_picture}}" /></a>
               {% endif %}
             </div>
@@ -51,6 +52,7 @@
               </div>
             </div>
           </div>
+          <hr style="margin:15px 0 15px 10px; clear:both">
         {% endfor %}
         <div style="clear:both;">
         </div>
@@ -74,4 +76,15 @@
   </div>
 </div>
 </div>
+
+<script type="text/javascript">
+  $('.searchAhead').typeahead({
+      name: 'Search',
+      remote: {
+          url: '/lookup/universities/?query=%QUERY'
+      }
+  }).on('typeahead:selected', function(event, datum) {
+      window.location = "universities/" + datum.number + "/";
+  });
+</script>
 {% endblock %}

@@ -26,28 +26,6 @@ class CandidateCreateView(CreateView):
         candidate.save()
         return super(CandidateCreateView, self).form_valid(form)
 
-# MODERATOR APPROVE CANDIDATE
-def mod_approve_candidate(request, num="0"):
-    candidate = get_object_or_404(Candidate, id=num)
-    if request.user in candidate.election.constituency.moderators.filter(username=request.user):
-        candidate.is_approved = True
-        candidate.save()
-        election = candidate.election
-        return redirect(election)
-    else:
-        raise Http404
-
-# MODERATOR DENY CANDIDATE
-def mod_deny_candidate(request, num="0"):
-    candidate = get_object_or_404(Candidate, id=num)
-    if request.user in candidate.election.constituency.moderators.filter(username=request.user):
-        candidate.is_approved = False
-        candidate.save()
-        election = candidate.election
-        return redirect(election)
-    else:
-        raise Http404
-
 # MODERATOR CREATE CANDIDATE
 def mod_create_candidate(request):
     if request.method == "POST":
@@ -87,6 +65,28 @@ def mod_create_candidate(request):
         uform = UserCreateForm(instance=User(), initial={'password': 'username'})
         cform = CandidateForm(instance=Candidate())
     return render_to_response('candidate_mod_create.html', {'user_form': uform, 'candidate_form': cform}, context_instance=RequestContext(request))
+
+# MODERATOR APPROVE CANDIDATE
+def mod_approve_candidate(request, num="0"):
+    candidate = get_object_or_404(Candidate, id=num)
+    if request.user in candidate.election.constituency.moderators.filter(username=request.user):
+        candidate.is_approved = True
+        candidate.save()
+        election = candidate.election
+        return redirect(election)
+    else:
+        raise Http404
+
+# MODERATOR DENY CANDIDATE
+def mod_deny_candidate(request, num="0"):
+    candidate = get_object_or_404(Candidate, id=num)
+    if request.user in candidate.election.constituency.moderators.filter(username=request.user):
+        candidate.is_approved = False
+        candidate.save()
+        election = candidate.election
+        return redirect(election)
+    else:
+        raise Http404
 
 # SHOW CANDIDATE
 class CandidateDetailView(DetailView):

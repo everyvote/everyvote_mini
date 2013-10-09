@@ -5,6 +5,7 @@
 
 {% block extrahead %}
 <meta property="og:url" content="http://www.everyvote.org/candidates/{{ candidate.id }}" />
+<meta property="og:title" content="{{ candidate.user.first_name }} {{ candidate.user.last_name }} running for {{ candidate.office.name }} of {{ candidate.election.constituency.parent_constituency.name }}'s {{ candidate.election.constituency.name }}/>
 <meta property="og:image" content="http://www.everyvote.org/static/uploaded_files/{{ candidate.profile_picture }}" />
 <meta property="og:description" content={% if candidate.goals %}"{{ candidate.goals }}"{% else %}"{{ candidate.about }}"{% endif %}
 {% endblock %}

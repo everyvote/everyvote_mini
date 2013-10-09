@@ -14,53 +14,71 @@
     <div class="infobox-name">
       Citizen Profile
     </div>
-    {% if object.username == user.username %}
-      <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Your Citizen Profile</button></a>
-    {% endif %}
-    <hr style="clear:both;padding:0;margin:10px 0;">
-    {% if object.userprofile.profile_picture %}
-      <div class="infobox-candidate-picture">
-        <p><img src="/static/uploaded_files/{{object.userprofile.profile_picture}}" /></p>
+  {% if object.username == user.username %}
+    <a href="/users/update/{{ user.username }}"><button class="btn btn-warning infobox-button-right"><span class="glyphicon glyphicon-pencil"></span> Edit Your Citizen Profile</button></a>
+  {% endif %}
+  <hr style="clear:both;padding:0;margin:10px 0;">
+  {% if object.userprofile.profile_picture %}
+    <div class="infobox-candidate-picture">
+      <p><img src="/static/uploaded_files/{{object.userprofile.profile_picture}}" /></p>
+    </div>
+  {% endif %}
+  <div class="infobox-name">
+    {{ object.userprofile.first_name }} {{ object.userprofile.last_name }}
+  </div>
+{% if object.userprofile.email %}
+    <a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ object.userprofile.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
+  {% endif %}
+  {% if object.userprofile.facebook_page %}
+    <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ object.userprofile.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
+  {% endif %}
+  {% if object.userprofile.linkedin_page %}
+    <a target="_blank" style="color:#0E76A8;" class="infobox-contact-button-right" href="{{ object.userprofile.linkedin_page }}"><i class="icon-linkedin-sign icon-2x"></i></a>
+  {% endif %}
+  {% if object.userprofile.twitter_name %}
+    <a target="_blank" style="color:#4099FF;" class="infobox-contact-button-right" href="https://www.twitter.com/{{ object.userprofile.twitter_name|slice:"1:" }}"><i class="icon-twitter-sign icon-2x"></i></a>
+  {% endif %}
+  {% if object.userprofile.personal_homepage %}
+    <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ object.userprofile.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
+  {% endif %}
+  <div class="infobox-about">
+    <h4 style="margin:7px 4px 7px 0;"><strong>Major: </strong></h4><p>{{ object.userprofile.major }}</p><br />
+    <h4 style="margin:7px 10px 7px 0;"><strong>Year: </strong></h4><p>{{ object.userprofile.year_in_school }}</p><br />
+    {% if object.userprofile.about %}
+      <hr style="clear:both;padding:0;margin:10px 0;">
+      <h4><strong>About</strong></h4>
+      <div class="infobox-indent">
+        <p>{{ object.userprofile.about|urlize|linebreaksbr }}</p>
       </div>
     {% endif %}
-    <div class="infobox-name">
-      {{ object.userprofile.first_name }} {{ object.userprofile.last_name }}
+    
+    {% if object.userprofile.candidate_set.all %}
+       <div class="infobox-panel">
+         <h2 style="margin:25px 0 10px 0; font-family: 'Oswald', sans-serif;">Elections</h2>
+         <hr style="clear:both; margin:0 0 20px 0; padding:0;">
+         <div class="featured-elections">
+           {% for candidate in object.userprofile.candidate_set.all %}
+             <div class="{{ forloop.counter|divisibleby:2|yesno:'featured-election-light, featured-election-dark' }}">
+               <div class="featured-elections-picture-small">
+                 {% if candidate.election.constituency.profile_picture %}
+                   <a style="display:inline;" href="/elections/{{ candidate.election.id }}/"><img src="/static/uploaded_files/{{candidate.election.constituency.profile_picture}}" /></a>
+                 {% else %}
+                   <a href="/elections/{{ candidate.election.id }}/"><img src="/static/uploaded_files/{{candidate.election.constituency.profile_picture}}" /></a>
+                 {% endif %}
+              </div>
+              <div class="featured-elections-text-small">
+                <a href="/elections/{{ candidate.election.id }}/"><h4 style="display:inline;">{{ candidate.election.constituency.parent_constituency.name }} - {{ candidate.election.constituency.name }} - {{ candidate.election.name }}</h4>
+                <div style="clear:both;">
+                </div>
+               </div>
+             </div>
+           {% endfor %}
+      <div style="clear:both;">
+      </div>
     </div>
-      {% if object.userprofile.email %}
-        <p><a style="color:#555;" class="infobox-contact-button-right" href="MAILTO:{{ object.userprofile.email }}"><i class="icon-envelope-alt icon-2x"></i></a>
-      {% endif %}
-      {% if object.userprofile.facebook_page %}
-        <a target="_blank" style="color:#3B5998;" class="infobox-contact-button-right" href="{{ object.userprofile.facebook_page }}"><i class="icon-facebook-sign icon-2x"></i></a>
-      {% endif %}
-      {% if object.userprofile.linkedin_page %}
-        <a target="_blank" style="color:#0E76A8;" class="infobox-contact-button-right" href="{{ object.userprofile.linkedin_page }}"><i class="icon-linkedin-sign icon-2x"></i></a>
-      {% endif %}
-      {% if object.userprofile.twitter_name %}
-        <a target="_blank" style="color:#4099FF;" class="infobox-contact-button-right" href="https://www.twitter.com/{{ object.userprofile.twitter_name|slice:"1:" }}"><i class="icon-twitter-sign icon-2x"></i></a>
-      {% endif %}
-      {% if object.userprofile.personal_homepage %}
-        <a target="_blank" style="color:#555;" class="infobox-contact-button-right" href="{{ object.userprofile.personal_homepage }}"><i class="icon-home icon-2x"></i></a>
-      {% endif %}
-    <div class="infobox-about">
-      <h4 style="margin:7px 4px 7px 0;"><strong>Major: </strong></h4><p>{{ object.userprofile.major }}</p><br />
-      <h4 style="margin:7px 10px 7px 0;"><strong>Year: </strong></h4><p>{{ object.userprofile.year_in_school }}</p><br />
-      {% if object.userprofile.about %}
-        <hr style="clear:both;padding:0;margin:10px 0;">
-        <h4><strong>About</strong></h4>
-        <div class="infobox-indent">
-          <p>{{ object.userprofile.about|urlize|linebreaksbr }}</p>
-        </div>
-      {% endif %}
-      {% if object.userprofile.candidate_set.all %}
-        <hr style="clear:both;padding:0;margin:10px 0;">
-          <h4><strong>Candidate Status</strong></h4>
-          <div class="infobox-indent-sans-serif">
-            {% for candidate in object.userprofile.candidate_set.all %}
-              <p>Running for <a href="/candidates/{{candidate.id}}">{{ candidate.office.name }} in the {{candidate.election.constituency.parent_constituency.name}} {{ candidate.election.constituency.name }} {{ candidate.election.name }}</a></p>
-            {% endfor %}
-          </div>
-      {% endif %}  
-    </div>
+  {% endif %}
+</div>
+  </div>
   </div>
 </div>
 {% endblock %}

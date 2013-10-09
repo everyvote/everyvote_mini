@@ -36,6 +36,9 @@ urlpatterns = patterns('',
 # SHOW HOME PAGE
     url(r'^$', 'everyvote_mini.views.home.home', name='home'),
 
+# TYPEAHEAD
+    url(r'^lookup/(?P<search_type>\w+)/$', 'everyvote_mini.views.typeahead.typeahead', name='typeahead'),
+
 ###
 #PARENT CONSTITUENCIES (called 'universities' in the UI): create, list, show, update, delete
 ###
@@ -61,7 +64,7 @@ urlpatterns = patterns('',
 # DELETE PARENT CONSTITUENCY
     url(r'^universities/delete/(?P<pk>\d+)/$', login_required(ParentConstituencyDeleteView.as_view()),
         name='parent_constituency_delete',),
-        
+
 ###
 #CONSTITUENCIES (called 'organizations' in the UI): create, show, update, delete
 ###

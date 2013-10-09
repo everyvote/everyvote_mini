@@ -9,12 +9,14 @@
       Edit Candidate Profile
     </div>
     <hr style="clear:both;">
-    <div class="infobox-disclaimer">
-      <h3>*Disclaimer*</h3>
+    <div style="background-color:#ffffd0" class="infobox-about">
       <p>Running for office on EveryVote does not officially register you as a candidate for office. You need to contact the Elections Commissioner of your organization to make sure you are officially registered as a candidate.</p>
-      <p>EveryVote is a way to raise awareness for your campaign by connecting you with your constituency (your group of voters).</p>
-      <p>If your USA college is not available on EveryVote, please email contactus@everyvote.org.</p>
     </div>
+    <hr style="clear:both;">
+    <div style="background-color:#ffffd0" class="infobox-about" >
+      <p>Set your <strong>first and last name</strong>, <strong>profile picture</strong>, & <strong>contact info</strong> by editing your <a href="/users/update/{{ user.username }}"><strong>Citizen Profile</strong></a>.</p>
+    </div>
+    <hr style="clear:both;">
     <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
       {% if form.errors %}<p>Please correct the following fields:</p>{% endif %}

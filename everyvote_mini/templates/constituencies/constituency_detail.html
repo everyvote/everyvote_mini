@@ -41,7 +41,7 @@
         <h4>Select election:</h4>
       </div>
       <div class="infobox-selector-dropdown">
-        <form style="margin:0 25px;" method="POST">
+        <form method="POST">
           <select name="election_form" class="form-control" onChange="top.location.href = this.form.election_form.options[this.form.election_form.selectedIndex].value; return false;">
             <option></option>
             {% for election in constituency.election_set.all %}
@@ -101,7 +101,7 @@
               <a href="/offices/update/{{ office.id }}">edit</a>&nbsp &nbsp &nbsp
               <a href="/offices/delete/{{ office.id }}">delete</a>
               {% endif %}
-            </p>
+            </p><br />
           {% endfor %}
         {% else %}
           <p>No offices have been added yet for this organization.</p>
@@ -112,8 +112,8 @@
     <br />
     <div class="infobox-about">
       <h4><strong>Moderator(s)</strong></h4><br />
-      {% for moderator in constituency.moderators.all %}
-        <div class="infobox-indent-sans-serif">
+      <div class="infobox-indent-sans-serif">
+        {% for moderator in constituency.moderators.all %}
           <p><a href="/users/{{ moderator }}">
             {% if moderator.userprofile.first_name and moderator.userprofile.last_name %}
               {{ moderator.userprofile.first_name }} {{ moderator.userprofile.last_name }}<br />
@@ -122,8 +122,8 @@
             {% endif %}
           </a></p>
         {% endfor %}
-        </div>
       </div>
+    </div>
   </div>
 </div>
 

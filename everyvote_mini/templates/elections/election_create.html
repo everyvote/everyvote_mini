@@ -15,9 +15,10 @@
       Add Election
     </div>
     <hr style="clear:both;">
-    <div class="infobox-about">
+    <div class="infobox-about" style="background-color:#ffffd0">
       <p>You must be a <strong>moderator</strong> of an organization to add an election to that organization.</p>
     </div>
+    <hr style="clear:both;">
     <form method="post" action="">
       {% csrf_token %}
       {% if form.errors %}
@@ -59,7 +60,7 @@
           {{ form.voting_link }}&nbsp &nbsp Link to your online voting page (if available)
         </div>
         <hr style="clear:both;">
-        <p><strong>Select your offices.</strong> To add more than 1 office, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each office in this election. If your office is not in the list below, you need to <strong><a href="/offices/add/">add an office</a></strong>.</p>
+        <p style="background-color:#ffffd0"><strong>Select your offices.</strong> To add more than 1 office, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each office in this election. If your office is not in the list below, you need to <strong><a href="/offices/add/">add an office</a></strong>.</p>
         <div class="infobox-form-input">
           {% if form.offices.errors %}
             <p class="error">{{ form.offices.errors }}</p>

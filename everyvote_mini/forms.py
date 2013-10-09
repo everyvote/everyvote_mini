@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelMultipleChoiceField
 from django.contrib.auth.models import User
 from everyvote_mini.models import ParentConstituency, Constituency, Office, Election, Candidate, UserProfile
 from registration.forms import RegistrationFormUniqueEmail
@@ -37,6 +37,10 @@ class ConstituencyCreateForm(forms.ModelForm):
 class ElectionForm(forms.ModelForm):
     first_voting_day = forms.DateField(widget=forms.TextInput(attrs={ 'id':'datepicker_first_voting_day' }))
     last_voting_day = forms.DateField(widget=forms.TextInput(attrs={ 'id':'datepicker_last_voting_day' }))
+    
+    def __init__(self, *args, **kwargs):
+        super(ElectionForm, self).__init__(*args, **kwargs)
+        self.fields['offices'].widget.attrs['size']='10'
     
     class Meta:
         model = Election

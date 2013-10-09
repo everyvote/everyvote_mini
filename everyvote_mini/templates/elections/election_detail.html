@@ -51,14 +51,14 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     </div>
     {% if is_election_day %}
       <div class="infobox-name">
-        <button style="background-color:#ffff66; color:#333" class="btn infobox-button-voting-is-today" onclick="window.open('{{ election.voting_link }}')" ><i class="icon-check"></i> Voting is today!</button>
+        <button style="background-color:#ffff70; color:#333" class="btn infobox-button-voting-is-today" onclick="window.open('{{ election.voting_link }}')" ><i class="icon-check"></i> Voting is today!</button>
       </div>
     {% endif %}
     <hr style="clear:both; padding:5px 0 0 0;">
 
     {% if user in election.constituency.moderators.all %}
       {% if election.moderator_candidate_queue %}
-        <button style="background-color:#ffff66; color:#333" class="btn infobox-button-approval-right"><i class="icon-user"></i> Candidates Waiting for Your Approval</button>
+        <button style="background-color:#ffff70; color:#333" class="btn infobox-button-approval-right"><i class="icon-user"></i> Candidates Waiting for Your Approval</button>
         {% for candidate in election.moderator_candidate_queue %}
           <p style="clear:right; float:right;">
           {% if candidate.user.last_name %}
@@ -105,7 +105,7 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     {% if election.about %}
       <div style="margin:20px 0 0 0" class="infobox-about">
         <h4>About {{ election.name }}</h4><br />
-        <div class="infobox-indent-sans-serif">
+        <div class="infobox-indent">
           <p>{{ election.about|urlize|linebreaksbr }}</p>
         </div>
       </div>
@@ -114,11 +114,20 @@ content="http://www.everyvote.org/static/uploaded_files/{{election.constituency.
     <div class="infobox-about">
       <h4>Voting day(s)</h4>
       {% if election.voting_link %}
-        <button style="background-color:#ffff66; color:#333" class="btn infobox-button-approval-right" onclick="window.open('{{ election.voting_link }}')" ><i class="icon-check"></i> Vote Online</button><br />
+        <button style="background-color:#ffff70; color:#333" class="btn infobox-button-approval-right" onclick="window.open('{{ election.voting_link }}')" ><i class="icon-check"></i> Vote Online</button><br />
       {% endif %}
       <div class="infobox-indent-sans-serif">
         <p>{{ election.first_voting_day }}{% if election.last_voting_day %} - {{ election.last_voting_day }}{% endif %}</p><br />
       </div>
+    <br />
+    <div class="infobox-about">
+      <h4>Available Office(s)</h4>
+      <div class="infobox-indent-sans-serif">
+        {% for office in election.constituency.office_set.all %}
+          <p><a href="/offices/{{ office.id }}">{{ office.name }}</a></p><br />
+        {% endfor %}
+      </div>
+    </div>
     <br />
     <div class="infobox-about">
       <h4>Moderator(s)</h4><br />

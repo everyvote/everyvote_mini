@@ -55,11 +55,8 @@ class Constituency(models.Model):
     personal_homepage = models.URLField(blank=True)
     
     class Meta:
-        ordering = ['parent_constituency']
-    
-    class Meta:
-        ordering = ['name']
-    
+        ordering = ['parent_constituency', 'name']
+
     def __unicode__(self):
         return u'%s - %s' % (self.parent_constituency.name, self.name)
         
@@ -72,7 +69,7 @@ class Office(models.Model):
     about = models.TextField(null=True, blank=True)
 
     class Meta:
-        ordering = ['constituency']
+        ordering = ['constituency__parent_constituency']
     
     def __unicode__(self):
         return u'%s - %s - %s' % (self.constituency.parent_constituency.name, self.constituency.name, self.name)
@@ -88,7 +85,7 @@ class Election(models.Model):
     last_voting_day = models.DateField(blank=True, null=True)
     offices = models.ManyToManyField(Office, blank=True, null=True)
     voting_link = models.URLField(blank=True)
-    is_featured = models.BooleanField()
+    is_featured = models.NullBooleanField()
     """ Research: Django's Auth provides some sort of 
         access control. How/Can we use that? """
 
@@ -156,7 +153,6 @@ class UserProfile(models.Model):
     
     def __unicode__(self):
         return unicode(self.user)
-
 
 class Candidate(models.Model):
     user = models.ForeignKey(UserProfile)

@@ -2,7 +2,7 @@
 
 
 body {
-    background-color:#fcfcfc;
+    background-color:#fdfdfd;
 }
 
 .dropdown-menu {
@@ -43,16 +43,16 @@ a.disabled-link:hover {
     width:100px;
     height:100px;
     float:left;
-    margin: 0 10px 0 20px;
-    padding: 5px;
+    margin: 0 15px 0 10px;
+    padding: 0;
     clear:left;
     border-radius:4px;
     display:inline-block;
 }
 
 .featured-elections-text-small {
-    margin:5px 0 0 20px;
-    padding: 0px;
+    margin:5px 0 0 10px;
+    padding: 0;
 }
 
 .featured-elections-text-small a {
@@ -65,7 +65,7 @@ a.disabled-link:hover {
 }
 
 .featured-election-dark div {
-    background-color:#f1f1f1;
+    background-color:#f6f6f6;
 }
 
 .featured-election-light {
@@ -79,11 +79,6 @@ a.disabled-link:hover {
 
 .infobox {
     font-family: 'Arimo', sans-serif;
-    border-left: 1px dotted #bbb;
-    border-right: 1px dotted #bbb;
-    border-bottom: 1px dotted #bbb;
-    background-color:#fff;
-    border-radius:3px;
 }
 
 .infobox-panel {
@@ -255,8 +250,8 @@ a.disabled-link:hover {
 }
 
 .infobox-indent p {
-    font-family: "Book Antiqua", Palatino, serif;
-    font-size:120%;
+    font-family: serif;
+    font-size:100%;
     margin:0;
     padding:0;
 }
@@ -266,7 +261,7 @@ a.disabled-link:hover {
 }
 
 .infobox-indent-sans-serif p {
-    font-family: 'Arimo', sans-serif
+    font-family: 'Arimo', sans-serif;
     font-size:120%;
     margin:0;
     padding:0;
@@ -285,7 +280,7 @@ a.disabled-link:hover {
 
 .infobox-about h4 {
     display:inline-block;
-    margin:10px 0;
+    margin:5px 0;
     padding:0;
 }
 
@@ -381,4 +376,86 @@ a.disabled-link:hover {
     margin:0 15px;
 }
 
+// The following CSS for the Twitter Typeahead was created by Eric Saupe.
+// The following was copy and pasted from http://ericsaupe.com/twitter-typeahead-js/
+//Twitter Typeahead CSS
+//Updated 22 August 2013
+
+.twitter-typeahead {
+    width: 100%;
+    position: relative;
+}
+
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+    margin-bottom: 0;
+    width:100%;
+    height: 34px;
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.twitter-typeahead .tt-hint {
+    color:#a1a1a1;
+    z-index: 1;
+    padding: 6px 12px;
+    border:1px solid transparent;
+}
+
+.twitter-typeahead .tt-query {
+    z-index: 2;
+    border-radius: 4px!important;
+    /* add these 2 statements if you have an appended input group */
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    /* add these 2 statements if you have an prepended input group */
+    /* border-top-left-radius: 0!important;
+    border-bottom-left-radius: 0!important; */
+}
+
+.tt-dropdown-menu {
+    min-width: 160px;
+    margin-top: 2px;
+    padding: 5px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.2);
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+
+.tt-suggestion {
+    display: block;
+    padding: 3px 20px;
+}
+
+.tt-suggestion.tt-is-under-cursor {
+    color: #fff;
+    background-color: #0081c2;
+    background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+    background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+    background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)
+}
+
+.tt-suggestion.tt-is-under-cursor a {
+    color: #fff;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
 

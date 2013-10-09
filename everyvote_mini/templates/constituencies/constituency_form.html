@@ -7,7 +7,7 @@
       Edit Organization
     </div>
     <hr style="clear:both;">
-    <div class="infobox-about">
+    <div class="infobox-about" style="background-color:#ffffd0">
       <p><strong>Anyone can add an organization to EveryVote</strong>, but if an official representative from the organization requests moderator privileges for the organization's page, and no official representative is already a moderator for the page, then EveryVote will give moderator privileges to the person requesting in the following order:</p>
       <ol>
         <li>Elections Commissioners
@@ -15,10 +15,9 @@
         <li>Any other officer
         <li>The highest ranking student newspaper member
         <li>Any other student at the school
-      </ol></p>
+      </ol>
     </div>
     <hr style="clear:both">
-    <div class="infobox-about">
       <p><strong>{{ constituency.name }} Offices:</strong></p>
         {% if constituency.office_set.all %}
           <ol>
@@ -111,13 +110,12 @@
         </div>
         <hr style="clear:both;">
         <div class="infobox-form-input">
-          <p><strong>You must keep yourself selected as a moderator</strong> or you will not be able to edit your organization page.</p>
-          <p><strong>To add more than 1 person as a moderator</strong>, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make a moderator for this organization.</p>
+          <p style="background-color:#ffffd0"><strong>Important:</strong> keep yourself selected as a Moderator for your organization, or you will not be able to edit your organization page. To add more than 1 person as a moderator, hold down the <strong>Ctrl</strong> key (on Windows) or <strong>Cmd</strong> key (on Mac) and select each user you want to make a moderator for this organization.</p>
           {% if form.moderators.errors %}
             <p class="error">{{ form.moderators.errors }}</p>
           {% endif %}
-          <label style="margin:0 27px 0 0" for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label>
-          {{ form.moderators }}
+          <p><label for="moderators"{% if form.moderators.errors %} class="error"{% endif %}>Moderators:</label></p>
+          <p>{{ form.moderators }}</p>
         </div>
         <hr style="clear:both;">
         <div class="infobox-form-input">
