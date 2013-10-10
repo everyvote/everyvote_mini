@@ -83,6 +83,24 @@
       remote: {
           url: '/lookup/universities/?query=%QUERY'
       }
+      matcher: function(item) {
+                if (item.toLowerCase().indexOf(this.query.trim().toLowerCase()) != -1) {
+                    return true;
+                }
+                if (item.toUpperCase().indexOf(this.query.trim().toUpperCase()) != -1) {
+                    return true;
+                }
+                var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+                query = query.replace(/a/ig, '[a\341\301\340\300\342\302\344\304]');
+                query = query.replace(/e/ig, '[e\351\311\350\310\352\312\353\313]');
+                query = query.replace(/i/ig, '[i\355\315\354\314\356\316\357\317]');
+                query = query.replace(/o/ig, '[o\363\323\362\322\364\324\366\326]');
+                query = query.replace(/u/ig, '[u\372\332\371\331\373\333\374\334]');
+                query = query.replace(/c/ig, '[c\347\307]');
+                if(item.toLowerCase().match(query.toLowerCase())){
+                    return true;
+                }
+            }
   }).on('typeahead:selected', function(event, datum) {
       window.location = "universities/" + datum.number + "/";
   });
