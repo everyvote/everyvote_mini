@@ -17,21 +17,21 @@
   <a style="color:#333" href="http://www.everyvote.org/elections/1/"><h2 style="font-size:200%; font-family:'Oswald', sans-serif; margin:0 0 25px 0; padding:0; text-align:center;">open source election information platform</h2></a>
     <div class="infobox-selector-yellow">
       <div class="infobox-selector-title">
-        <h4>Find your university:</h4>
+        <h4>Select a university:</h4>
       </div>
       <div class="infobox-selector-dropdown">
-        <form class="form-inline" method="POST">{% csrf_token %}
-          <div class="input-group">
-            <input size="75" type="text" data-provide="typeahead" placeholder="Type university name here" class="searchAhead form-control" name="i1" />
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-default">Go!</button>
-            </span>
+        <form method="POST">
+          <select name="parent_constituency_form" class="form-control" onChange="top.location.href = this.form.parent_constituency_form.options[this.form.parent_constituency_form.selectedIndex].value; return false;">
+            <option></option>
+            {% for parent_constituency in parent_constituencies %}
+              <option value="/universities/{{ parent_constituency.id }}">{{ parent_constituency.name }}</option>
+            {% endfor %}
+          </select>
         </form>
       </div>
-      <div class="infobox-selector-helper-text">
+       <div class="infobox-selector-helper-text">
         <span class="help-block">If your university is missing you can <a href="/universities/add/">add it yourself</a> or <a href="/contact/">contact us</a> and we'll set it up for you.</span>
       </div>
-    </div>
     </div>
     {% if featured_elections %}
     <div class="infobox-panel">
