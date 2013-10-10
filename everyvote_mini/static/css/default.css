@@ -65,7 +65,7 @@ a.disabled-link:hover {
 }
 
 .featured-election-dark div {
-    background-color:#f6f6f6;
+    background-color:#f1f1f1;
 }
 
 .featured-election-light {
@@ -79,6 +79,8 @@ a.disabled-link:hover {
 
 .infobox {
     font-family: 'Arimo', sans-serif;
+    border: 1px dotted #eee;
+    border-radius: 3px;
 }
 
 .infobox-panel {
